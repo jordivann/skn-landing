@@ -11,6 +11,7 @@ export const site = {
     whatsapp: "https://wa.me/5493515554692?text=Hola%20SKN%20IT%20👋",
     email: "info@sknweb.com.ar",
     phone: "+543515594692",
+    phoneE164: "+543515594692",
     phoneDisplay: "+54 9 351 559-4692",
     address: "1632, AGV, Ing. Juan M. López — X5010 Córdoba",
     hours: "Lunes a viernes 9 a 18 hs",
