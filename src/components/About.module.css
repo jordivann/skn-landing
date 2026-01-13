@@ -1,0 +1,134 @@
+/* About.module.css */
+:root{
+  /* default (si no seteaste data-theme, igual queda bien) */
+  --brandmark-stroke: color-mix(in srgb, var(--fg) 92%, transparent);
+  --brandmark-glow: color-mix(in srgb, var(--primary) 55%, transparent);
+}
+
+/* Tema oscuro */
+:root[data-theme="dark"]{
+  --brandmark-stroke: color-mix(in srgb, var(--fg) 92%, transparent);
+  --brandmark-glow: color-mix(in srgb, var(--primary2) 62%, transparent);
+}
+
+/* Tema claro */
+:root[data-theme="light"]{
+  --brandmark-stroke: color-mix(in srgb, var(--fg) 92%, transparent);
+  --brandmark-glow: color-mix(in srgb, var(--primary) 48%, transparent);
+}
+.aboutSurface{
+  /* superficie minimal, sin “tarjeta pesada” */
+  border-radius: 22px;
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  background: color-mix(in srgb, var(--card) 82%, transparent);
+  overflow: hidden;
+}
+.aboutSurface{
+  /* ✅ sin card look */
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  padding: 0 !important;
+}
+
+/* 2 columnas: marca / texto */
+.layout{
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) 1fr;
+  align-items: stretch;
+}
+
+/* ===== Brand Pane (limpio, centrado) ===== */
+.brandPane{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 28px 22px;
+  border-right: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+
+  /* IMPORTANTÍSIMO: nada de caja */
+  background: transparent;
+}
+
+.brandInner{
+  width: 100%;
+  display: grid;
+  place-items: center;
+  gap: 14px;
+}
+
+.brandRule{
+  width: min(320px, 90%);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--border) 85%, transparent),
+    transparent
+  );
+  opacity: .9;
+}
+
+/* El BrandMark: sin fondo, centrado, grande en desktop */
+.brandMark{
+  display: grid;
+  place-items: center;
+
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+
+  opacity: .95;
+  filter: drop-shadow(0 10px 26px rgba(0,0,0,.22));
+}
+
+/* Forzamos tamaño visual del SVG */
+.brandMark :global(svg){
+  width: min(420px, 100%);
+  height: auto;
+}
+
+/* ===== Copy ===== */
+.copy{
+  padding: 28px 28px;
+}
+
+.lead{
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.75;
+  color: color-mix(in srgb, --var(fg) 92%, transparent);
+}
+
+.p{
+  margin: 14px 0 0;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 980px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+
+  .brandPane{
+    border-right: 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+    padding: 18px 16px;
+  }
+
+  /* en mobile mantenemos más contenido (lo que pediste) */
+  .brandMark :global(svg){
+    width: min(260px, 92%);
+  }
+
+  .copy{
+    padding: 18px 16px 20px;
+  }
+}

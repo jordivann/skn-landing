@@ -1,0 +1,4 @@
+.list{display:grid;gap:10px}
+.item{padding:16px}
+.summary{cursor:pointer;font-weight:700}
+.p{margin:10px 0 0;color:var(--muted)}

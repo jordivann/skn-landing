@@ -1,0 +1,68 @@
+.backdrop{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+    radial-gradient(1000px 600px at 20% 18%, rgba(124,92,255,.18), transparent 60%),
+    radial-gradient(900px 600px at 78% 62%, rgba(102,227,255,.14), transparent 55%),
+    rgba(7,11,18,.92);
+
+  backdrop-filter: blur(14px);
+  animation: fadeIn .18s ease-out;
+}
+
+
+.panel{
+  width: min(720px, calc(100% - 32px));
+  padding: 28px 22px 22px;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.05);
+  box-shadow: 0 34px 110px rgba(0,0,0,.62);
+  text-align:center;
+}
+
+.hint{
+  margin: 12px 0 14px;
+  color: rgba(255,255,255,.68);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* Barra minimal + shine */
+.bar{
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  overflow:hidden;
+}
+
+.barFill{
+  display:block;
+  height: 100%;
+  width: 42%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255,255,255,.25), rgba(255,255,255,.88), rgba(255,255,255,.25));
+  animation: slide 1.0s ease-in-out infinite;
+}
+
+@keyframes slide{
+  0%{ transform: translateX(-55%); opacity:.55; }
+  50%{ opacity: 1; }
+  100%{ transform: translateX(180%); opacity:.55; }
+}
+
+@keyframes fadeIn{
+  from{ opacity: 0; transform: translateY(4px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .backdrop{ animation:none; }
+  .barFill{ animation:none; width: 60%; opacity:.85; }
+}

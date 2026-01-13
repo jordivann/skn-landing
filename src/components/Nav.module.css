@@ -1,0 +1,230 @@
+/* Wrapper nav */
+.nav{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+/* Desktop links/actions */
+.links{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.link{
+  font-size: 14px;
+  color: rgba(233,238,246,.82);
+  padding: 8px 10px;
+  border-radius: 10px;
+  transition: background .12s ease, color .12s ease;
+}
+.link:hover{
+  color: var(--fg);
+  background: var(--card);
+}
+
+.actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-left: 6px;
+}
+
+.themeBtn{
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--fg);
+  cursor: pointer;
+  transition: transform .12s ease, border-color .12s ease, background .12s ease;
+}
+.themeBtn:hover{
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,.22);
+}
+
+.cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  background: linear-gradient(135deg, var(--primary), var(--primary2));
+  color: rgba(0,0,0,.86);
+  border: 1px solid transparent;
+  transition: transform .12s ease, opacity .12s ease;
+}
+.cta:hover{ transform: translateY(-1px); opacity: .96; }
+
+/* ================== Mobile UI ================== */
+
+/* Burger (visible en mobile) */
+.burger{
+  display:none;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--fg);
+  cursor:pointer;
+  margin-left: 6px;
+}
+
+.burgerIcon{
+  display:inline-flex;
+  flex-direction:column;
+  gap:6px;
+}
+.burgerIcon span{
+  display:block;
+  width: 18px;
+  height: 2px;
+  background: rgba(233,238,246,.92);
+  border-radius: 999px;
+  transition: transform .16s ease, opacity .16s ease;
+}
+
+/* Animación hamburguesa→X */
+.burgerIcon[data-open="1"] span:nth-child(1){
+  transform: translateY(4px) rotate(45deg);
+}
+.burgerIcon[data-open="1"] span:nth-child(2){
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+/* Root overlay+panel */
+.mobileRoot{
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+}
+
+.open{
+  pointer-events: auto;
+}
+
+.backdrop{
+  position:absolute;
+  inset:0;
+  border:0;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity .18s ease;
+}
+
+.open .backdrop{
+  opacity: 1;
+}
+
+/* Panel */
+.panel{
+  position:absolute;
+  top: 10px;
+  right: 10px;
+  width: min(420px, calc(100% - 20px));
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  box-shadow: 0 34px 110px rgba(0,0,0,.55);
+  overflow:hidden;
+
+  transform: translateY(-8px) scale(.98);
+  opacity: 0;
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+.open .panel{
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.panelTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 14px 14px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.panelTitle{
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+
+.closeBtn{
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--fg);
+  cursor:pointer;
+}
+
+.panelLinks{
+  display:grid;
+  gap: 8px;
+  padding: 12px 14px;
+}
+
+.panelLink{
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.05);
+  color: var(--fg);
+  font-weight: 600;
+}
+.panelLink:hover{
+  border-color: rgba(255,255,255,.18);
+  background: rgba(255,255,255,.07);
+}
+
+.panelActions{
+  display:grid;
+  gap: 10px;
+  padding: 12px 14px 14px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.panelTheme{
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.05);
+  color: var(--fg);
+  cursor:pointer;
+  text-align:left;
+  font-weight: 600;
+}
+
+.panelCta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 12px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary), var(--primary2));
+  color: rgba(0,0,0,.86);
+}
+
+/* Desktop/mobile breakpoint */
+@media (max-width: 860px){
+  .links{ display:none; }
+  .actions{ display:none; }
+  .burger{ display:inline-flex; align-items:center; justify-content:center; }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce){
+  .backdrop, .panel, .burgerIcon span{ transition:none; }
+}

@@ -1,0 +1,5 @@
+.footer{border-top:1px solid rgba(255,255,255,.08);padding:28px 0}
+.inner{display:grid;gap:10px}
+.p{margin:6px 0 0;color:var(--muted)}
+.links{display:flex;gap:12px;flex-wrap:wrap}
+.small{color:var(--muted)}

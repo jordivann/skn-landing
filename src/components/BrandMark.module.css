@@ -1,0 +1,79 @@
+.wrap{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  user-select:none;
+}
+
+.svg{
+  display:block;
+  width: var(--w);
+  height: auto;
+}
+
+/* tamaños */
+.xs{ --w: 84px; }
+.sm{ --w: 112px; }
+.md{ --w: 156px; }
+.lg{ --w: 220px; }
+
+/* Trazo principal */
+.stroke path{
+  fill:none;
+  stroke: var(--brand-stroke);
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Glow: doble capa sutil (queda más tech, menos “neón barato”) */
+.glow path{
+  fill:none;
+  stroke-width: 8.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: blur(0.6px);
+  opacity: .95;
+}
+
+/* 1er glow (violeta) */
+.glow path{
+  stroke: var(--brand-glow);
+}
+
+/* 2do glow: le sumamos un pseudo “cian” encima usando drop-shadow */
+.svg{
+  filter: drop-shadow(0 0 14px var(--brand-glow-2));
+}
+
+/* ============ Animaciones ============ */
+.trace .stroke path{
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  animation: draw 1.05s ease forwards;
+}
+
+.trace .stroke path:nth-child(2){ animation-delay: .10s; }
+.trace .stroke path:nth-child(3){ animation-delay: .18s; }
+
+.idle .glow{
+  animation: breathe 2.2s ease-in-out infinite;
+}
+
+@keyframes draw{
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes breathe{
+  0%,100%{ opacity: .55; transform: translateY(0); }
+  50%{ opacity: 1; transform: translateY(-1px); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .trace .stroke path{
+    animation: none;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+  .idle .glow{ animation:none; opacity:.85; }
+}

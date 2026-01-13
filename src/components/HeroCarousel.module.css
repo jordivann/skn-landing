@@ -1,0 +1,137 @@
+.wrap{
+  display:flex;
+  flex-direction: column;
+  gap: 8px;
+
+  outline: none;
+
+  /* ya NO es un widget grande */
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.row{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+
+/* flechas minimal */
+.navBtn{
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  background: color-mix(in srgb, var(--card) 62%, transparent);
+  color: var(--fg);
+
+  backdrop-filter: blur(10px);
+
+  cursor:pointer;
+  font-size: 22px;
+  line-height: 1;
+
+  opacity: .92;
+  transition: transform .12s ease, opacity .12s ease, border-color .12s ease;
+}
+
+.navBtn:hover{
+  transform: translateY(-1px);
+  opacity: 1;
+  border-color: color-mix(in srgb, var(--border) 100%, transparent);
+}
+
+.dots{
+  display:flex;
+  align-items:center;
+  gap: 8px;
+}
+
+.dot{
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  background: color-mix(in srgb, var(--fg) 20%, transparent);
+  cursor:pointer;
+
+  opacity: .80;
+  transition: width .16s ease, background .16s ease, opacity .16s ease;
+}
+
+.dot:hover{ opacity: 1; }
+
+.dotActive{
+  width: 22px;
+  background: color-mix(in srgb, var(--fg) 68%, transparent);
+  border-color: transparent;
+  opacity: 1;
+}
+
+/* progress finito, inline */
+.progress{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.progressTrack{
+  width: 280px;
+  max-width: 52vw;
+  height: 6px;
+  border-radius: 999px;
+  overflow:hidden;
+
+  border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  background: color-mix(in srgb, var(--card) 55%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.progressFill{
+  display:block;
+  height:100%;
+  width:100%;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--primary2) 55%, transparent),
+    color-mix(in srgb, var(--primary) 55%, transparent)
+  );
+  animation: load 5.2s linear forwards;
+}
+
+.wrap[data-paused="1"] .progressFill{
+  animation-play-state: paused;
+}
+
+@keyframes load{
+  to{ transform: translateX(0); }
+}
+
+/* hint opcional, mucho más discreto */
+.hint{
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--fg) 55%, transparent);
+  opacity: .55;
+}
+
+/* Mobile */
+@media (max-width: 560px){
+  .progressTrack{
+    width: 100%;
+    max-width: none;
+  }
+  .navBtn{ width: 34px; height: 34px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .navBtn, .dot{ transition:none; }
+  .progressFill{ animation:none; transform: translateX(0); opacity:.75; }
+}
