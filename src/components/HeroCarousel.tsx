@@ -55,60 +55,64 @@ export default function HeroCarousel({
   };
 
   return (
-    <div
-      className={styles.wrap}
-      tabIndex={0}
-      onKeyDown={onKeyDown}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
-      onBlur={() => setPaused(false)}
-      aria-label="Control de slides"
-      data-paused={paused ? "1" : "0"}
-    >
-      <div className={styles.row}>
-        <button
-          type="button"
-          className={styles.navBtn}
-          onClick={prev}
-          aria-label="Slide anterior"
-        >
-          ‹
-        </button>
+  <div
+    className={styles.wrap}
+    style={{ ["--dur" as any]: `${autoplayMs}ms` }}
+    tabIndex={0}
+    onKeyDown={onKeyDown}
+    onMouseEnter={() => setPaused(true)}
+    onMouseLeave={() => setPaused(false)}
+    onFocus={() => setPaused(true)}
+    onBlur={() => setPaused(false)}
+    aria-label="Control de slides"
+    data-paused={paused ? "1" : "0"}
+  >
+    <div className={styles.row}>
+      <button
+        type="button"
+        className={styles.navBtn}
+        onClick={prev}
+        aria-label="Slide anterior"
+      >
+        ‹
+      </button>
 
-        <div className={styles.dots} role="tablist" aria-label="Selector de slide">
-          {slides.map((s, i) => (
-            <button
-              key={s.id}
-              type="button"
-              className={`${styles.dot} ${i === index ? styles.dotActive : ""}`}
-              onClick={() => onIndexChange(i)}
-              aria-label={`Ir al slide ${i + 1}`}
-              aria-pressed={i === index}
-            />
-          ))}
-        </div>
-
-        <button
-          type="button"
-          className={styles.navBtn}
-          onClick={next}
-          aria-label="Siguiente slide"
-        >
-          ›
-        </button>
+      <div className={styles.steps} role="tablist" aria-label="Selector de slide">
+        {slides.map((s, i) => (
+          <button
+            key={s.id}
+            type="button"
+            className={`${styles.step} ${i === index ? styles.stepActive : ""}`}
+            onClick={() => onIndexChange(i)}
+            aria-label={`Ir al slide ${i + 1}`}
+            aria-pressed={i === index}
+          >
+            {i + 1}
+          </button>
+        ))}
       </div>
 
-      <div className={styles.progress} aria-hidden="true">
-        <div key={index} className={styles.progressTrack}>
-          <span className={styles.progressFill} />
-        </div>
-      </div>
-
-      <p className={styles.hint} aria-hidden="true">
-        {paused ? "Pausado" : "Autoplay"}
-      </p>
+      <button
+        type="button"
+        className={styles.navBtn}
+        onClick={next}
+        aria-label="Siguiente slide"
+      >
+        ›
+      </button>
     </div>
-  );
+
+    <div className={styles.progress} aria-hidden="true">
+      <div key={index} className={styles.progressTrack}>
+        <span className={styles.progressFill} />
+      </div>
+    </div>
+
+    <p className={styles.hint} aria-hidden="true">
+      {paused ? "Pausado" : "Autoplay"}
+    </p>
+  </div>
+);
+
 }
   

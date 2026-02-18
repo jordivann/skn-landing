@@ -1,6 +1,6 @@
 import Section from "./Section";
 import styles from "./About.module.css";
-import BrandMark from "./BrandMark";
+import LogoMark from "./LogoMark";
 
 export default function About() {
   return (
@@ -16,11 +16,10 @@ export default function About() {
         <aside className={styles.brandPane} aria-label="Marca SKN IT">
           <div className={styles.brandInner}>
             <span className={styles.brandRule} aria-hidden="true" />
-            <BrandMark
-              variant="idle"
+            <LogoMark
+              // variant="idle"
               size="lg"
-              label="SKN IT"
-              className={styles.brandMark}
+              opposite
             />
           </div>
         </aside>
