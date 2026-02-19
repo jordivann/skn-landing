@@ -5,7 +5,7 @@ import { site } from "../lib/site";
 export default function Contact({ variant = "invert" }: { variant?: SectionVariant }) {
   return (
     <Section
-      id="contact"
+      id="contacto"
       title=""
       subtitle=""
       variant={variant}

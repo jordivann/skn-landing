@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { site } from "../lib/site";
+import { ScrollToTopOnRouteChange } from "./ScrollToTop";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -29,6 +30,7 @@ export const metadata: Metadata = {
   },
 };
 
+
 const themeInitScript = `
 (() => {
   try {
@@ -43,6 +45,8 @@ const themeInitScript = `
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" suppressHydrationWarning>
+      
+      <ScrollToTopOnRouteChange />
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
