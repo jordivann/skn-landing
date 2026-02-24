@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useEffect } from "react";
 import styles from "./ServicesPage.module.css";
+import Breadcrumbs from "@/components/Breadcrums";
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 
@@ -445,6 +446,13 @@ export default function ServicesPage() {
       {/* ── HERO ── */}
       <section className={styles.hero}>
         <div className={styles.inner}>
+          <Breadcrumbs
+              items={[
+                { label: "Inicio", href: "/" },
+                { label: "Servicios IT" }, // actual
+              ]}
+              variant="soft"
+            />
 
           <div className={styles.eyebrow}>
             <span className={styles.eyebrowLine} />

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import styles from "./ContactPage.module.css";
 import { site } from "../../../lib/site";
+import Breadcrumbs from "@/components/Breadcrums";
 
 // ─── TIPOS ────────────────────────────────────────────────────────────────────
 
@@ -84,7 +85,15 @@ export default function ContactPage() {
 
   return (
     <main className={styles.page}>
+        <Breadcrumbs
+                      items={[
+                        { label: "Inicio", href: "/" },
+                        { label: "Contacto" }, // actual
+                      ]}
+                      variant="soft"
+                    />
       <div className={styles.inner}>
+        
 
         {/* ── COLUMNA IZQUIERDA ── */}
         <aside className={styles.aside}>

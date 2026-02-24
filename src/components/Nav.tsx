@@ -76,7 +76,7 @@ export default function Nav() {
             {theme === "dark" ? "☀" : "🌙"}
           </button>
 
-          <a className={styles.cta} href="#contact">
+          <a className={styles.cta} href="/contacto">
             Contactar
           </a>
         </div>

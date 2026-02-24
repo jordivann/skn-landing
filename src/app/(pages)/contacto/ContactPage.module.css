@@ -20,8 +20,13 @@
 
 /* ─── PAGE ──────────────────────────────────────────────────────────────────── */
 .page {
-  min-height: 100vh;
-  padding: clamp(72px, 10vh, 110px) 0 80px;
+  width: min(var(--max), calc(100% - 48px));
+  display:flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  /* padding: clamp(0px, 10vh, 110px) 0 80px; */
   color: var(--fg);
 }
 
