@@ -25,7 +25,7 @@ const SERVICES = [
 ];
 
 const CONTACT_ITEMS = [
-  { label: "Dirección",  value: () => site.contact.address,                         href: undefined },
+  { label: "Dirección",  value: () => site.address.street,                         href: undefined },
   { label: "Teléfono",  value: () => site.contact.phoneDisplay ?? site.contact.phone, href: () => `tel:${site.contact.phone}` },
   { label: "E-mail",    value: () => site.contact.email,                             href: () => `mailto:${site.contact.email}` },
   { label: "Horarios",  value: () => site.contact.hours,                             href: undefined },
