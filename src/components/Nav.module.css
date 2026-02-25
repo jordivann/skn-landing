@@ -15,6 +15,7 @@
 .link{
   font-size: 14px;
   color: rgba(233,238,246,.82);
+  background-color: rgba(0,0,0,0.2);
   padding: 8px 10px;
   border-radius: 10px;
   transition: background .12s ease, color .12s ease;
