@@ -1,0 +1,109 @@
+.wrap{
+  position: relative;
+  display:inline-flex;
+  align-items:center;
+  user-select:none;
+}
+
+.logoPng{
+  display:block;
+  width: var(--w);
+  height: auto;
+
+  /* entrada */
+  opacity: 0;
+  transform: translateY(8px);
+  filter: blur(6px);
+}
+
+.xs{ --w: 64px; }
+.sm{ --w: 112px; }
+.md{ --w: 156px; }
+.lg{ --w: 220px; }
+
+.trace .logoPng{
+  animation: logoIn 650ms cubic-bezier(.2,.9,.2,1) forwards;
+}
+
+@keyframes logoIn{
+  to{ opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* Shine recortado con el PNG */
+.shine{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  transform: translateX(-140%);
+  mix-blend-mode: screen;
+
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255,255,255,0) 35%,
+    rgba(255,255,255,.55) 50%,
+    rgba(255,255,255,0) 65%,
+    transparent 100%
+  );
+
+  -webkit-mask-image: url("../../public/skn-logo-blanco.png");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+
+  mask-image: url("../../public/skn-logo-blanco.png");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+.trace .shine{
+  animation: shineSweep 1.2s ease-in-out 380ms both;
+}
+
+@keyframes shineSweep{
+  0%   { opacity:.9; transform: translateX(-140%); }
+  65%  { opacity:.9; transform: translateX(140%); }
+  100% { opacity:0;  transform: translateX(140%); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .logoPng{ animation:none; opacity:1; transform:none; filter:none; }
+  .shine{ display:none; }
+}
+.logoLight{ display: block; }
+.logoDark{ display: none; }
+
+/* Tu tema oscuro es el default (:root), así que mostramos blanco en oscuro */
+:root:not([data-theme="light"]) .logoLight{ display:none; }
+:root:not([data-theme="light"]) .logoDark{ display:block; }
+
+/* En tema claro mostramos el logo normal */
+:root[data-theme="light"] .logoLight{ display:block; }
+:root[data-theme="light"] .logoDark{ display:none; }
+/* Base: ocultamos uno y mostramos el otro según tema */
+.logoLight{ display: block; }
+.logoDark{ display: none; }
+
+/* Tema oscuro (default) => mostrar blanco */
+:root:not([data-theme="light"]) .logoLight{ display: none; }
+:root:not([data-theme="light"]) .logoDark{ display: block; }
+
+/* Tema claro => mostrar normal */
+:root[data-theme="light"] .logoLight{ display: block; }
+:root[data-theme="light"] .logoDark{ display: none; }
+
+/* ====== OPUESTO: invierte la decisión ====== */
+.opposite .logoLight{ display: none; }
+.opposite .logoDark{ display: none; }
+
+/* Si el tema es oscuro, normalmente usarías blanco.
+   En opuesto, usás el normal. */
+:root:not([data-theme="light"]) .opposite .logoLight{ display: block; }
+:root:not([data-theme="light"]) .opposite .logoDark{ display: none; }
+
+/* Si el tema es claro, normalmente usarías normal.
+   En opuesto, usás el blanco. */
+:root[data-theme="light"] .opposite .logoLight{ display: none; }
+:root[data-theme="light"] .opposite .logoDark{ display: block; }

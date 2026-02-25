@@ -77,3 +77,60 @@
   }
   .idle .glow{ animation:none; opacity:.85; }
 }
+
+
+/* ===== Shine profesional: brillo que recorre el trazo real ===== */
+.shine path{
+  fill: none;
+  stroke: rgba(255,255,255,.92);
+  stroke-width: 4.2;              /* apenas más ancho que el trazo */
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  /* clave: el brillo se “mezcla” sin ensuciar colores */
+  mix-blend-mode: screen;
+  opacity: 0;
+
+  /* hace que el brillo sea un segmento que viaja */
+  stroke-dasharray: 22 260;       /* 22 = largo del brillo, 260 = resto */
+  stroke-dashoffset: 260;
+
+  /* un toque de glow controlado, sin neón berreta */
+  filter: drop-shadow(0 0 6px rgba(255,255,255,.45));
+}
+
+/* cuando el logo está en trace: el shine acompaña el draw */
+.trace .shine path{
+  opacity: 1;
+  animation: shineRun .95s ease forwards;
+}
+
+/* escalonamos como tu draw */
+.trace .shine path:nth-child(2){ animation-delay: .10s; }
+.trace .shine path:nth-child(3){ animation-delay: .18s; }
+
+/* si querés brillo cada tanto en idle */
+.idle .shine path{
+  opacity: .95;
+  animation: shineLoop 2.8s ease-in-out infinite;
+}
+.idle .shine path:nth-child(2){ animation-delay: .25s; }
+.idle .shine path:nth-child(3){ animation-delay: .45s; }
+
+@keyframes shineRun{
+  0%   { stroke-dashoffset: 260; opacity: 0; }
+  15%  { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+@keyframes shineLoop{
+  0%   { stroke-dashoffset: 260; opacity: 0; }
+  20%  { opacity: 1; }
+  55%  { stroke-dashoffset: 0; opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* accesibilidad */
+@media (prefers-reduced-motion: reduce){
+  .shine path{ animation: none; opacity: 0; }
+}

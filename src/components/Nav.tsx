@@ -7,9 +7,9 @@ import { useTheme } from "../hooks/useTheme";
 type NavItem = { href: string; label: string };
 
 const items: NavItem[] = [
-  { href: "#services", label: "Servicios" },
-  { href: "#process", label: "Proceso" },
-  { href: "#faq", label: "FAQ" },
+  { href: "/servicios", label: "Servicios" },
+  // { href: "#process", label: "Proceso" },
+  // { href: "#faq", label: "FAQ" },
 ];
 
 export default function Nav() {
@@ -76,7 +76,7 @@ export default function Nav() {
             {theme === "dark" ? "☀" : "🌙"}
           </button>
 
-          <a className={styles.cta} href="#contact">
+          <a className={styles.cta} href="/contacto">
             Contactar
           </a>
         </div>
