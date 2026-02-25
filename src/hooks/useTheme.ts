@@ -7,16 +7,16 @@ export type Theme = "light" | "dark";
 const KEY = "skn_theme";
 
 export function useTheme() {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
     const current =
-      (document.documentElement.dataset.theme as Theme) || "dark";
+      (document.documentElement.dataset.theme as Theme) || "light";
     setTheme(current);
   }, []);
 
   const toggleTheme = () => {
-    const next: Theme = theme === "dark" ? "light" : "dark";
+    const next: Theme = theme === "light" ? "dark" : "light";
     setTheme(next);
     document.documentElement.dataset.theme = next;
     try {
