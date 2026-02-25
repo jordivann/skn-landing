@@ -9,6 +9,7 @@ import SeoJsonLd from "../components/SeoJsonLd";
 import About from "@/components/About";
 
 export default function HomeContent() {
+  
   return (
     <>
       <Header />

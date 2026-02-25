@@ -1,293 +1,316 @@
-
-.surface{
-  /* ✅ sección invertida: se ve “About-like”, seria, sin bordes pesados */
+/* ─── SURFACE (invertida por tema) ─────────────────────────────────────────── */
+.surface {
   position: relative;
   border-radius: 26px;
   overflow: hidden;
-
   border: 1px solid color-mix(in srgb, var(--border) 88%, transparent);
   background:
     linear-gradient(180deg,
       color-mix(in srgb, var(--card) 92%, transparent),
       color-mix(in srgb, var(--bg) 78%, transparent)
     );
-
-  box-shadow: none; /* ✅ sin ese shadow feo */
 }
 
-/* “inversión” real por tema: en light oscurece, en dark aclara */
-:global(:root[data-theme="light"]) .surface{
+:global(:root[data-theme="light"]) .surface {
   background: linear-gradient(180deg, rgba(10,16,26,.92), rgba(8,12,20,.92));
   border-color: rgba(255,255,255,.12);
 }
 
-:global(:root[data-theme="dark"]) .surface{
+:global(:root[data-theme="dark"]) .surface {
   background: linear-gradient(180deg, rgba(245,247,252,.92), rgba(236,240,248,.92));
   border-color: rgba(0,0,0,.10);
 }
-:root{
-  /* default (si no seteaste data-theme, igual queda bien) */
-  --brandmark-stroke: color-mix(in srgb, var(--fg) 92%, transparent);
-  --brandmark-glow: color-mix(in srgb, var(--primary) 55%, transparent);
-}
 
-/* Tema oscuro */
-:root[data-theme="dark"]{
-  --brandmark-stroke: color-mix(in srgb, var(--fg) 92%, transparent);
-  --brandmark-glow: color-mix(in srgb, var(--primary2) 62%, transparent);
-}
-
-/* Tema claro */
-:root[data-theme="light"]{
-  --brandmark-stroke: color-mix(in srgb, var(--fg) 92%, transparent);
-  --brandmark-glow: color-mix(in srgb, var(--primary) 48%, transparent);
-}
-
-/* Rim light suave */
-.surface::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
+/* Rim light */
+.surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   background:
-    radial-gradient(900px 420px at 18% 18%, rgba(255,255,255,.08), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.08), transparent 24%);
+    radial-gradient(900px 420px at 18% 18%, rgba(255,255,255,.07), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.07), transparent 24%);
   opacity: .55;
 }
 
-/* ===== Layout ===== */
-.layout{
+/* ─── LAYOUT ────────────────────────────────────────────────────────────────── */
+.layout {
   display: grid;
   grid-template-columns: 1.05fr .95fr;
-  min-height: 360px;
+  min-height: 380px;
 }
 
-/* ===== MAPA ===== */
-.mapWrap{
+/* ─── MAPA ──────────────────────────────────────────────────────────────────── */
+.mapWrap {
   position: relative;
   min-height: 360px;
   overflow: hidden;
-
-  /* integrado al panel (sin “tarjeta dentro de tarjeta”) */
   border-right: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
 }
 
-:global(:root[data-theme="light"]) .mapWrap{
-  border-right-color: rgba(255,255,255,.10);
-}
-:global(:root[data-theme="dark"]) .mapWrap{
-  border-right-color: rgba(0,0,0,.08);
-}
+:global(:root[data-theme="light"]) .mapWrap { border-right-color: rgba(255,255,255,.10); }
+:global(:root[data-theme="dark"])  .mapWrap { border-right-color: rgba(0,0,0,.08); }
 
-.map{
+.map {
   width: 100%;
   height: 100%;
   border: 0;
   display: block;
-
-  /* leve contraste para que “pegue” con el estilo */
-  filter: saturate(.95) contrast(.98);
+  filter: saturate(.92) contrast(.97);
 }
 
-/* oscurece un poco el mapa para que combine con el panel (y no “grite”) */
-.mapFx{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
+.mapFx {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   background:
-    radial-gradient(700px 260px at 30% 30%, rgba(255,255,255,.10), transparent 65%),
-    linear-gradient(to right, rgba(0,0,0,.35), transparent 60%),
-    linear-gradient(to top, rgba(0,0,0,.25), transparent 55%);
+    linear-gradient(to right, rgba(0,0,0,.32), transparent 60%),
+    linear-gradient(to top,   rgba(0,0,0,.22), transparent 52%);
   opacity: .6;
 }
 
-:global(:root[data-theme="dark"]) .mapFx{
-  /* en dark theme el panel es claro: bajamos el oscurecido */
+:global(:root[data-theme="dark"]) .mapFx {
   background:
-    radial-gradient(700px 260px at 30% 30%, rgba(255,255,255,.16), transparent 65%),
-    linear-gradient(to right, rgba(0,0,0,.12), transparent 60%),
-    linear-gradient(to top, rgba(0,0,0,.08), transparent 55%);
-  opacity: .45;
+    linear-gradient(to right, rgba(0,0,0,.10), transparent 60%),
+    linear-gradient(to top,   rgba(0,0,0,.06), transparent 52%);
+  opacity: .4;
 }
 
-/* ===== INFO ===== */
-.info{
-  padding: 26px 26px 22px;
-}
-
-.kicker{
-  margin: 0 0 10px;
+/* Badge ubicación sobre el mapa */
+.mapBadge {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(0,0,0,.48);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,.88);
+  letter-spacing: 0.04em;
+}
+
+:global(:root[data-theme="dark"]) .mapBadge {
+  background: rgba(255,255,255,.72);
+  border-color: rgba(0,0,0,.08);
+  color: rgba(10,14,20,.82);
+}
+
+.mapBadgeDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 6px rgba(74,222,128,.7);
+  flex-shrink: 0;
+  animation: blink 2.4s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .35; }
+}
+
+/* ─── INFO ──────────────────────────────────────────────────────────────────── */
+.info {
+  padding: 28px 26px 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.kicker {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 700;
   letter-spacing: .28em;
   text-transform: uppercase;
-  opacity: .75;
+  color: var(--primary2);
+  opacity: .8;
 }
 
-:global(:root[data-theme="light"]) .kicker{ color: rgba(255,255,255,.70); }
-:global(:root[data-theme="dark"]) .kicker{ color: rgba(0,0,0,.55); }
+:global(:root[data-theme="light"]) .kicker { color: rgba(255,255,255,.60); }
+:global(:root[data-theme="dark"])  .kicker { color: rgba(0,0,0,.50); }
 
-.h3{
+.h3 {
   margin: 0;
-  font-size: clamp(26px, 2.4vw, 34px);
+  font-size: clamp(24px, 2.4vw, 32px);
   line-height: 1.12;
+  letter-spacing: -0.02em;
 }
 
-.p{
-  margin: 12px 0 0;
+:global(:root[data-theme="light"]) .h3 { color: rgba(255,255,255,.92); }
+:global(:root[data-theme="dark"])  .h3 { color: rgba(10,14,20,.92); }
+
+.p {
+  margin: 10px 0 0;
   font-size: 14px;
   line-height: 1.7;
-  max-width: 60ch;
-  opacity: .85;
+  max-width: 48ch;
+  opacity: .82;
 }
 
-:global(:root[data-theme="light"]) .h3,
-:global(:root[data-theme="light"]) .p{ color: rgba(255,255,255,.92); }
+:global(:root[data-theme="light"]) .p { color: rgba(255,255,255,.88); }
+:global(:root[data-theme="dark"])  .p { color: rgba(10,14,20,.88); }
 
-:global(:root[data-theme="dark"]) .h3,
-:global(:root[data-theme="dark"]) .p{ color: rgba(10,14,20,.92); }
-
-.grid{
-  margin-top: 18px;
+/* ─── GRID DATOS ────────────────────────────────────────────────────────────── */
+.grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px 18px;
+  gap: 8px;
+  margin-top: 18px;
 }
 
-.block{
+.block {
   padding: 10px 12px;
-  border-radius: 14px;
-  border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
-  background: color-mix(in srgb, var(--card) 18%, transparent);
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
+  background: color-mix(in srgb, var(--card) 16%, transparent);
 }
 
-:global(:root[data-theme="light"]) .block{
+:global(:root[data-theme="light"]) .block {
   border-color: rgba(255,255,255,.10);
   background: rgba(255,255,255,.06);
-  color: #c0c0c0 !important;
 }
-:global(:root[data-theme="dark"]) .block{
+
+:global(:root[data-theme="dark"]) .block {
   border-color: rgba(0,0,0,.08);
   background: rgba(0,0,0,.03);
-  color: #323131!important;
-
 }
 
-.label{
-  margin: 0;
-  font-size: 11px;
+.label {
+  margin: 0 0 5px;
+  font-size: 10px;
+  font-weight: 700;
   letter-spacing: .22em;
   text-transform: uppercase;
-  opacity: .65;
+  opacity: .55;
 }
 
-.value{
-  margin: 6px 0 0;
-  font-size: 14px;
+:global(:root[data-theme="light"]) .label { color: rgba(255,255,255,.70); }
+:global(:root[data-theme="dark"])  .label { color: rgba(0,0,0,.55); }
+
+.value {
+  margin: 0;
+  font-size: 13.5px;
   line-height: 1.5;
 }
 
-.valueLink{
-  margin: 6px 0 0;
-  font-size: 14px;
+:global(:root[data-theme="light"]) .value { color: rgba(255,255,255,.88); }
+:global(:root[data-theme="dark"])  .value { color: rgba(10,14,20,.88); }
+
+.valueLink {
+  display: inline-block;
+  margin: 0;
+  font-size: 13.5px;
   line-height: 1.5;
   text-decoration: none;
   border-bottom: 1px solid transparent;
-  display: inline-block;
+  transition: border-color 0.15s;
 }
 
-.valueLink:hover{
-  border-bottom-color: currentColor;
-}
+:global(:root[data-theme="light"]) .valueLink { color: rgba(255,255,255,.88); }
+:global(:root[data-theme="dark"])  .valueLink { color: rgba(10,14,20,.88); }
 
-.actions{
-  margin-top: 18px;
+.valueLink:hover { border-bottom-color: currentColor; }
+
+/* ─── ACCIONES ──────────────────────────────────────────────────────────────── */
+.actions {
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
 }
 
-/* ✅ CTA principal */
-.ctaPrimary{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding: 12px 16px;
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 18px;
   border-radius: 999px;
-  font-weight: 900;
-  font-size: 14px;
+  font-weight: 800;
+  font-size: 13.5px;
   text-decoration: none;
-
   background: linear-gradient(135deg, var(--primary), var(--primary2));
   color: rgba(0,0,0,.86);
   border: 1px solid transparent;
-
   transition: transform .12s ease, opacity .12s ease;
 }
 
-.ctaPrimary:hover{
+.ctaPrimary:hover {
   transform: translateY(-1px);
-  opacity: .96;
+  opacity: .92;
 }
 
-/* ✅ secundario */
-.ctaGhost{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding: 12px 16px;
+.ctaGhost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 18px;
   border-radius: 999px;
-  font-weight: 800;
-  font-size: 14px;
+  font-weight: 700;
+  font-size: 13.5px;
   text-decoration: none;
-
   background: transparent;
-  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  transition: transform .12s ease, border-color .12s ease;
 }
 
-:global(:root[data-theme="light"]) .ctaGhost{
-  color: rgba(255,255,255,.90);
-  border-color: rgba(255,255,255,.16);
-}
-:global(:root[data-theme="dark"]) .ctaGhost{
-  color: rgba(0,0,0,.75);
-  border-color: rgba(0,0,0,.14);
+:global(:root[data-theme="light"]) .ctaGhost {
+  color: rgba(255,255,255,.85);
+  border: 1px solid rgba(255,255,255,.18);
 }
 
-.ctaGhost:hover{
+:global(:root[data-theme="dark"]) .ctaGhost {
+  color: rgba(0,0,0,.72);
+  border: 1px solid rgba(0,0,0,.12);
+}
+
+.ctaGhost:hover {
   transform: translateY(-1px);
 }
 
-.note{
-  margin: 14px 0 0;
-  font-size: 12px;
-  line-height: 1.55;
-  opacity: .75;
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 980px){
-  .layout{
+/* ─── RESPONSIVE ────────────────────────────────────────────────────────────── */
+@media (max-width: 980px) {
+  .layout {
     grid-template-columns: 1fr;
   }
 
-  .mapWrap{
-    border-right: 0;
+  .mapWrap {
+    border-right: none;
     border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    min-height: 280px;
+    min-height: 240px;
   }
 
-  :global(:root[data-theme="light"]) .mapWrap{
-    border-bottom-color: rgba(255,255,255,.10);
-  }
-  :global(:root[data-theme="dark"]) .mapWrap{
-    border-bottom-color: rgba(0,0,0,.08);
-  }
+  :global(:root[data-theme="light"]) .mapWrap { border-bottom-color: rgba(255,255,255,.10); }
+  :global(:root[data-theme="dark"])  .mapWrap { border-bottom-color: rgba(0,0,0,.08); }
 
-  .grid{
-    grid-template-columns: 1fr;
+  .grid {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
-@media (prefers-reduced-motion: reduce){
-  .ctaPrimary, .ctaGhost{ transition: none; }
+@media (max-width: 520px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .ctaPrimary,
+  .ctaGhost {
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctaPrimary,
+  .ctaGhost    { transition: none; }
+  .mapBadgeDot { animation: none; }
 }

@@ -23,7 +23,7 @@ export default function LogoMark({
       role="img"
       aria-label={label}
     >
-      <span className={styles.shine} aria-hidden="true" />
+      {/* <span className={styles.shine} aria-hidden="true" /> */}
 
       {/* Logo normal (para tema claro) */}
       <img className={`${styles.logoPng} ${styles.logoLight}`} src="/skn-logo.png" alt="" aria-hidden="true" />

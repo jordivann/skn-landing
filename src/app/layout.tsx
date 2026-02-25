@@ -29,6 +29,7 @@ export const metadata: Metadata = {
   },
 };
 
+
 const themeInitScript = `
 (() => {
   try {
@@ -43,6 +44,7 @@ const themeInitScript = `
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" suppressHydrationWarning>
+      
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
