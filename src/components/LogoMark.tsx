@@ -26,10 +26,10 @@ export default function LogoMark({
       <span className={styles.shine} aria-hidden="true" />
 
       {/* Logo normal (para tema claro) */}
-      <img className={`${styles.logoPng} ${styles.logoLight}`} src="/SKN-logo.png" alt="" aria-hidden="true" />
+      <img className={`${styles.logoPng} ${styles.logoLight}`} src="/skn-logo.png" alt="" aria-hidden="true" />
 
       {/* Logo blanco (para tema oscuro) */}
-      <img className={`${styles.logoPng} ${styles.logoDark}`} src="/SKN-logo-blanco.png" alt="" aria-hidden="true" />
+      <img className={`${styles.logoPng} ${styles.logoDark}`} src="/skn-logo-blanco.png" alt="" aria-hidden="true" />
     </div>
   );
 }
