@@ -1,0 +1,104 @@
+/* Breadcrumbs.module.css */
+
+/* Contenedor: cero caja por default (nada invasivo) */
+.wrap{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 1em;
+  margin-bottom:1em;
+}
+
+/* Variantes: soft = pill sutil; solid = card liviana */
+.soft{
+  padding: 6px 0;            /* sin “bloque” */
+}
+
+.solid{
+  padding: 12px 12px;
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  background: color-mix(in srgb, var(--card) 78%, transparent);
+  border-radius: 14px;
+}
+
+/* Lista */
+.list{
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Item */
+.item{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Separador: fino y discreto */
+.sep{
+  opacity: .28;
+  color: var(--muted);
+  user-select: none;
+  transform: translateY(-0.5px);
+}
+
+/* Link: texto sutil, sin botón */
+.link{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.1;
+  letter-spacing: .01em;
+
+  color: color-mix(in srgb, var(--muted) 92%, var(--text));
+  padding: 2px 2px;          /* casi nada */
+  border-radius: 10px;
+
+  transition: color .18s ease, background .18s ease;
+}
+
+/* Hover minimal */
+.link:hover{
+  color: var(--text);
+  background: color-mix(in srgb, var(--border) 22%, transparent);
+}
+
+/* Actual: un poco más marcado, sin caja gruesa */
+.current{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  font-size: 13px;
+  line-height: 1.1;
+  letter-spacing: .01em;
+
+  color: var(--text);
+  font-weight: 500;
+  padding: 2px 2px;
+}
+
+/* Icono: micro, opcional */
+.icon{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  opacity: .72;
+}
+
+/* Responsive: si se estrecha, reduce un poco */
+@media (max-width: 520px){
+  .link, .current{ font-size: 12.5px; }
+  .sep{ opacity: .24; }
+}

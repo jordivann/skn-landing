@@ -134,7 +134,15 @@
   overflow:hidden;
   min-height: calc(1.04em * 2);
 }
-
+  .h1{
+    max-width: 100%;
+    display:block;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset;
+    min-height: 0;
+    text-wrap: pretty;
+  }
 .lead{
   margin: 16px 0 0;
   max-width: 56ch;
@@ -329,7 +337,4 @@
     -webkit-line-clamp: 4;
     min-height: calc(1.7em * 4);
   }
-}
-@media (max-width: 560px){
-
 }
