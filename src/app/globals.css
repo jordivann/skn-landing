@@ -1,39 +1,68 @@
-:root{
-  /* defaults (dark) */
-  --bg:#070b12;
-  --fg:#e9eef6;
-  --muted: rgba(235, 240, 255, .70);
-  --primary:  #767676; 
-  --primary2: #F28C28;
-  --card:rgba(255,255,255,.06);
-  --border:rgba(255,255,255,.12);
-  --shadow: 0 10px 30px rgba(0,0,0,.35);
-  --navBg: rgba(0,0,0,.1);
+:root {
+  /* tema claro por defecto */
+  --bg:#f5f7fa;
+  --fg:#0f1722;
+  --muted: rgba(15, 23, 34, .68);
+
+  --accent:#F28C28;
+  --accent-soft: rgba(242, 140, 40, .14);
+  --accent-soft-2: rgba(242, 140, 40, .08);
+  --accent-contrast:#ffffff;
+
+  --primary:#7e8792;
+  --primary2:var(--accent);
+
+  --card:rgba(255,255,255,.72);
+  --card-strong:rgba(255,255,255,.92);
+
+  --border:rgba(15,23,34,.10);
+  --border-strong:rgba(15,23,34,.16);
+
+  --navBg: rgba(245, 247, 250, .72);
+
+  --shadow: 0 14px 34px rgba(15, 23, 34, .08);
+  --shadow-soft: 0 6px 18px rgba(15, 23, 34, .05);
+
+  --brand-stroke: rgba(15,18,32,.92);
+  --brand-glow: rgba(242,140,40,.12);
+  --brand-glow-2: rgba(15,23,34,.05);
+
   --max:1120px;
   --r:18px;
-    --brand-stroke: rgba(255,255,255,.92);
-  --brand-glow: rgba(124,92,255,.28);
-  --brand-glow-2: rgba(102,227,255,.20);
+}
+:root[data-theme="dark"]{
+  --bg:#0a0d12;
+  --fg:#f5f7fb;
+  --muted: rgba(230, 236, 245, .70);
+
+  --accent:#F28C28;
+  --accent-soft: rgba(242, 140, 40, .16);
+  --accent-soft-2: rgba(242, 140, 40, .10);
+  --accent-contrast:#1b1108;
+
+  --primary:#8f98a3;
+  --primary2:var(--accent);
+
+  --card:rgba(255,255,255,.045);
+  --card-strong:rgba(255,255,255,.07);
+
+  --border:rgba(255,255,255,.09);
+  --border-strong:rgba(255,255,255,.14);
+
+  --shadow: 0 10px 30px rgba(0,0,0,.30);
+  --shadow-soft: 0 6px 18px rgba(0,0,0,.18);
+
+  --navBg: rgba(10, 13, 18, .70);
+
+  --max:1120px;
+  --r:18px;
+
+  --brand-stroke: rgba(255,255,255,.92);
+  --brand-glow: rgba(242,140,40,.18);
+  --brand-glow-2: rgba(255,255,255,.08);
 }
 
 
-/* Tema claro */
-:root[data-theme="light"]{
-  --bg:#f6f7fb;
-  --fg:#0c1220;
-  --muted: rgba(16, 20, 28, .70); /* antes estaba muy bajo */
-  --primary:  #767676;
-  --primary2: #F28C28;
-  --card:rgba(0,0,0,.04);
-  --border:rgba(0,0,0,.10);
-    --navBg: #a9b4c2;
-
-  --shadow: 0 14px 36px rgba(10,12,20,.10);
-  
-  --brand-stroke: rgba(12,18,32,.92);
-  --brand-glow: rgba(99,102,241,.28);
-  --brand-glow-2: rgba(45,212,191,.20);
-}
 
 body{
   background:

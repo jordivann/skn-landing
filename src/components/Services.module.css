@@ -1,132 +1,286 @@
-/* ─── GRID ─────────────────────────────────────────────────────────────────── */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+/* ─── WRAP / HORIZONTAL RAIL ─────────────────────────────────────────────── */
+.carouselWrap {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 6px 2px 10px;
+  margin-inline: -4px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
 
-/* ─── CARD ─────────────────────────────────────────────────────────────────── */
+.carouselWrap::-webkit-scrollbar {
+  display: none;
+}
+
+/* Fade lateral opcional */
+.carouselWrap::before,
+.carouselWrap::after {
+  content: "";
+  position: sticky;
+  top: 0;
+  width: 42px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.carouselWrap::before {
+  left: 0;
+  float: left;
+  background: linear-gradient(to right, var(--bg), transparent);
+}
+
+.carouselWrap::after {
+  right: 0;
+  float: right;
+  background: linear-gradient(to left, var(--bg), transparent);
+}
+
+/* ─── TRACK ──────────────────────────────────────────────────────────────── */
+.grid {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  min-width: 100%;
+  padding-inline: 4px;
+}
+
+/* ─── CARD ───────────────────────────────────────────────────────────────── */
 .card {
+  position: relative;
+  flex: 0 0 clamp(280px, 31vw, 360px);
+  min-height: 340px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 22px 20px;
-  border-radius: var(--r);
+  gap: 18px;
+  padding: 24px 22px;
+  border-radius: calc(var(--r) + 4px);
   border: 1px solid var(--border);
-  background: var(--card);
-  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--card) 100%, white 2%),
+      color-mix(in srgb, var(--card) 100%, black 2%)
+    );
+  box-shadow: var(--shadow-soft, var(--shadow));
+  scroll-snap-align: start;
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    background 0.22s ease;
+  backdrop-filter: blur(10px);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--primary2) 38%, white 10%),
+    transparent
+  );
+  opacity: 0.55;
 }
 
 .card:hover {
-  border-color: color-mix(in srgb, var(--primary2) 35%, transparent);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--primary2) 34%, var(--border));
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.14);
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--card) 100%, white 4%),
+      color-mix(in srgb, var(--card) 100%, black 1%)
+    );
 }
 
-/* ─── CARD TOP ─────────────────────────────────────────────────────────────── */
+/* Primera card un poco más protagónica */
+.card:first-child {
+  flex-basis: clamp(300px, 34vw, 390px);
+}
+
+/* ─── CARD TOP ───────────────────────────────────────────────────────────── */
 .cardTop {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .num {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  font-weight: 700;
+  letter-spacing: 0.18em;
   color: var(--primary2);
-  opacity: 0.75;
+  opacity: 0.95;
 }
 
 .title {
   margin: 0;
-  font-size: 17px;
+  font-size: clamp(18px, 1.4vw, 22px);
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
   color: var(--fg);
-  letter-spacing: -0.01em;
+  text-wrap: balance;
 }
 
 .desc {
   margin: 0;
-  font-size: 13.5px;
+  font-size: 14px;
   color: var(--muted);
-  line-height: 1.6;
+  line-height: 1.72;
+  max-width: 32ch;
 }
 
-/* ─── SERVICE LIST ─────────────────────────────────────────────────────────── */
+/* ─── SERVICE LIST ───────────────────────────────────────────────────────── */
 .serviceList {
   margin: 0;
   padding: 0;
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
   flex-grow: 1;
 }
 
 .serviceItem {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13.5px;
-  color: var(--muted);
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--fg);
   line-height: 1.5;
 }
 
 .serviceIcon {
   flex-shrink: 0;
-  width: 5px;
-  height: 5px;
+  width: 7px;
+  height: 7px;
+  margin-top: 0.48rem;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--primary2) 70%, transparent);
+  background: var(--primary2);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary2) 14%, transparent);
 }
 
-/* ─── CHIPS ────────────────────────────────────────────────────────────────── */
+.serviceLink {
+  color: var(--fg);
+  text-decoration: none;
+  transition: color 0.18s ease, opacity 0.18s ease;
+}
+
+.serviceLink:hover {
+  color: var(--primary2);
+}
+
+/* ─── CHIPS ──────────────────────────────────────────────────────────────── */
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  padding-top: 4px;
+  gap: 8px;
+  padding-top: 10px;
   border-top: 1px solid var(--border);
 }
 
 .chip {
   font-size: 11px;
-  font-weight: 600;
-  padding: 4px 10px;
+  font-weight: 700;
+  padding: 6px 10px;
   border-radius: 999px;
-  border: 1px solid var(--border);
-  background: color-mix(in srgb, var(--card) 100%, var(--primary2) 4%);
-  color: var(--muted);
-  letter-spacing: 0.04em;
+  border: 1px solid color-mix(in srgb, var(--primary2) 20%, var(--border));
+  background: color-mix(in srgb, var(--primary2) 7%, var(--card));
+  color: var(--fg);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
 }
 
-/* ─── CTA ROW ──────────────────────────────────────────────────────────────── */
+/* ─── CTA ────────────────────────────────────────────────────────────────── */
 .cta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 10px;
-  margin-top: 22px;
+  margin-top: 24px;
 }
 
-.ctaBtn {
-  /* hereda .btn .btnPrimary del global */
+.ctaBtn {}
+.ctaGhost {}
+
+/* ─── OPTIONAL ARROWS (por si después las agregás) ──────────────────────── */
+.carouselShell {
+  position: relative;
 }
 
-.ctaGhost {
-  /* hereda .btn del global */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--card) 88%, var(--bg));
+  color: var(--fg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft, var(--shadow));
+  transition: transform 0.18s ease, border-color 0.18s ease;
 }
 
-/* ─── RESPONSIVE ───────────────────────────────────────────────────────────── */
+.arrow:hover {
+  border-color: color-mix(in srgb, var(--primary2) 30%, var(--border));
+}
+
+.arrowLeft {
+  left: -12px;
+}
+
+.arrowRight {
+  right: -12px;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────────────────── */
 @media (max-width: 860px) {
-  .grid {
-    grid-template-columns: 1fr;
+  .card,
+  .card:first-child {
+    flex-basis: min(86vw, 340px);
+    min-height: 320px;
+  }
+
+  .carouselWrap::before,
+  .carouselWrap::after {
+    width: 20px;
   }
 }
 
 @media (max-width: 520px) {
+  .card,
+  .card:first-child {
+    flex-basis: 88vw;
+    min-height: 300px;
+    padding: 20px 18px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .desc,
+  .serviceItem {
+    font-size: 13.5px;
+  }
+
   .cta {
     flex-direction: column;
     align-items: stretch;
