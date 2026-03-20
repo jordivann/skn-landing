@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import styles from "./Nav.module.css";
 import { useTheme } from "../hooks/useTheme";
 import { getNavServicesTree } from "../app/(pages)/servicios/services.helpers";
@@ -15,43 +16,64 @@ const items: NavItem[] = [{ href: "/", label: "Inicio" }];
 
 const serviceTree = getNavServicesTree();
 
+/** Returns all focusable elements inside a container */
+function getFocusable(container: HTMLElement): HTMLElement[] {
+  return Array.from(
+    container.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    )
+  );
+}
+
 export default function Nav() {
   const { theme, toggleTheme } = useTheme();
+  const pathname = usePathname();
 
   const [open, setOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
+  const [openDesktopCategory, setOpenDesktopCategory] = useState<string | null>(null);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [mobileCategoryOpen, setMobileCategoryOpen] = useState<string | null>(null);
-
-  const [activeDesktopCategory, setActiveDesktopCategory] = useState<string>(
-    serviceTree[0]?.id ?? ""
-  );
 
   const panelId = useId();
   const btnRef = useRef<HTMLButtonElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
-  const servicesRef = useRef<HTMLDivElement | null>(null);
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const activeCategory = useMemo(
-    () => serviceTree.find((category) => category.id === activeDesktopCategory) ?? serviceTree[0],
-    [activeDesktopCategory]
-  );
-
-  const close = () => {
+  /* ── Mobile helpers ── */
+  const closeMobileMenu = () => {
     setOpen(false);
     setMobileServicesOpen(false);
     setMobileCategoryOpen(null);
   };
 
-  const toggle = () => setOpen((v) => !v);
+  const toggleMobileMenu = () => setOpen((v) => !v);
 
+  /* ── Desktop dropdown helpers ── */
+  const clearCloseTimeout = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+  };
+
+  const openDesktopMenu = (categoryId: string) => {
+    clearCloseTimeout();
+    setOpenDesktopCategory(categoryId);
+  };
+
+  const closeDesktopMenu = () => {
+    clearCloseTimeout();
+    closeTimeoutRef.current = setTimeout(() => setOpenDesktopCategory(null), 150);
+  };
+
+  /* ── Escape key + body scroll lock ── */
   useEffect(() => {
     if (!open) return;
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         e.preventDefault();
-        close();
+        closeMobileMenu();
         btnRef.current?.focus();
       }
     };
@@ -65,134 +87,148 @@ export default function Nav() {
     };
   }, [open]);
 
+  /* ── Focus first element when panel opens ── */
   useEffect(() => {
     if (!open) return;
-    const first = panelRef.current?.querySelector<HTMLAnchorElement>("a[href]");
+    const first = panelRef.current?.querySelector<HTMLElement>("a[href], button");
     first?.focus();
   }, [open]);
 
+  /* ── Focus trap inside mobile panel ── */
   useEffect(() => {
-    const onClickOutside = (e: MouseEvent) => {
-      if (!servicesRef.current) return;
-      if (!servicesRef.current.contains(e.target as Node)) {
-        setServicesOpen(false);
+    if (!open || !panelRef.current) return;
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const panel = panelRef.current!;
+      const focusable = getFocusable(panel);
+      if (!focusable.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     };
 
-    document.addEventListener("mousedown", onClickOutside);
-    return () => document.removeEventListener("mousedown", onClickOutside);
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
+  /* ── Close desktop dropdown on outside click ── */
+  useEffect(() => {
+    const onDocMouseDown = (e: MouseEvent) => {
+      const target = e.target as Node;
+      const wrappers = document.querySelectorAll("[data-nav-dropdown-root='true']");
+      let inside = false;
+      wrappers.forEach((node) => { if (node.contains(target)) inside = true; });
+      if (!inside) setOpenDesktopCategory(null);
+    };
+
+    document.addEventListener("mousedown", onDocMouseDown);
+    return () => document.removeEventListener("mousedown", onDocMouseDown);
   }, []);
 
+  /* ── Close desktop dropdown on window blur ── */
   useEffect(() => {
-    if (servicesOpen && serviceTree[0]?.id) {
-      setActiveDesktopCategory((prev) => prev || serviceTree[0].id);
-    }
-  }, [servicesOpen]);
+    const onBlur = () => setOpenDesktopCategory(null);
+    window.addEventListener("blur", onBlur);
+    return () => window.removeEventListener("blur", onBlur);
+  }, []);
+
+  /* ── Cleanup timeout on unmount ── */
+  useEffect(() => () => clearCloseTimeout(), []);
+
+  /* ── Close mobile menu on route change ── */
+  useEffect(() => {
+    closeMobileMenu();
+  }, [pathname]);
 
   return (
     <>
       <nav className={styles.nav} aria-label="Navegación principal">
         <div className={styles.links}>
-          {items.map((x) => (
-            <Link key={x.href} className={styles.link} href={x.href}>
-              {x.label}
+          {items.map((item) => (
+            <Link
+              key={item.href}
+              className={styles.link}
+              href={item.href}
+              aria-current={pathname === item.href ? "page" : undefined}
+            >
+              {item.label}
             </Link>
           ))}
 
-          <div
-            className={styles.servicesDropdown}
-            ref={servicesRef}
-            onMouseEnter={() => setServicesOpen(true)}
-            onMouseLeave={() => setServicesOpen(false)}
-          >
-            <button
-              type="button"
-              className={`${styles.link} ${styles.dropdownTrigger}`}
-              aria-expanded={servicesOpen}
-              aria-haspopup="true"
-              onClick={() => setServicesOpen((v) => !v)}
-            >
-              Servicios
-              <span className={styles.caret} aria-hidden="true">
-                ▾
-              </span>
-            </button>
+          {serviceTree.map((category) => {
+            const isOpen = openDesktopCategory === category.id;
 
-            <div
-              className={`${styles.dropdownMenu} ${
-                servicesOpen ? styles.dropdownMenuOpen : ""
-              }`}
-            >
-              <div className={styles.dropdownInner}>
-                <aside className={styles.dropdownSidebar}>
-                  <div className={styles.dropdownSidebarTop}>
+            return (
+              <div
+                key={category.id}
+                className={styles.categoryDropdown}
+                data-nav-dropdown-root="true"
+                onMouseEnter={() => openDesktopMenu(category.id)}
+                onMouseLeave={closeDesktopMenu}
+              >
+                <button
+                  type="button"
+                  className={`${styles.link} ${styles.dropdownTrigger}`}
+                  aria-expanded={isOpen}
+                  aria-haspopup="true"
+                  onClick={() =>
+                    setOpenDesktopCategory((prev) =>
+                      prev === category.id ? null : category.id
+                    )
+                  }
+                >
+                  {category.title}
+                  <span className={styles.caret} aria-hidden="true">▾</span>
+                </button>
+
+                <div
+                  className={`${styles.dropdownMenu} ${isOpen ? styles.dropdownMenuOpen : ""}`}
+                  role="menu"
+                  aria-label={category.title}
+                >
+                  <div className={styles.dropdownHeader}>
+                    <span className={styles.dropdownTitle}>{category.title}</span>
                     <Link
                       href="/servicios"
-                      className={styles.dropdownCategoryAll}
-                      onClick={() => setServicesOpen(false)}
+                      className={styles.dropdownAll}
+                      onClick={() => setOpenDesktopCategory(null)}
                     >
-                      Ver todos los servicios
+                      Ver todos →
                     </Link>
                   </div>
 
-                  <ul className={styles.dropdownCategoryList}>
-                    {serviceTree.map((category) => {
-                      const isActive = activeCategory?.id === category.id;
-
-                      return (
-                        <li key={category.id}>
-                          <button
-                            type="button"
-                            className={`${styles.dropdownCategoryButton} ${
-                              isActive ? styles.dropdownCategoryButtonActive : ""
-                            }`}
-                            onMouseEnter={() => setActiveDesktopCategory(category.id)}
-                            onFocus={() => setActiveDesktopCategory(category.id)}
-                            onClick={() => setActiveDesktopCategory(category.id)}
-                          >
-                            <span>{category.title}</span>
-                            <span className={styles.dropdownCategoryArrow}>→</span>
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </aside>
-
-                <section className={styles.dropdownContent}>
-                  <div className={styles.dropdownContentHead}>
-                    <h3 className={styles.dropdownContentTitle}>
-                      {activeCategory?.title}
-                    </h3>
-
-                    <Link
-                      href="/servicios"
-                      className={styles.dropdownContentLink}
-                      onClick={() => setServicesOpen(false)}
-                    >
-                      Ir a categoría
-                    </Link>
-                  </div>
-
-                  <ul className={styles.dropdownServicesList}>
-                    {activeCategory?.services.map((service) => (
-                      <li key={service.id}>
+                  <ul className={styles.dropdownList}>
+                    {category.services.map((service) => (
+                      <li key={service.id} role="none">
                         <Link
                           href={service.href}
-                          className={styles.dropdownServiceCard}
-                          onClick={() => setServicesOpen(false)}
+                          className={styles.dropdownItem}
+                          role="menuitem"
+                          aria-current={pathname === service.href ? "page" : undefined}
+                          onClick={() => setOpenDesktopCategory(null)}
                         >
-                          <span className={styles.dropdownServiceTitle}>
-                            {service.title}
-                          </span>
+                          {service.title}
                         </Link>
                       </li>
                     ))}
                   </ul>
-                </section>
+                </div>
               </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
 
         <div className={styles.actions}>
@@ -215,7 +251,7 @@ export default function Nav() {
           ref={btnRef}
           type="button"
           className={styles.burger}
-          onClick={toggle}
+          onClick={toggleMobileMenu}
           aria-label={open ? "Cerrar menú" : "Abrir menú"}
           aria-expanded={open}
           aria-controls={panelId}
@@ -228,15 +264,14 @@ export default function Nav() {
       </nav>
 
       <div className={`${styles.mobileRoot} ${open ? styles.open : ""}`}>
-        <button
-          type="button"
+        {/* Backdrop — div semántico, no button */}
+        <div
           className={styles.backdrop}
+          role="presentation"
           onClick={() => {
-            close();
+            closeMobileMenu();
             btnRef.current?.focus();
           }}
-          aria-label="Cerrar menú"
-          tabIndex={open ? 0 : -1}
         />
 
         <div
@@ -255,7 +290,7 @@ export default function Nav() {
               type="button"
               className={styles.closeBtn}
               onClick={() => {
-                close();
+                closeMobileMenu();
                 btnRef.current?.focus();
               }}
               aria-label="Cerrar"
@@ -265,14 +300,15 @@ export default function Nav() {
           </div>
 
           <div className={styles.panelLinks}>
-            {items.map((x) => (
+            {items.map((item) => (
               <Link
-                key={x.href}
+                key={item.href}
                 className={styles.panelLink}
-                href={x.href}
-                onClick={() => close()}
+                href={item.href}
+                aria-current={pathname === item.href ? "page" : undefined}
+                onClick={closeMobileMenu}
               >
-                {x.label}
+                {item.label}
               </Link>
             ))}
 
@@ -284,7 +320,13 @@ export default function Nav() {
                 aria-expanded={mobileServicesOpen}
               >
                 <span>Servicios</span>
-                <span>{mobileServicesOpen ? "−" : "+"}</span>
+                <span
+                  className={styles.mobileToggleIcon}
+                  data-open={mobileServicesOpen ? "1" : "0"}
+                  aria-hidden="true"
+                >
+                  +
+                </span>
               </button>
 
               {mobileServicesOpen && (
@@ -292,13 +334,13 @@ export default function Nav() {
                   <Link
                     href="/servicios"
                     className={styles.mobileAllServices}
-                    onClick={() => close()}
+                    onClick={closeMobileMenu}
                   >
-                    Ver todos los servicios
+                    Ver todos los servicios →
                   </Link>
 
                   {serviceTree.map((category) => {
-                    const isOpen = mobileCategoryOpen === category.id;
+                    const isCategoryOpen = mobileCategoryOpen === category.id;
 
                     return (
                       <div key={category.id} className={styles.mobileCategory}>
@@ -310,20 +352,27 @@ export default function Nav() {
                               prev === category.id ? null : category.id
                             )
                           }
-                          aria-expanded={isOpen}
+                          aria-expanded={isCategoryOpen}
                         >
                           <span>{category.title}</span>
-                          <span>{isOpen ? "−" : "+"}</span>
+                          <span
+                            className={styles.mobileToggleIcon}
+                            data-open={isCategoryOpen ? "1" : "0"}
+                            aria-hidden="true"
+                          >
+                            +
+                          </span>
                         </button>
 
-                        {isOpen && (
+                        {isCategoryOpen && (
                           <ul className={styles.mobileCategoryList}>
                             {category.services.map((service) => (
                               <li key={service.id}>
                                 <Link
                                   href={service.href}
                                   className={styles.mobileServiceLink}
-                                  onClick={() => close()}
+                                  aria-current={pathname === service.href ? "page" : undefined}
+                                  onClick={closeMobileMenu}
                                 >
                                   {service.title}
                                 </Link>
@@ -348,7 +397,11 @@ export default function Nav() {
               {theme === "dark" ? "Cambiar a tema claro ☀" : "Cambiar a tema oscuro 🌙"}
             </button>
 
-            <Link className={styles.panelCta} href="/contacto" onClick={() => close()}>
+            <Link
+              className={styles.panelCta}
+              href="/contacto"
+              onClick={closeMobileMenu}
+            >
               Contactar
             </Link>
           </div>
