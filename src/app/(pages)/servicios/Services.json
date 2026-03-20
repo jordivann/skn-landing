@@ -1,0 +1,864 @@
+{
+  "categories": [
+    {
+      "id": "support",
+      "title": "Soporte y Operación IT",
+      "slug": "soporte-it",
+      "description": "Servicios orientados a mantener la infraestructura tecnológica en funcionamiento, ordenada y con menor nivel de incidentes.",
+      "services": [
+        "mantenimiento-it",
+        "relevamiento-hardware-software",
+        "asistencia-tecnica-preventiva"
+      ]
+    },
+    {
+      "id": "security",
+      "title": "Seguridad IT",
+      "slug": "seguridad-it",
+      "description": "Servicios pensados para proteger accesos, información y continuidad operativa dentro de la empresa.",
+      "services": [
+        "politicas-de-seguridad",
+        "backups",
+        "hardening-y-control-de-accesos"
+      ]
+    },
+    {
+      "id": "consulting",
+      "title": "Consultoría y Gestión",
+      "slug": "consultoria-it",
+      "description": "Servicios de análisis, diagnóstico y planificación para mejorar la toma de decisiones tecnológicas.",
+      "services": [
+        "auditorias-it",
+        "planificacion-tecnologica",
+        "analisis-del-negocio",
+        "analisis-de-gestion-it"
+      ]
+    },
+    {
+      "id": "development",
+      "title": "Soluciones Digitales",
+      "slug": "soluciones-digitales",
+      "description": "Desarrollo de soluciones web orientadas a presencia digital, mejora operativa y crecimiento.",
+      "services": [
+        "desarrollo-web"
+      ]
+    }
+  ],
+  "services": [
+    {
+      "id": "mantenimiento-it",
+      "title": "Mantenimiento IT",
+      "slug": "mantenimiento-it",
+      "category": "support",
+      "shortDescription": "Mantenemos tus equipos y sistemas en condiciones óptimas para reducir fallas y mejorar el rendimiento.",
+      "heroDescription": "Un servicio pensado para sostener la continuidad operativa de tu empresa, reducir interrupciones y mejorar el estado general de tu infraestructura tecnológica.",
+      "highlights": [
+        "Menos fallas",
+        "Mejor rendimiento",
+        "Soporte profesional"
+      ],
+      "info": {
+        "intro": "Nos enfocamos en que tu entorno tecnológico funcione de manera estable, ordenada y eficiente.",
+        "includes": [
+          "Revisión general de equipos",
+          "Limpieza lógica y optimización",
+          "Detección de problemas frecuentes",
+          "Ajustes de configuración",
+          "Seguimiento del estado operativo"
+        ],
+        "problemsSolved": [
+          "Equipos lentos",
+          "Fallas repetidas",
+          "Desorden tecnológico",
+          "Pérdida de tiempo por problemas técnicos"
+        ],
+        "process": [
+          "Diagnóstico inicial",
+          "Revisión del entorno actual",
+          "Correcciones y optimizaciones",
+          "Recomendaciones",
+          "Seguimiento"
+        ],
+        "idealFor": [
+          "PyMEs",
+          "Oficinas administrativas",
+          "Negocios con varios puestos de trabajo"
+        ],
+        "benefits": [
+          "Menos interrupciones",
+          "Mayor vida útil del equipamiento",
+          "Más orden operativo",
+          "Mejor aprovechamiento de recursos"
+        ],
+        "results": [
+          "Operación más estable",
+          "Menor frecuencia de incidentes",
+          "Mayor previsibilidad técnica"
+        ]
+      },
+      "cards": [
+        {
+          "title": "Prevención de fallas",
+          "description": "Detectamos y corregimos problemas antes de que impacten en la operatoria diaria."
+        },
+        {
+          "title": "Optimización de equipos",
+          "description": "Mejoramos el rendimiento general de la infraestructura existente."
+        },
+        {
+          "title": "Orden tecnológico",
+          "description": "Ayudamos a mantener un entorno más claro, mantenible y funcional."
+        }
+      ],
+      "relatedServices": [
+        "relevamiento-hardware-software",
+        "asistencia-tecnica-preventiva",
+        "backups"
+      ],
+      "contact": {
+        "title": "Solicitá asesoramiento sobre Mantenimiento IT",
+        "description": "Contanos tu situación y te ayudamos a evaluar el mejor enfoque para tu empresa."
+      }
+    },
+    {
+      "id": "relevamiento-hardware-software",
+      "title": "Relevamiento de hardware y software",
+      "slug": "relevamiento-hardware-software",
+      "category": "support",
+      "shortDescription": "Identificamos y documentamos el estado de los equipos, programas y recursos tecnológicos de tu empresa.",
+      "heroDescription": "Obtené una visión clara de tu infraestructura IT para tomar decisiones con información real y ordenada.",
+      "highlights": [
+        "Inventario claro",
+        "Diagnóstico real",
+        "Base para planificar"
+      ],
+      "info": {
+        "intro": "Relevamos el entorno tecnológico para entender qué recursos tenés, cómo están y qué conviene mejorar.",
+        "includes": [
+          "Inventario de equipos",
+          "Revisión de software instalado",
+          "Detección de obsolescencia",
+          "Estado general del entorno",
+          "Informe de situación"
+        ],
+        "problemsSolved": [
+          "Falta de control sobre activos IT",
+          "Software desactualizado o irregular",
+          "Compras sin criterio",
+          "Falta de documentación"
+        ],
+        "process": [
+          "Recolección de datos",
+          "Revisión técnica",
+          "Clasificación de información",
+          "Informe y recomendaciones"
+        ],
+        "idealFor": [
+          "Empresas en crecimiento",
+          "Negocios con infraestructura dispersa",
+          "Organizaciones que necesitan ordenar su entorno"
+        ],
+        "benefits": [
+          "Mayor visibilidad",
+          "Más control",
+          "Mejor planificación",
+          "Base para futuras decisiones"
+        ],
+        "results": [
+          "Panorama claro del entorno IT",
+          "Detección de necesidades",
+          "Información útil para crecer con orden"
+        ]
+      },
+      "cards": [
+        {
+          "title": "Inventario real",
+          "description": "Sabé exactamente qué equipos y programas forman parte de tu operación."
+        },
+        {
+          "title": "Detección de riesgos",
+          "description": "Identificamos recursos obsoletos, incompletos o mal gestionados."
+        },
+        {
+          "title": "Base para decidir",
+          "description": "Convertimos el relevamiento en información útil para planificar."
+        }
+      ],
+      "relatedServices": [
+        "mantenimiento-it",
+        "auditorias-it",
+        "planificacion-tecnologica"
+      ],
+      "contact": {
+        "title": "Solicitá un relevamiento IT",
+        "description": "Te ayudamos a ordenar tu infraestructura tecnológica desde una base clara y profesional."
+      }
+    },
+    {
+      "id": "asistencia-tecnica-preventiva",
+      "title": "Asistencia técnica preventiva",
+      "slug": "asistencia-tecnica-preventiva",
+      "category": "support",
+      "shortDescription": "Detectamos y corregimos posibles problemas antes de que se conviertan en incidentes reales.",
+      "heroDescription": "Un enfoque preventivo para reducir urgencias, evitar interrupciones y sostener una operación tecnológica más estable.",
+      "highlights": [
+        "Menos urgencias",
+        "Más previsibilidad",
+        "Soporte preventivo"
+      ],
+      "info": {
+        "intro": "Trabajamos para anticipar problemas técnicos y minimizar el impacto de fallas en tu empresa.",
+        "includes": [
+          "Revisiones periódicas",
+          "Detección anticipada de riesgos",
+          "Ajustes preventivos",
+          "Recomendaciones de mejora",
+          "Seguimiento técnico"
+        ],
+        "problemsSolved": [
+          "Fallas inesperadas",
+          "Paradas operativas",
+          "Dependencia del soporte reactivo",
+          "Pérdida de productividad"
+        ],
+        "process": [
+          "Evaluación del entorno",
+          "Definición de puntos críticos",
+          "Intervenciones preventivas",
+          "Seguimiento y mejora"
+        ],
+        "idealFor": [
+          "Empresas que dependen de continuidad operativa",
+          "Equipos administrativos",
+          "Negocios con múltiples puestos"
+        ],
+        "benefits": [
+          "Más estabilidad",
+          "Menos costos por incidentes",
+          "Menos urgencias",
+          "Mayor control técnico"
+        ],
+        "results": [
+          "Entorno más confiable",
+          "Menor frecuencia de fallas",
+          "Soporte más ordenado"
+        ]
+      },
+      "cards": [
+        {
+          "title": "Prevención activa",
+          "description": "Nos adelantamos a problemas que suelen aparecer cuando ya es tarde."
+        },
+        {
+          "title": "Menos interrupciones",
+          "description": "Reducimos el impacto de incidentes sobre la operatoria diaria."
+        },
+        {
+          "title": "Seguimiento técnico",
+          "description": "No se trata de apagar incendios, sino de evitarlos."
+        }
+      ],
+      "relatedServices": [
+        "mantenimiento-it",
+        "backups",
+        "hardening-y-control-de-accesos"
+      ],
+      "contact": {
+        "title": "Solicitá asistencia técnica preventiva",
+        "description": "Podemos ayudarte a pasar de un soporte reactivo a una gestión más ordenada y preventiva."
+      }
+    },
+    {
+      "id": "politicas-de-seguridad",
+      "title": "Políticas de seguridad",
+      "slug": "politicas-de-seguridad",
+      "category": "security",
+      "shortDescription": "Definimos lineamientos y buenas prácticas para proteger accesos, información y recursos tecnológicos.",
+      "heroDescription": "Ordenamos criterios de seguridad para reducir riesgos humanos y técnicos dentro de tu organización.",
+      "highlights": [
+        "Más control",
+        "Menos exposición",
+        "Buenas prácticas"
+      ],
+      "info": {
+        "intro": "La seguridad no depende solo de herramientas: también necesita criterios claros y prácticas consistentes.",
+        "includes": [
+          "Revisión de prácticas actuales",
+          "Definición de lineamientos básicos",
+          "Políticas de acceso y contraseñas",
+          "Recomendaciones de uso seguro",
+          "Base para una cultura de seguridad"
+        ],
+        "problemsSolved": [
+          "Accesos desordenados",
+          "Malas prácticas internas",
+          "Exposición innecesaria de información",
+          "Falta de criterios comunes"
+        ],
+        "process": [
+          "Análisis de situación actual",
+          "Detección de debilidades",
+          "Definición de lineamientos",
+          "Entrega de recomendaciones"
+        ],
+        "idealFor": [
+          "PyMEs",
+          "Equipos con varios usuarios",
+          "Empresas que quieren ordenar seguridad interna"
+        ],
+        "benefits": [
+          "Mayor control",
+          "Menos errores internos",
+          "Mejor protección de datos",
+          "Más madurez organizativa"
+        ],
+        "results": [
+          "Criterios de seguridad más claros",
+          "Mejores hábitos internos",
+          "Reducción de exposición operativa"
+        ]
+      },
+      "cards": [
+        {
+          "title": "Criterios claros",
+          "description": "Definimos pautas que ayudan a ordenar el uso seguro de la tecnología."
+        },
+        {
+          "title": "Seguridad interna",
+          "description": "Reducimos errores habituales que exponen datos, accesos o recursos."
+        },
+        {
+          "title": "Base organizativa",
+          "description": "Instalamos una lógica de seguridad que después puede seguir creciendo."
+        }
+      ],
+      "relatedServices": [
+        "backups",
+        "hardening-y-control-de-accesos",
+        "auditorias-it"
+      ],
+      "contact": {
+        "title": "Solicitá una evaluación de seguridad",
+        "description": "Te ayudamos a ordenar criterios y prácticas de seguridad según la realidad de tu empresa."
+      }
+    },
+    {
+      "id": "backups",
+      "title": "Backups",
+      "slug": "backups",
+      "category": "security",
+      "shortDescription": "Diseñamos estrategias de respaldo para proteger información crítica y facilitar su recuperación.",
+      "heroDescription": "Cuidamos uno de los activos más importantes de tu empresa: la información.",
+      "highlights": [
+        "Protección de datos",
+        "Continuidad operativa",
+        "Recuperación ordenada"
+      ],
+      "info": {
+        "intro": "Un esquema de backup bien pensado reduce riesgos y evita pérdidas de información con alto impacto operativo.",
+        "includes": [
+          "Revisión de información crítica",
+          "Definición de política de respaldo",
+          "Organización de copias",
+          "Validación del esquema",
+          "Recomendaciones de continuidad"
+        ],
+        "problemsSolved": [
+          "Riesgo de pérdida de datos",
+          "Respaldo inexistente o desordenado",
+          "Recuperación improvisada",
+          "Dependencia de un solo equipo o ubicación"
+        ],
+        "process": [
+          "Identificación de datos críticos",
+          "Diseño del esquema de respaldo",
+          "Ordenamiento de copias",
+          "Validación y recomendaciones"
+        ],
+        "idealFor": [
+          "Empresas con información sensible",
+          "Negocios administrativos",
+          "Equipos que no pueden perder continuidad"
+        ],
+        "benefits": [
+          "Más seguridad",
+          "Mayor tranquilidad",
+          "Mejor recuperación ante incidentes",
+          "Protección operativa"
+        ],
+        "results": [
+          "Información mejor protegida",
+          "Menor riesgo operativo",
+          "Capacidad de recuperación más clara"
+        ]
+      },
+      "cards": [
+        {
+          "title": "Protección real",
+          "description": "El respaldo no es un detalle técnico: es una necesidad operativa."
+        },
+        {
+          "title": "Continuidad",
+          "description": "Reducimos el impacto de pérdidas de información sobre tu negocio."
+        },
+        {
+          "title": "Recuperación más clara",
+          "description": "Ordenamos cómo proteger y recuperar información crítica."
+        }
+      ],
+      "relatedServices": [
+        "politicas-de-seguridad",
+        "hardening-y-control-de-accesos",
+        "asistencia-tecnica-preventiva"
+      ],
+      "contact": {
+        "title": "Solicitá una revisión de backups",
+        "description": "Podemos ayudarte a proteger la información más importante de tu empresa."
+      }
+    },
+    {
+      "id": "hardening-y-control-de-accesos",
+      "title": "Hardening y control de accesos",
+      "slug": "hardening-y-control-de-accesos",
+      "category": "security",
+      "shortDescription": "Fortalecemos configuraciones y organizamos accesos para reducir riesgos y mejorar el control interno.",
+      "heroDescription": "Aplicamos criterios de seguridad sobre configuraciones, permisos y accesos para disminuir exposición técnica.",
+      "highlights": [
+        "Permisos ordenados",
+        "Menor exposición",
+        "Más seguridad interna"
+      ],
+      "info": {
+        "intro": "El orden en accesos y configuraciones es una de las bases de un entorno tecnológico más seguro.",
+        "includes": [
+          "Revisión de accesos",
+          "Ajuste de permisos",
+          "Endurecimiento de configuraciones",
+          "Recomendaciones de seguridad",
+          "Mejora del control operativo"
+        ],
+        "problemsSolved": [
+          "Permisos excesivos",
+          "Configuraciones débiles",
+          "Accesos innecesarios",
+          "Falta de control sobre usuarios"
+        ],
+        "process": [
+          "Diagnóstico de accesos y configuraciones",
+          "Detección de puntos débiles",
+          "Ajustes y recomendaciones",
+          "Ordenamiento del esquema de control"
+        ],
+        "idealFor": [
+          "Empresas con varios usuarios",
+          "Entornos compartidos",
+          "Organizaciones que quieren mejorar seguridad interna"
+        ],
+        "benefits": [
+          "Más control",
+          "Menor exposición",
+          "Mejor seguridad organizativa",
+          "Entorno más confiable"
+        ],
+        "results": [
+          "Accesos más ordenados",
+          "Configuraciones más seguras",
+          "Mayor control operativo"
+        ]
+      },
+      "cards": [
+        {
+          "title": "Menos exposición",
+          "description": "Reducimos la superficie de riesgo sobre accesos y configuraciones."
+        },
+        {
+          "title": "Control interno",
+          "description": "Ordenamos quién accede a qué y bajo qué criterio."
+        },
+        {
+          "title": "Seguridad práctica",
+          "description": "Llevamos la seguridad a medidas concretas y aplicables."
+        }
+      ],
+      "relatedServices": [
+        "politicas-de-seguridad",
+        "backups",
+        "auditorias-it"
+      ],
+      "contact": {
+        "title": "Solicitá una revisión de accesos y seguridad",
+        "description": "Evaluamos el nivel de exposición actual y te proponemos mejoras concretas."
+      }
+    },
+    {
+      "id": "auditorias-it",
+      "title": "Auditorías IT",
+      "slug": "auditorias-it",
+      "category": "consulting",
+      "shortDescription": "Evaluamos el estado general de tu entorno tecnológico para detectar riesgos y oportunidades de mejora.",
+      "heroDescription": "Obtené un diagnóstico claro para entender cómo está hoy tu tecnología y qué conviene priorizar.",
+      "highlights": [
+        "Diagnóstico claro",
+        "Riesgos detectados",
+        "Prioridades concretas"
+      ],
+      "info": {
+        "intro": "Revisamos tu entorno IT para transformar observaciones técnicas en decisiones útiles.",
+        "includes": [
+          "Revisión técnica general",
+          "Detección de puntos críticos",
+          "Identificación de riesgos",
+          "Informe con observaciones",
+          "Recomendaciones priorizadas"
+        ],
+        "problemsSolved": [
+          "Falta de diagnóstico",
+          "Problemas invisibles hasta que explotan",
+          "Decisiones improvisadas",
+          "Inversiones sin criterio"
+        ],
+        "process": [
+          "Análisis del entorno",
+          "Evaluación de hallazgos",
+          "Priorización",
+          "Entrega de informe"
+        ],
+        "idealFor": [
+          "Empresas que quieren ordenar su tecnología",
+          "PyMEs en crecimiento",
+          "Negocios con infraestructura ya montada"
+        ],
+        "benefits": [
+          "Mayor claridad",
+          "Mejor toma de decisiones",
+          "Priorización realista",
+          "Base para planificar mejoras"
+        ],
+        "results": [
+          "Panorama técnico más claro",
+          "Detección de riesgos",
+          "Hoja de acción inicial"
+        ]
+      },
+      "cards": [
+        {
+          "title": "Evaluación profesional",
+          "description": "Convertimos observaciones dispersas en un diagnóstico con criterio."
+        },
+        {
+          "title": "Riesgos priorizados",
+          "description": "No todo tiene la misma urgencia: te ayudamos a ver qué resolver primero."
+        },
+        {
+          "title": "Base para decidir",
+          "description": "La auditoría sirve para dejar de improvisar y empezar a ordenar."
+        }
+      ],
+      "relatedServices": [
+        "planificacion-tecnologica",
+        "analisis-de-gestion-it",
+        "politicas-de-seguridad"
+      ],
+      "contact": {
+        "title": "Solicitá una auditoría IT",
+        "description": "Podemos ayudarte a evaluar el estado actual de tu entorno tecnológico y detectar mejoras concretas."
+      }
+    },
+    {
+      "id": "planificacion-tecnologica",
+      "title": "Planificación tecnológica",
+      "slug": "planificacion-tecnologica",
+      "category": "consulting",
+      "shortDescription": "Definimos prioridades y una hoja de ruta tecnológica alineada con la realidad de tu empresa.",
+      "heroDescription": "Ordenamos decisiones tecnológicas para que la inversión acompañe al negocio y no al revés.",
+      "highlights": [
+        "Más orden",
+        "Mejor inversión",
+        "Crecimiento con criterio"
+      ],
+      "info": {
+        "intro": "La planificación tecnológica permite dejar atrás decisiones aisladas y empezar a construir con dirección.",
+        "includes": [
+          "Evaluación del escenario actual",
+          "Identificación de necesidades",
+          "Definición de prioridades",
+          "Hoja de ruta de mejoras",
+          "Recomendaciones por etapas"
+        ],
+        "problemsSolved": [
+          "Compras desordenadas",
+          "Crecimiento sin estructura",
+          "Gastos IT sin dirección",
+          "Tecnología que no acompaña al negocio"
+        ],
+        "process": [
+          "Diagnóstico inicial",
+          "Definición de objetivos",
+          "Priorización",
+          "Plan de acción"
+        ],
+        "idealFor": [
+          "Empresas en crecimiento",
+          "Negocios que quieren ordenar su evolución tecnológica",
+          "Organizaciones que necesitan invertir mejor"
+        ],
+        "benefits": [
+          "Más claridad",
+          "Mejor escalabilidad",
+          "Decisiones con criterio",
+          "Menos improvisación"
+        ],
+        "results": [
+          "Plan tecnológico más claro",
+          "Prioridades concretas",
+          "Mejor alineación con objetivos del negocio"
+        ]
+      },
+      "cards": [
+        {
+          "title": "Hoja de ruta",
+          "description": "Definimos un camino realista para mejorar tu entorno tecnológico."
+        },
+        {
+          "title": "Prioridades correctas",
+          "description": "Te ayudamos a diferenciar lo urgente, lo importante y lo postergable."
+        },
+        {
+          "title": "Inversión inteligente",
+          "description": "Ordenamos decisiones para que la tecnología sume valor real."
+        }
+      ],
+      "relatedServices": [
+        "auditorias-it",
+        "analisis-del-negocio",
+        "desarrollo-web"
+      ],
+      "contact": {
+        "title": "Solicitá planificación tecnológica",
+        "description": "Te ayudamos a ordenar decisiones IT con una mirada práctica y realista."
+      }
+    },
+    {
+      "id": "analisis-del-negocio",
+      "title": "Análisis del negocio",
+      "slug": "analisis-del-negocio",
+      "category": "consulting",
+      "shortDescription": "Analizamos procesos y necesidades para detectar oportunidades de mejora desde la tecnología.",
+      "heroDescription": "Entendemos cómo funciona tu negocio para encontrar puntos de mejora con impacto real.",
+      "highlights": [
+        "Visión operativa",
+        "Mejoras concretas",
+        "Tecnología aplicada"
+      ],
+      "info": {
+        "intro": "No se trata solo de tecnología: se trata de cómo la tecnología ayuda a que el negocio funcione mejor.",
+        "includes": [
+          "Revisión del flujo de trabajo",
+          "Identificación de necesidades",
+          "Detección de puntos débiles",
+          "Oportunidades de mejora",
+          "Propuesta de acciones"
+        ],
+        "problemsSolved": [
+          "Procesos desordenados",
+          "Tareas manuales innecesarias",
+          "Falta de integración",
+          "Tecnología mal aplicada"
+        ],
+        "process": [
+          "Relevamiento del negocio",
+          "Análisis de procesos",
+          "Detección de oportunidades",
+          "Propuesta de mejora"
+        ],
+        "idealFor": [
+          "Empresas con procesos manuales",
+          "Negocios que crecieron sin ordenar su operación",
+          "Equipos que quieren ser más eficientes"
+        ],
+        "benefits": [
+          "Más eficiencia",
+          "Más claridad operativa",
+          "Mejor uso de la tecnología",
+          "Base para crecer mejor"
+        ],
+        "results": [
+          "Procesos más claros",
+          "Oportunidades de mejora detectadas",
+          "Mejor alineación entre negocio y tecnología"
+        ]
+      },
+      "cards": [
+        {
+          "title": "Entendemos tu operación",
+          "description": "Analizamos cómo funciona tu negocio antes de proponer tecnología."
+        },
+        {
+          "title": "Detectamos mejoras",
+          "description": "Buscamos puntos de fricción, repetición o desorden con impacto real."
+        },
+        {
+          "title": "Propuestas aplicables",
+          "description": "No planteamos teoría vacía, sino mejoras con criterio práctico."
+        }
+      ],
+      "relatedServices": [
+        "analisis-de-gestion-it",
+        "planificacion-tecnologica",
+        "desarrollo-web"
+      ],
+      "contact": {
+        "title": "Solicitá un análisis de tu negocio",
+        "description": "Podemos ayudarte a detectar mejoras operativas y oportunidades reales desde la tecnología."
+      }
+    },
+    {
+      "id": "analisis-de-gestion-it",
+      "title": "Análisis de gestión IT",
+      "slug": "analisis-de-gestion-it",
+      "category": "consulting",
+      "shortDescription": "Revisamos cómo se administra la tecnología dentro de tu empresa para detectar desorden y oportunidades de mejora.",
+      "heroDescription": "Evaluamos la gestión tecnológica para ordenar decisiones, recursos y procesos internos.",
+      "highlights": [
+        "Más orden",
+        "Más control",
+        "Gestión más clara"
+      ],
+      "info": {
+        "intro": "La gestión IT también necesita estructura. Analizamos cómo se toman decisiones y cómo se organiza la tecnología en la empresa.",
+        "includes": [
+          "Revisión organizativa",
+          "Evaluación de procesos IT",
+          "Detección de debilidades de gestión",
+          "Recomendaciones prácticas",
+          "Ordenamiento de prioridades"
+        ],
+        "problemsSolved": [
+          "Gestión improvisada",
+          "Falta de criterios",
+          "Sobrecarga operativa",
+          "Baja eficiencia tecnológica"
+        ],
+        "process": [
+          "Análisis de funcionamiento actual",
+          "Detección de desorden y debilidades",
+          "Recomendaciones",
+          "Definición de mejoras"
+        ],
+        "idealFor": [
+          "Empresas con crecimiento desordenado",
+          "Equipos con problemas de coordinación IT",
+          "Negocios que quieren profesionalizar su gestión tecnológica"
+        ],
+        "benefits": [
+          "Más orden interno",
+          "Mayor control",
+          "Decisiones más consistentes",
+          "Mejor uso de recursos"
+        ],
+        "results": [
+          "Gestión más clara",
+          "Procesos tecnológicos más ordenados",
+          "Mejor base de funcionamiento"
+        ]
+      },
+      "cards": [
+        {
+          "title": "Orden de gestión",
+          "description": "Ayudamos a estructurar mejor la manera en que se administra la tecnología."
+        },
+        {
+          "title": "Criterio operativo",
+          "description": "Detectamos decisiones repetidas, difusas o mal distribuidas."
+        },
+        {
+          "title": "Mejora organizativa",
+          "description": "Buscamos que la tecnología acompañe mejor el día a día de la empresa."
+        }
+      ],
+      "relatedServices": [
+        "auditorias-it",
+        "analisis-del-negocio",
+        "planificacion-tecnologica"
+      ],
+      "contact": {
+        "title": "Solicitá un análisis de gestión IT",
+        "description": "Podemos ayudarte a ordenar la manera en que tu empresa administra su entorno tecnológico."
+      }
+    },
+    {
+      "id": "desarrollo-web",
+      "title": "Desarrollo web",
+      "slug": "desarrollo-web",
+      "category": "development",
+      "shortDescription": "Diseñamos y desarrollamos soluciones web orientadas a presencia digital, captación y mejora operativa.",
+      "heroDescription": "Creamos sitios, landings o soluciones web adaptadas a los objetivos reales de tu negocio.",
+      "highlights": [
+        "Soluciones a medida",
+        "Presencia profesional",
+        "Enfoque funcional"
+      ],
+      "info": {
+        "intro": "Desarrollamos soluciones web pensadas para comunicar mejor, captar oportunidades y acompañar procesos del negocio.",
+        "includes": [
+          "Relevamiento de objetivos",
+          "Definición de estructura",
+          "Diseño funcional",
+          "Desarrollo",
+          "Puesta en marcha"
+        ],
+        "problemsSolved": [
+          "Falta de presencia digital",
+          "Sitios desactualizados",
+          "Procesos que podrían digitalizarse",
+          "Mala experiencia del usuario"
+        ],
+        "process": [
+          "Relevamiento",
+          "Propuesta funcional",
+          "Diseño y desarrollo",
+          "Implementación"
+        ],
+        "idealFor": [
+          "Empresas que necesitan una web profesional",
+          "Negocios que quieren mejorar su presencia digital",
+          "Organizaciones que necesitan soluciones específicas"
+        ],
+        "benefits": [
+          "Mejor imagen profesional",
+          "Mayor capacidad de captación",
+          "Mejor experiencia del usuario",
+          "Herramientas alineadas al negocio"
+        ],
+        "results": [
+          "Mayor presencia digital",
+          "Comunicación más clara",
+          "Solución web adaptada a objetivos concretos"
+        ]
+      },
+      "cards": [
+        {
+          "title": "Diseño con objetivo",
+          "description": "No hacemos solo una web linda: hacemos una herramienta útil."
+        },
+        {
+          "title": "Desarrollo a medida",
+          "description": "Adaptamos la solución a la realidad y necesidades del negocio."
+        },
+        {
+          "title": "Enfoque funcional",
+          "description": "Cada decisión busca claridad, conversión y valor práctico."
+        }
+      ],
+      "relatedServices": [
+        "analisis-del-negocio",
+        "planificacion-tecnologica",
+        "auditorias-it"
+      ],
+      "contact": {
+        "title": "Solicitá una solución web",
+        "description": "Contanos qué necesitás y te ayudamos a convertirlo en una solución digital concreta."
+      }
+    }
+  ]
+}

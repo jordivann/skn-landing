@@ -29,22 +29,21 @@ export const metadata: Metadata = {
   },
 };
 
-
 const themeInitScript = `
 (() => {
   try {
     const stored = localStorage.getItem("skn_theme");
-    const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const theme = stored || (prefersDark ? "dark" : "light");
+    const theme = stored === "dark" ? "dark" : "light";
     document.documentElement.dataset.theme = theme;
-  } catch (e) {}
+  } catch (e) {
+    document.documentElement.dataset.theme = "light";
+  }
 })();
 `;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" suppressHydrationWarning>
-      
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
