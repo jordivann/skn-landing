@@ -1,30 +1,90 @@
 /* About.module.css */
-:root{
-  /* default (si no seteaste data-theme, igual queda bien) */
+:root {
   --brandmark-stroke: color-mix(in srgb, var(--fg) 92%, transparent);
   --brandmark-glow: color-mix(in srgb, var(--primary) 55%, transparent);
 }
 
-/* Tema oscuro */
-:root[data-theme="dark"]{
+:root[data-theme="dark"] {
   --brandmark-stroke: color-mix(in srgb, var(--fg) 92%, transparent);
   --brandmark-glow: color-mix(in srgb, var(--primary2) 62%, transparent);
+
+  --about-overlay: linear-gradient(
+    105deg,
+    rgba(255, 255, 255, 0.50) 15%,
+    rgba(255, 230, 230, 0.10) 36%,
+    rgba(8, 10, 16, 0.70) 60%,
+    rgba(8, 10, 16, 0.12) 100%
+  );
+  --about-vignette: radial-gradient(
+    ellipse 130% 110% at 50% 50%,
+    transparent 50%,
+    rgba(4, 5, 12, 0.60) 100%
+  );
 }
 
-/* Tema claro */
-:root[data-theme="light"]{
+:root[data-theme="light"] {
   --brandmark-stroke: color-mix(in srgb, var(--fg) 92%, transparent);
   --brandmark-glow: color-mix(in srgb, var(--primary) 48%, transparent);
+
+  /* Mucho más opaco en las zonas con contenido */
+  --about-overlay: linear-gradient(
+    105deg,
+    rgba(8, 10, 16, 0.90) 0%,
+    rgba(8, 10, 16, 0.70) 36%,
+    rgba(8, 10, 16, 0.60) 60%,
+    rgba(8, 10, 16, 0.12) 100%
+  );
+  --about-vignette: radial-gradient(
+    ellipse 130% 110% at 50% 50%,
+    transparent 45%,
+    rgba(185, 195, 210, 0.50) 100%
+  );
 }
-.aboutSurface{
-  /* superficie minimal, sin “tarjeta pesada” */
-  border-radius: 22px;
-  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  background: color-mix(in srgb, var(--card) 82%, transparent);
+
+/* ===== Wrapper ===== */
+.wrapper {
+  position: relative;
   overflow: hidden;
+  isolation: isolate;
 }
-.aboutSurface{
-  /* ✅ sin card look */
+
+/* ===== Parallax ===== */
+.parallaxOuter {
+  position: absolute;
+  inset: -90px 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.parallaxInner {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  will-change: transform;
+  /* Reduce saturación para que texto y logo resalten */
+  filter: saturate(0.65) brightness(0.97);
+}
+
+/* Overlay direccional (degradé) */
+.parallaxOverlay {
+  position: absolute;
+  inset: 0;
+  background: var(--about-overlay);
+}
+
+/* Viñeta encima para enmarcar */
+.parallaxVignette {
+  position: absolute;
+  inset: 0;
+  background: var(--about-vignette);
+}
+
+/* ===== Section surface ===== */
+.aboutSurface {
+  position: relative;
+  z-index: 1;
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
@@ -33,102 +93,125 @@
   padding: 0 !important;
 }
 
-/* 2 columnas: marca / texto */
-.layout{
+/* ===== Layout 2 columnas ===== */
+.layout {
   display: grid;
   grid-template-columns: minmax(260px, 360px) 1fr;
   align-items: stretch;
 }
 
-/* ===== Brand Pane (limpio, centrado) ===== */
-.brandPane{
+/* ===== Brand Pane ===== */
+.brandPane {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  padding: 28px 22px;
-  border-right: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
-
-  /* IMPORTANTÍSIMO: nada de caja */
+  padding: 36px 28px;
+  border-right: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
   background: transparent;
 }
 
-.brandInner{
+.brandInner {
   width: 100%;
   display: grid;
   place-items: center;
-  gap: 14px;
+  gap: 18px;
 }
 
-.brandRule{
+.brandRule {
   width: min(320px, 90%);
   height: 1px;
   background: linear-gradient(
     90deg,
     transparent,
-    color-mix(in srgb, var(--border) 85%, transparent),
+    color-mix(in srgb, var(--border) 75%, transparent),
     transparent
   );
-  opacity: .9;
-}
-
-/* El BrandMark: sin fondo, centrado, grande en desktop */
-.brandMark{
-  display: grid;
-  place-items: center;
-
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-
-  opacity: .95;
-  filter: drop-shadow(0 10px 26px rgba(0,0,0,.22));
-}
-
-/* Forzamos tamaño visual del SVG */
-.brandMark :global(svg){
-  width: min(420px, 100%);
-  height: auto;
+  opacity: 0.85;
 }
 
 /* ===== Copy ===== */
-.copy{
-  padding: 28px 28px;
+.copy {
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.lead{
+
+.lead {
   margin: 0;
-  font-size: 15px;
-  line-height: 1.75;
-  color: color-mix(in srgb, --var(fg) 92%, transparent);
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: var(--fg);
 }
 
-.p{
-  margin: 14px 0 0;
-  font-size: 14px;
-  line-height: 1.75;
-  color: var(--muted);
+.lead strong {
+  color: var(--primary, currentColor);
+}
+
+/* Sombras de texto para garantizar legibilidad en ambos temas */
+:root[data-theme="light"] .lead {
+  color: #fff;
+  /* text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9),
+    0 0 12px rgba(255, 255, 255, 0.6); */
+}
+:root[data-theme="light"] .p {
+  color: #fff;
+  /* text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.8),
+    0 0 8px rgba(255, 255, 255, 0.5); */
+}
+:root[data-theme="dark"] .lead {
+  text-shadow:
+    0 1px 8px rgba(0, 0, 0, 0.6),
+    0 2px 20px rgba(0, 0, 0, 0.35);
+}
+:root[data-theme="dark"] .p {
+  text-shadow:
+    0 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+.p {
+  margin: 16px 0 0;
+  font-size: 14.5px;
+  line-height: 1.8;
+  /* color: var(--muted); */
+}
+
+.p strong {
+  color: color-mix(in srgb, var(--fg) 88%, transparent);
 }
 
 /* ===== Mobile ===== */
-@media (max-width: 980px){
-  .layout{
+@media (max-width: 980px) {
+  .parallaxOuter {
+    inset: -60px 0;
+  }
+
+  .layout {
     grid-template-columns: 1fr;
   }
 
-  .brandPane{
+  .brandPane {
     border-right: 0;
-    border-bottom: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
-    padding: 18px 16px;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+    padding: 24px 20px;
   }
 
-  /* en mobile mantenemos más contenido (lo que pediste) */
-  .brandMark :global(svg){
-    width: min(260px, 92%);
+  .copy {
+    padding: 24px 20px 28px;
   }
+}
 
-  .copy{
-    padding: 18px 16px 20px;
+@media (prefers-reduced-motion: reduce) {
+  .parallaxInner {
+    transform: none !important;
+    will-change: auto;
   }
+}
+
+
+.p,.p strong {
+  color:#fff !important;
 }
