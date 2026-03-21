@@ -1,3 +1,24 @@
+/* Carousel: glassmorphism oscuro fijo dentro del hero en light */
+:global(:root[data-theme="light"]) .navBtn{
+  background: rgba(0,0,0,.42);
+  border-color: rgba(255,255,255,.22);
+  color: #fff;
+}
+
+:global(:root[data-theme="light"]) .step{
+  background: rgba(0,0,0,.38);
+  border-color: rgba(255,255,255,.18);
+  color: rgba(255,255,255,.80);
+}
+
+:global(:root[data-theme="light"]) .stepActive{
+  border-color: transparent;
+  color: rgba(0,0,0,.86);
+}
+
+:global(:root[data-theme="light"]) .hint{
+  color: rgba(255,255,255,.52);
+}
 .wrap{
   display:flex;
   flex-direction:column;
