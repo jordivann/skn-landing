@@ -1,12 +1,27 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styles from "./Hero.module.css";
 import HeroCarousel from "./HeroCarousel";
 import { site } from "../lib/site";
 import LogoMark from "./LogoMark";
+import { useTheme } from "../hooks/useTheme";
 
 export type SlideTone = "violet" | "cyan" | "green" | "neutral";
+
+type SlideBase = {
+  id: "intro" | "security" | "services" | "why" | "contact";
+  image: {
+    light: string;
+    dark: string;
+  };
+  alt: string;
+  kicker?: string;
+  title: string;
+  description: string;
+  tone?: SlideTone;
+  cta: { label: string; href: string };
+};
 
 export type Slide = {
   id: "intro" | "security" | "services" | "why" | "contact";
@@ -20,22 +35,37 @@ export type Slide = {
 };
 
 export default function Hero() {
-  const slides: Slide[] = useMemo(
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const [index, setIndex] = useState(0);
+  const autoplayMs = 5200;
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const slidesBase: SlideBase[] = useMemo(
     () => [
       {
         id: "intro",
-        src: "/hero-1.jpg",
+        image: {
+          dark: "/hero-alter-dark-1.jpg",
+          light: "/hero-alter-1.jpg",
+        },
         alt: "SKN IT",
         kicker: "Telecomunicaciones e informática",
         title: "Soluciones tecnológicas a tu alcance",
         description:
           "Soporte IT, redes y seguridad para que tu operación sea estable, rápida y ordenada. Diagnóstico claro, plan concreto y ejecución prolija.",
         tone: "neutral",
-        cta: { label: "Contactános", href: site.contact.whatsapp },
+        cta: { label: "Contactanos", href: site.contact.whatsapp },
       },
       {
         id: "security",
-        src: "/hero-2.webp",
+        image: {
+          dark: "/hero-alter-security-dark-1.jpg",
+          light: "/hero-alter-security-2.jpg",
+        },
         alt: "Seguridad informática y protección de datos",
         kicker: "Seguridad",
         title: "Cuidamos la seguridad de tu empresa",
@@ -46,7 +76,10 @@ export default function Hero() {
       },
       {
         id: "services",
-        src: "/hero-3.jpg",
+        image: {
+          dark: "/hero-alter-dark-2.jpg",
+          light: "/hero-alter-light-hard1.jpg",
+        },
         alt: "Consultoría e implementación IT",
         kicker: "Consultoría",
         title: "Software, hardware y redes sin improvisación",
@@ -57,18 +90,24 @@ export default function Hero() {
       },
       {
         id: "why",
-        src: "/hero-4.jpg",
+        image: {
+          dark: "/hero-alter-dark-3.jpg",
+          light: "/hero-alter-light-5.jpg",
+        },
         alt: "Equipo trabajando en tecnología",
         kicker: "Por qué SKN",
         title: "Orden, trazabilidad y respuesta rápida",
         description:
-          "Metodología, checklist y comunicación clara. Resolver bien, documentar, y dejarte una base sólida para crecer.",
+          "Metodología, checklist y comunicación clara. Resolver bien, documentar y dejarte una base sólida para crecer.",
         tone: "green",
         cta: { label: "Conocer el proceso", href: "#process" },
       },
       {
         id: "contact",
-        src: "/hero-5.jpg",
+        image: {
+          dark: "/hero-2.jpg",
+          light: "/hero-redes-1.jpg",
+        },
         alt: "Contacto y soporte",
         kicker: "Contacto",
         title: "Hablemos. Te respondemos con claridad",
@@ -81,21 +120,35 @@ export default function Hero() {
     []
   );
 
-  const [index, setIndex] = useState(0);
-  const active = slides[index];
-  const autoplayMs = 5200;
+  const resolvedTheme = mounted ? theme : "dark";
+
+  const slides: Slide[] = useMemo(() => {
+    return slidesBase.map((slide) => ({
+      id: slide.id,
+      src: resolvedTheme === "dark" ? slide.image.dark : slide.image.light,
+      alt: slide.alt,
+      kicker: slide.kicker,
+      title: slide.title,
+      description: slide.description,
+      tone: slide.tone,
+      cta: slide.cta,
+    }));
+  }, [slidesBase, resolvedTheme]);
+
+  const safeIndex = index >= 0 && index < slides.length ? index : 0;
+  const active = slides[safeIndex];
 
   return (
     <section
       className={`${styles.hero} ${styles.containerBrand}`}
       aria-labelledby="hero-title"
       data-tone={active.tone ?? "neutral"}
-      style={{ ["--heroAutoplayMs" as any]: `${autoplayMs}ms` }}
+      data-theme={resolvedTheme}
+      style={{ "--heroAutoplayMs": `${autoplayMs}ms` } as React.CSSProperties}
     >
-      {/* Imagen protagonista */}
       <div className={styles.mediaBg} aria-hidden="true">
         <img
-          key={active.src}
+          key={`${resolvedTheme}-${active.id}-${active.src}`}
           src={active.src}
           alt=""
           className={styles.bgImg}
@@ -110,7 +163,6 @@ export default function Hero() {
         <LogoMark size="md" variant="trace" />
       </div>
 
-      {/* Overlays */}
       <div className={styles.overlay} aria-hidden="true" />
       <div className={styles.gridFx} aria-hidden="true" />
       <div className={styles.noise} aria-hidden="true" />
@@ -147,7 +199,7 @@ export default function Hero() {
             <div className={styles.carouselDock}>
               <HeroCarousel
                 slides={slides}
-                index={index}
+                index={safeIndex}
                 onIndexChange={setIndex}
                 autoplayMs={autoplayMs}
               />
@@ -157,11 +209,13 @@ export default function Hero() {
           <div className={styles.spacer} aria-hidden="true" />
         </div>
       </div>
-      {/* Progress global del hero */}
-        <div className={styles.heroProgress} aria-hidden="true">
-          <span key={index} className={styles.heroProgressFill} />
-        </div>
 
+      <div className={styles.heroProgress} aria-hidden="true">
+        <span
+          key={`${resolvedTheme}-${safeIndex}`}
+          className={styles.heroProgressFill}
+        />
+      </div>
     </section>
   );
 }

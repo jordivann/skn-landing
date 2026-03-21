@@ -243,31 +243,63 @@
 .hero[data-paused="1"] .heroProgressFill{ animation-play-state: paused; }
 
 @keyframes heroLoad{ to{ transform: scaleX(1); } }
-
 /* ===== Tema claro ===== */
+/*
+ * Mantenemos el overlay OSCURO en light para preservar el impacto
+ * de la imagen y garantizar legibilidad del texto blanco.
+ */
 :global(:root[data-theme="light"]) .overlay{
-  --toneA: rgba(40, 120, 255, .10);
-  --toneB: rgba(110, 60, 255, .08);
+  --toneA: rgba(90, 120, 255, .20);
+  --toneB: rgba(30, 220, 255, .12);
 
   background:
     linear-gradient(90deg,
-      rgba(255,255,255,.92) 0%,
-      rgba(255,255,255,.72) 38%,
-      rgba(255,255,255,.26) 78%,
-      rgba(255,255,255,.12) 100%
+      rgba(0,0,0,.82) 0%,
+      rgba(0,0,0,.62) 44%,
+      rgba(0,0,0,.24) 76%,
+      rgba(0,0,0,.10) 100%
     ),
     radial-gradient(980px 520px at 24% 30%, var(--toneA), transparent 60%),
     radial-gradient(900px 520px at 70% 46%, var(--toneB), transparent 64%);
 }
 
-:global(:root[data-theme="light"]) .bgImg{ filter: saturate(1.08) contrast(1.08) brightness(1.02); }
-:global(:root[data-theme="light"]) .gridFx{ opacity: .06; background-image:
-  linear-gradient(to right, rgba(0,0,0,.10) 1px, transparent 1px),
-  linear-gradient(to bottom, rgba(0,0,0,.08) 1px, transparent 1px);
-}
-:global(:root[data-theme="light"]) .noise{ opacity: .02; }
-:global(:root[data-theme="light"]) .chip{ background: rgba(0,0,0,.03); border: 1px solid rgba(0,0,0,.08); }
+/* Tones por data-tone en light */
+:global(:root[data-theme="light"]) .hero[data-tone="violet"] .overlay{ --toneA: rgba(140, 90, 255, .22); --toneB: rgba(80, 160, 255, .12); }
+:global(:root[data-theme="light"]) .hero[data-tone="cyan"]   .overlay{ --toneA: rgba(40, 220, 255, .22); --toneB: rgba(90, 120, 255, .10); }
+:global(:root[data-theme="light"]) .hero[data-tone="green"]  .overlay{ --toneA: rgba(60, 255, 190, .20); --toneB: rgba(90, 120, 255, .10); }
 
+/* Imagen: más saturación para aguantar el overlay */
+:global(:root[data-theme="light"]) .bgImg{
+  filter: saturate(1.12) contrast(1.10) brightness(.96);
+}
+
+/* Grid: sigue siendo blanco (el overlay es oscuro) */
+:global(:root[data-theme="light"]) .gridFx{
+  opacity: .07;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.08) 1px, transparent 1px);
+}
+
+:global(:root[data-theme="light"]) .noise{ opacity: .025; }
+
+/* Texto: forzar blanco — --fg y --muted en light son colores oscuros */
+:global(:root[data-theme="light"]) .kicker { color: rgba(255,255,255,.72); }
+:global(:root[data-theme="light"]) .h1      { color: #fff; }
+:global(:root[data-theme="light"]) .lead    { color: rgba(255,255,255,.82); }
+:global(:root[data-theme="light"]) .ctaLink { color: rgba(255,255,255,.80); }
+
+/* Chips: glassmorphism oscuro fijo, sin depender de --card */
+:global(:root[data-theme="light"]) .chip{
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.16);
+  color: rgba(255,255,255,.82);
+}
+
+/* Progress track */
+:global(:root[data-theme="light"]) .heroProgress{
+  background: rgba(255,255,255,.18);
+}
 /* ===== Responsive ===== */
 @media (max-width: 980px){
   .inner{ grid-template-columns: 1fr; gap: 18px; }
@@ -337,4 +369,11 @@
     -webkit-line-clamp: 4;
     min-height: calc(1.7em * 4);
   }
+}
+.hero[data-theme="light"] .overlay{
+  opacity: .55;
+}
+
+.hero[data-theme="dark"] .overlay{
+  opacity: .82;
 }
