@@ -20,17 +20,25 @@ export default function ServicesPage() {
         <div className={styles.container}>
           <span className={styles.eyebrow}>Servicios IT</span>
           <h1 className={styles.title}>
-            Soluciones tecnológicas claras, prácticas y escalables
+            Soluciones tecnológicas{" "}
+            <em className={styles.titleItalic}>claras, prácticas</em>{" "}
+            y escalables
           </h1>
           <p className={styles.subtitle}>
-            Organizamos nuestros servicios en áreas pensadas para que cada empresa
-            encuentre rápidamente lo que necesita: soporte, seguridad,
+            Organizamos nuestros servicios en áreas pensadas para que cada
+            empresa encuentre rápidamente lo que necesita: soporte, seguridad,
             consultoría y desarrollo.
           </p>
-
-          <div className={styles.highlights}>
-            <span className={styles.badge}>+{services.length} servicios</span>
-            <span className={styles.badge}>{categories.length} áreas</span>
+          <div className={styles.stats}>
+            <div className={styles.stat}>
+              <span className={styles.statNum}>+{services.length}</span>
+              <span className={styles.statLabel}>Servicios</span>
+            </div>
+            <div className={styles.statDivider} />
+            <div className={styles.stat}>
+              <span className={styles.statNum}>{categories.length}</span>
+              <span className={styles.statLabel}>Áreas</span>
+            </div>
           </div>
         </div>
       </section>
@@ -42,16 +50,25 @@ export default function ServicesPage() {
             if (!categoryServices.length) return null;
 
             return (
-              <div key={category.id} id={category.id} className={styles.categoryBlock}>
+              <div
+                key={category.id}
+                id={category.id}
+                className={styles.categoryBlock}
+              >
                 <div className={styles.categoryHeader}>
-                  <span className={styles.categoryKicker}>
-                    0{index + 1} — {categoryServices.length}{" "}
+                  <span className={styles.categoryIndex}>
+                    0{index + 1}
+                  </span>
+                  <div className={styles.categoryInfo}>
+                    <h2 className={styles.categoryTitle}>{category.title}</h2>
+                    <p className={styles.categoryDescription}>
+                      {category.description}
+                    </p>
+                  </div>
+                  <span className={styles.categoryCount}>
+                    {categoryServices.length}{" "}
                     {categoryServices.length === 1 ? "servicio" : "servicios"}
                   </span>
-                  <h2 className={styles.categoryTitle}>{category.title}</h2>
-                  <p className={styles.categoryDescription}>
-                    {category.description}
-                  </p>
                 </div>
 
                 <div className={styles.grid}>
@@ -62,22 +79,21 @@ export default function ServicesPage() {
                         <p className={styles.cardText}>
                           {service.shortDescription}
                         </p>
-
-                        <div className={styles.highlights}>
+                        <div className={styles.tags}>
                           {service.highlights.slice(0, 3).map((item) => (
-                            <span key={item} className={styles.badge}>
+                            <span key={item} className={styles.tag}>
                               {item}
                             </span>
                           ))}
                         </div>
                       </div>
-
                       <div className={styles.cardFooter}>
                         <Link
                           href={`/servicios/${service.slug}`}
                           className={styles.linkBtn}
                         >
-                          Ver servicio
+                          Ver servicio{" "}
+                          <span className={styles.linkArrow}>↗</span>
                         </Link>
                       </div>
                     </article>

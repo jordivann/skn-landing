@@ -11,6 +11,27 @@
   z-index: 40;
   width: 100%;
 }
+@media (max-width: 860px) {
+  .nav {
+    justify-content: flex-end;
+    align-items: right;
+  }
+
+  .links {
+    display: none;
+  }
+
+  .actions {
+    display: none;
+  }
+
+  .burger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+  }
+}
 
 /* =========================
    DESKTOP LINKS / ACTIONS

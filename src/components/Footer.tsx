@@ -13,8 +13,8 @@ export default function Footer() {
         </div>
 
         <div className={styles.links}>
-          <a href="/legal/privacy">Privacidad</a>
-          <a href="/legal/terms">Términos</a>
+          <a href="/legal/privacy" target="_blank">Privacidad</a>
+          <a href="/legal/terms" target="_blank">Términos</a>
         </div>
 
         <small className={styles.small}>
