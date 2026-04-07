@@ -26,7 +26,7 @@ function applyTheme(next: Theme) {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("light");
+  const [theme, setThemeState] = useState<Theme>("dark");
 
   useEffect(() => {
     try {
@@ -36,8 +36,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       setThemeState(initialTheme);
       applyTheme(initialTheme);
     } catch {
-      setThemeState("light");
-      applyTheme("light");
+      setThemeState("dark");
+      applyTheme("dark");
     }
   }, []);
 
@@ -51,7 +51,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   };
 
   const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   const value = useMemo(
