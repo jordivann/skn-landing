@@ -1,74 +1,221 @@
-/* Carousel: glassmorphism oscuro fijo dentro del hero en light */
-:global(:root[data-theme="light"]) .navBtn{
-  background: rgba(0,0,0,.42);
-  border-color: rgba(255,255,255,.22);
-  color: #fff;
+/* =============================================================
+   HERO CAROUSEL — CSS Modules
+   Glassmorphism oscuro fijo: legible sobre imagen oscurecida
+   tanto en dark como en light (el overlay del Hero garantiza fondo oscuro).
+   ============================================================= */
+
+/* ===== WRAPPER ===== */
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  outline: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 
-:global(:root[data-theme="light"]) .step{
-  background: rgba(0,0,0,.38);
-  border-color: rgba(255,255,255,.18);
-  color: rgba(255,255,255,.80);
+/* ===== FILA PRINCIPAL ===== */
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-:global(:root[data-theme="light"]) .stepActive{
+/* ===== BOTONES ANTERIOR / SIGUIENTE ===== */
+.navBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  flex-shrink: 0;
+
+  border: 1px solid rgba(255, 255, 255, .15);
+  background: rgba(0, 0, 0, .30);
+  color: rgba(255, 255, 255, .86);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+
+  transition:
+    transform    0.12s cubic-bezier(0.22, 1, 0.36, 1),
+    background   0.12s ease,
+    border-color 0.12s ease;
+}
+
+.navBtn:hover {
+  transform: translateY(-1px);
+  background: rgba(0, 0, 0, .46);
+  border-color: rgba(255, 255, 255, .25);
+}
+
+.navBtn:active { transform: translateY(0); }
+
+/* ===== STEPS ===== */
+.steps {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 999px;
+
+  border: 1px solid rgba(255, 255, 255, .13);
+  background: rgba(0, 0, 0, .26);
+  color: rgba(255, 255, 255, .55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+
+  transition:
+    transform    0.12s cubic-bezier(0.22, 1, 0.36, 1),
+    background   0.12s ease,
+    border-color 0.12s ease,
+    color        0.12s ease;
+}
+
+.step:hover {
+  transform: translateY(-1px);
+  background: rgba(0, 0, 0, .40);
+  border-color: rgba(255, 255, 255, .22);
+  color: rgba(255, 255, 255, .88);
+}
+
+.step:active { transform: translateY(0); }
+
+/* Step activo — acento naranja */
+.stepActive {
+  background: linear-gradient(135deg, #FBBC6A 0%, #F28C28 55%, #E0720E 100%);
   border-color: transparent;
-  color: rgba(0,0,0,.86);
+  color: #2d1400;
+  box-shadow: 0 2px 10px rgba(242, 140, 40, .32);
 }
 
-:global(:root[data-theme="light"]) .hint{
-  color: rgba(255,255,255,.52);
-}
-.wrap{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  outline:none;
-  padding:0;
-  border:0;
-  background:transparent;
+.stepActive:hover {
+  background: linear-gradient(135deg, #FBBC6A 0%, #F28C28 55%, #E0720E 100%);
+  border-color: transparent;
+  color: #2d1400;
 }
 
-.row{display:flex;align-items:center;gap:10px}
-
-.navBtn{
-  width:36px;height:36px;border-radius:999px;
-  border:1px solid color-mix(in srgb,var(--border) 82%,transparent);
-  background:color-mix(in srgb,var(--card) 62%,transparent);
-  color:var(--fg);
-  backdrop-filter:blur(10px);
-  cursor:pointer;
-  font-size:22px;line-height:1;
-  opacity:.92;
-  transition:transform .12s ease, opacity .12s ease, border-color .12s ease;
+/* ===== BADGE "01 / 05" ===== */
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  color: rgba(255, 255, 255, .38);
+  white-space: nowrap;
+  margin-left: 4px;
+  font-variant-numeric: tabular-nums;
 }
 
-.navBtn:hover{transform:translateY(-1px);opacity:1;border-color:color-mix(in srgb,var(--border) 100%,transparent)}
-
-.steps{display:flex;align-items:center;gap:8px}
-
-.step{
-  min-width:34px;height:34px;padding:0 10px;border-radius:999px;
-  border:1px solid color-mix(in srgb,var(--border) 78%,transparent);
-  background:color-mix(in srgb,var(--card) 56%,transparent);
-  color:color-mix(in srgb,var(--fg) 78%,transparent);
-  font-size:12px;font-weight:800;letter-spacing:.12em;
-  cursor:pointer;opacity:.88;
-  backdrop-filter:blur(10px);
-  transition:transform .12s ease, opacity .12s ease, border-color .12s ease;
+/* ===== ESTADO AUTOPLAY / PAUSA ===== */
+.hint {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .32);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  user-select: none;
+  cursor: default;
+  margin: 0;
 }
 
-.step:hover{transform:translateY(-1px);opacity:1;border-color:color-mix(in srgb,var(--border) 100%,transparent)}
-
-.stepActive{
-  opacity:1;
-  border-color:transparent;
-  background:linear-gradient(135deg,
-    color-mix(in srgb,var(--primary) 72%,transparent),
-    color-mix(in srgb,var(--primary2) 72%,transparent)
-  );
-  color:rgba(0,0,0,.86);
+/* Punto de estado: pulsa cuando corre, estático cuando pausa */
+.hint::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(242, 140, 40, .60);
+  flex-shrink: 0;
+  animation: hintPulse 1.8s ease infinite;
 }
 
-@media (max-width:560px){.navBtn{width:34px;height:34px}}
-@media (prefers-reduced-motion:reduce){.navBtn,.step{transition:none}}
+.wrap[data-paused="1"] .hint::before {
+  animation: none;
+  background: rgba(255, 255, 255, .22);
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 1;    transform: scale(1);    }
+  50%       { opacity: 0.22; transform: scale(0.75); }
+}
+
+/* ===== LIGHT MODE ===== */
+/* El overlay del Hero es oscuro en light también — misma estrategia oscura */
+:global(:root[data-theme="light"]) .navBtn {
+  background: rgba(0, 0, 0, .38);
+  border-color: rgba(255, 255, 255, .20);
+  color: rgba(255, 255, 255, .90);
+}
+
+:global(:root[data-theme="light"]) .navBtn:hover {
+  background: rgba(0, 0, 0, .52);
+  border-color: rgba(255, 255, 255, .28);
+}
+
+:global(:root[data-theme="light"]) .step {
+  background: rgba(0, 0, 0, .34);
+  border-color: rgba(255, 255, 255, .16);
+  color: rgba(255, 255, 255, .60);
+}
+
+:global(:root[data-theme="light"]) .step:hover {
+  background: rgba(0, 0, 0, .48);
+  border-color: rgba(255, 255, 255, .26);
+  color: rgba(255, 255, 255, .90);
+}
+
+:global(:root[data-theme="light"]) .stepActive {
+  color: #2d1400;
+  border-color: transparent;
+}
+
+:global(:root[data-theme="light"]) .badge { color: rgba(255, 255, 255, .42); }
+:global(:root[data-theme="light"]) .hint  { color: rgba(255, 255, 255, .36); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 560px) {
+  .navBtn {
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+  }
+
+  .step {
+    min-width: 34px;
+    height: 34px;
+  }
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  .navBtn,
+  .step {
+    transition: none;
+  }
+
+  .hint::before {
+    animation: none;
+  }
+}
