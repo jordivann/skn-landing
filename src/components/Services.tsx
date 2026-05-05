@@ -17,7 +17,7 @@ export default function Services() {
 
     const card = rail.querySelector(`.${styles.card}`) as HTMLElement | null;
     const cardWidth = card?.offsetWidth ?? 320;
-    const gap = 16;
+    const gap = 14;
     const amount = cardWidth + gap;
 
     rail.scrollBy({
@@ -42,7 +42,11 @@ export default function Services() {
           ←
         </button>
 
-        <div ref={railRef} className={styles.carouselWrap}>
+        <div
+          ref={railRef}
+          className={styles.carouselWrap}
+          aria-label="Servicios — desplazá horizontalmente para ver más"
+        >
           <div className={styles.grid}>
             {PILLARS.map((p) => (
               <article key={p.id} className={styles.card}>
@@ -92,11 +96,11 @@ export default function Services() {
       </div>
 
       <div className={styles.cta}>
-        <Link className={`btn btnPrimary ${styles.ctaBtn}`} href="/servicios">
+        <Link className={styles.ctaBtn} href="/servicios">
           Ver todos los servicios →
         </Link>
 
-        <a className={`btn ${styles.ctaGhost}`} href="#contacto">
+        <a className={styles.ctaGhost} href="#contacto">
           Pedir diagnóstico
         </a>
       </div>

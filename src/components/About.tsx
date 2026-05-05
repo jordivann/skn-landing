@@ -33,7 +33,7 @@ export default function About() {
 
   // Light → imagen oscura, Dark → imagen clara (como pediste)
   const bgImage =
-    theme === "light" ? "/hero-alter-dark-2.jpg" : "/hero-alter-light-6.jpg";
+    theme === "light" ? "/hero-alter-dark-2.jpg" : "/hero-alter-1.jpg";
 
   useEffect(() => {
     const handleScroll = () => {

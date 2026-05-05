@@ -1,4 +1,3 @@
-// Section.tsx
 import styles from "./Section.module.css";
 import type { ReactNode } from "react";
 
@@ -10,7 +9,7 @@ type Props = {
   subtitle?: string;
   variant?: SectionVariant;
   children: ReactNode;
-  surfaceClassName?: string; // ✅ nuevo
+  surfaceClassName?: string;
 };
 
 export default function Section({
@@ -24,8 +23,9 @@ export default function Section({
   return (
     <section id={id} className={`${styles.section} ${styles[variant] || ""}`}>
       <div className="container">
-        <header className={styles.header}>
+        <header className={styles.head}>
           <h2 className={styles.title}>{title}</h2>
+
           {subtitle ? <p className={styles.subtitle}>{subtitle}</p> : null}
         </header>
 
