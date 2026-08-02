@@ -1,13 +1,30 @@
 import Section, { type SectionVariant } from "./Section";
 import styles from "./FAQ.module.css";
+import homeContent from "../app/HomeContent.json";
 
-export const faqItems = [
-  { q: "¿Trabajan con empresas pequeñas?", a: "Sí. Ajustamos alcance y presupuesto sin perder prolijidad." },
-  { q: "¿Cómo es la respuesta ante urgencias?", a: "Definimos SLA según acuerdo. También atendemos urgencias puntuales." },
-  { q: "¿Ofrecen mantenimiento mensual?", a: "Sí. Planes con monitoreo, preventivo y soporte." },
-];
+export type FAQItem = {
+  q: string;
+  a: string;
+};
 
-export default function FAQ({ variant = "default" }: { variant?: SectionVariant }) {
+type JsonFAQItem = {
+  question: string;
+  answer: string;
+};
+
+export const faqItems: FAQItem[] = (homeContent.faqs as JsonFAQItem[]).map(
+  (item) => ({
+    q: item.question,
+    a: item.answer,
+  })
+);
+
+type FAQProps = {
+  variant?: SectionVariant;
+  items?: FAQItem[];
+};
+
+export default function FAQ({ variant = "default", items = faqItems }: FAQProps) {
   return (
     <Section
       id="faq"
@@ -16,10 +33,10 @@ export default function FAQ({ variant = "default" }: { variant?: SectionVariant 
       variant={variant}
     >
       <div className={styles.list}>
-        {faqItems.map((x) => (
-          <details key={x.q} className={`card ${styles.item}`}>
-            <summary className={styles.summary}>{x.q}</summary>
-            <p className={styles.p}>{x.a}</p>
+        {items.map((item) => (
+          <details key={item.q} className={`card ${styles.item}`}>
+            <summary className={styles.summary}>{item.q}</summary>
+            <p className={styles.p}>{item.a}</p>
           </details>
         ))}
       </div>

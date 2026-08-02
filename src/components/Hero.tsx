@@ -3,35 +3,47 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./Hero.module.css";
 import HeroCarousel from "./HeroCarousel";
-import { site } from "../lib/site";
 import LogoMark from "./LogoMark";
 import { useTheme } from "../hooks/useTheme";
+import homeContent from "../app/HomeContent.json";
 
 export type SlideTone = "violet" | "cyan" | "green" | "neutral";
 
-type SlideBase = {
-  id: "intro" | "security" | "services" | "why" | "contact";
-  image: { light: string; dark: string };
-  alt: string;
-  kicker?: string;
+type HeroJsonSlide = {
+  id: string;
   title: string;
-  description: string;
+  subtitle: string;
+  theme?: string;
   tone?: SlideTone;
-  cta: { label: string; href: string };
+  cta: {
+    label: string;
+    href: string;
+  };
+  image: {
+    dark: string;
+    light: string;
+    alt: string;
+    suggestion?: string;
+    searchTerms?: string[];
+    preferredSource?: string;
+    brandsToShow?: string[];
+  };
 };
 
 export type Slide = {
-  id: "intro" | "security" | "services" | "why" | "contact";
+  id: string;
   src: string;
   alt: string;
   kicker?: string;
   title: string;
   description: string;
   tone?: SlideTone;
-  cta: { label: string; href: string };
+  cta: {
+    label: string;
+    href: string;
+  };
 };
 
-/* Duración del crossfade en ms — debe coincidir con imgFadeIn en CSS */
 const CROSSFADE_MS = 650;
 
 export default function Hero() {
@@ -40,95 +52,44 @@ export default function Hero() {
   const [index, setIndex] = useState(0);
   const autoplayMs = 5200;
 
-  /* Crossfade: guardamos la imagen anterior para que permanezca debajo */
   const [prevSrc, setPrevSrc] = useState<string | null>(null);
   const crossfadeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => { setMounted(true); }, []);
-
-  const slidesBase: SlideBase[] = useMemo(() => [
-    {
-      id: "intro",
-      image: { dark: "/hero-alter-dark-1.jpg", light: "/hero-alter-1.jpg" },
-      alt: "SKN IT",
-      kicker: "Telecomunicaciones e informática",
-      title: "Soluciones tecnológicas a tu alcance",
-      description:
-        "Soporte IT, redes y seguridad para que tu operación sea estable, rápida y ordenada. Diagnóstico claro, plan concreto y ejecución prolija.",
-      tone: "neutral",
-      cta: { label: "Contactanos", href: site.contact.whatsapp },
-    },
-    {
-      id: "security",
-      image: { dark: "/hero-alter-security-dark-1.jpg", light: "/hero-alter-security-2.jpg" },
-      alt: "Seguridad informática y protección de datos",
-      kicker: "Seguridad",
-      title: "Cuidamos la seguridad de tu empresa",
-      description:
-        "Hardening, accesos, backups y recuperación. Reducimos riesgos con prácticas reales y documentación.",
-      tone: "cyan",
-      cta: { label: "Evaluar seguridad", href: "#contact" },
-    },
-    {
-      id: "services",
-      image: { dark: "/hero-alter-dark-2.jpg", light: "/hero-alter-light-hard1.jpg" },
-      alt: "Consultoría e implementación IT",
-      kicker: "Consultoría",
-      title: "Software, hardware y redes sin improvisación",
-      description:
-        "Diseño e implementación de infraestructura, optimización y soporte. Menos caídas, mejor rendimiento, más control.",
-      tone: "violet",
-      cta: { label: "Ver servicios", href: "#services" },
-    },
-    {
-      id: "why",
-      image: { dark: "/hero-alter-dark-3.jpg", light: "/hero-alter-light-5.jpg" },
-      alt: "Equipo trabajando en tecnología",
-      kicker: "Por qué SKN",
-      title: "Orden, trazabilidad y respuesta rápida",
-      description:
-        "Metodología, checklist y comunicación clara. Resolver bien, documentar y dejarte una base sólida para crecer.",
-      tone: "green",
-      cta: { label: "Conocer el proceso", href: "#process" },
-    },
-    {
-      id: "contact",
-      image: { dark: "/hero-2.jpg", light: "/hero-redes-1.jpg" },
-      alt: "Contacto y soporte",
-      kicker: "Contacto",
-      title: "Hablemos. Te respondemos con claridad",
-      description:
-        "Contanos tu situación y te decimos el camino más directo. Sin vueltas, sin humo.",
-      tone: "neutral",
-      cta: { label: "Contactar ahora", href: "#contact" },
-    },
-  ], []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const resolvedTheme = mounted ? theme : "dark";
 
-  const slides: Slide[] = useMemo(() => slidesBase.map((slide) => ({
-    id: slide.id,
-    src: resolvedTheme === "dark" ? slide.image.dark : slide.image.light,
-    alt: slide.alt,
-    kicker: slide.kicker,
-    title: slide.title,
-    description: slide.description,
-    tone: slide.tone,
-    cta: slide.cta,
-  })), [slidesBase, resolvedTheme]);
+  const slidesBase = homeContent.heroSlides as HeroJsonSlide[];
+
+  const slides: Slide[] = useMemo(
+    () =>
+      slidesBase.map((slide) => ({
+        id: slide.id,
+        src: resolvedTheme === "dark" ? slide.image.dark : slide.image.light,
+        alt: slide.image.alt,
+        kicker: slide.theme,
+        title: slide.title,
+        description: slide.subtitle,
+        tone: slide.tone ?? "neutral",
+        cta: slide.cta,
+      })),
+    [slidesBase, resolvedTheme]
+  );
 
   const safeIndex = index >= 0 && index < slides.length ? index : 0;
   const active = slides[safeIndex];
 
-  /* Al cambiar de slide, guardamos el src actual como "imagen previa"
-   * y la limpiamos después del crossfade para no acumularla en el DOM. */
   const handleIndexChange = (nextIndex: number) => {
     if (nextIndex === safeIndex) return;
+
     const currentSrc = slides[safeIndex]?.src ?? null;
     setPrevSrc(currentSrc);
     setIndex(nextIndex);
 
     if (crossfadeTimer.current) clearTimeout(crossfadeTimer.current);
+
     crossfadeTimer.current = setTimeout(() => {
       setPrevSrc(null);
     }, CROSSFADE_MS + 50);
@@ -140,6 +101,8 @@ export default function Hero() {
     };
   }, []);
 
+  if (!active) return null;
+
   return (
     <section
       className={`${styles.hero} ${styles.containerBrand}`}
@@ -148,9 +111,7 @@ export default function Hero() {
       data-theme={resolvedTheme}
       style={{ "--heroAutoplayMs": `${autoplayMs}ms` } as React.CSSProperties}
     >
-      {/* ── Imagen protagonista con crossfade ── */}
       <div className={styles.mediaBg} aria-hidden="true">
-        {/* Imagen previa: permanece visible (sin animación) mientras la nueva entra */}
         {prevSrc && (
           <img
             src={prevSrc}
@@ -162,7 +123,7 @@ export default function Hero() {
             aria-hidden="true"
           />
         )}
-        {/* Imagen activa: entra con fade-in desde CSS */}
+
         <img
           key={`${resolvedTheme}-${active.id}-${active.src}`}
           src={active.src}
@@ -175,17 +136,14 @@ export default function Hero() {
         />
       </div>
 
-      {/* Firma visual */}
       <div className={styles.brandRow} aria-hidden="true">
         <LogoMark size="md" variant="trace" />
       </div>
 
-      {/* Capas visuales */}
       <div className={styles.overlay} aria-hidden="true" />
       <div className={styles.gridFx} aria-hidden="true" />
       <div className={styles.noise} aria-hidden="true" />
 
-      {/* Contenido */}
       <div className="container">
         <div className={styles.inner}>
           <div className={styles.copy}>
@@ -206,8 +164,8 @@ export default function Hero() {
                 {active.cta.label}
               </a>
 
-              {active.id !== "services" && (
-                <a className={styles.ctaLink} href="#services">
+              {active.cta.href !== "/servicios" && (
+                <a className={styles.ctaLink} href="/servicios">
                   Ver servicios
                 </a>
               )}
@@ -233,7 +191,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Barra de progreso global */}
       <div className={styles.heroProgress} aria-hidden="true">
         <span
           key={`${resolvedTheme}-${safeIndex}`}

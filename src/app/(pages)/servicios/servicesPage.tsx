@@ -4,7 +4,7 @@ import Link from "next/link";
 import MotionSection from "@/components/MotionSection";
 import styles from "./ServicesPage.module.css";
 import servicesData from "./Services.json";
-import type { ServicesJson } from "./types";
+import type { Category, Service, ServicesJson } from "./types";
 
 const data = servicesData as ServicesJson;
 
@@ -70,14 +70,18 @@ function IconSpark() {
 export default function ServicesPage() {
   const { categories, services } = data;
 
-  const getServicesByCategory = (categoryId: string) =>
-    services.filter((service) => service.category === categoryId);
-
-  const activeCategories = categories.filter(
-    (cat) => getServicesByCategory(cat.id).length > 0
+  const servicesById = new Map<string, Service>(
+    services.map((service) => [service.id, service])
   );
 
-  const featuredServices = services.slice(0, 4);
+  const getServicesByCategory = (category: Category) =>
+    category.services
+      .map((serviceId) => servicesById.get(serviceId))
+      .filter((service): service is Service => Boolean(service));
+
+  const activeCategories = categories.filter(
+    (category) => getServicesByCategory(category).length > 0
+  );
 
   return (
     <main className={styles.servicesPage}>
@@ -203,7 +207,7 @@ export default function ServicesPage() {
 
             <div className={styles.categoryStack}>
               {activeCategories.map((category, index) => {
-                const categoryServices = getServicesByCategory(category.id);
+                const categoryServices = getServicesByCategory(category);
 
                 return (
                   <MotionSection

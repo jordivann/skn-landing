@@ -63,12 +63,9 @@ export default function Services() {
                   {p.services.map((s) => (
                     <li key={s.slug} className={styles.serviceItem}>
                       <span className={styles.serviceIcon} aria-hidden="true" />
-                      <Link
-                        href={`/servicios/${s.slug}`}
-                        className={styles.serviceLink}
-                      >
-                        {s.title}
-                      </Link>
+                        <Link href={s.href} className={styles.serviceLink}>
+                          {s.title}
+                        </Link>
                     </li>
                   ))}
                 </ul>

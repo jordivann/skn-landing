@@ -24,6 +24,8 @@ export type ServiceInfo = {
   idealFor: string[];
   benefits: string[];
   results: string[];
+  brands?: string[];
+  useCases?: string[];
 };
 
 export type Service = {

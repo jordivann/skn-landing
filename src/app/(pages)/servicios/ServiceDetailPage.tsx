@@ -69,6 +69,7 @@ function IncludesCard({ items }: { items: string[] }) {
   return (
     <div className={styles.detailIncludesCard}>
       <p className={styles.detailBlockLabel}>Qué incluye</p>
+
       <ul className={styles.detailCheckList}>
         {items.map((item) => (
           <li key={item} className={styles.detailCheckItem}>
@@ -115,9 +116,13 @@ function ProcessStep({
   return (
     <div className={styles.detailProcessStep}>
       <div className={styles.detailProcessLeft}>
-        <span className={styles.detailProcessNum}>{String(num).padStart(2, "0")}</span>
+        <span className={styles.detailProcessNum}>
+          {String(num).padStart(2, "0")}
+        </span>
+
         {!isLast && <span className={styles.detailProcessLine} aria-hidden="true" />}
       </div>
+
       <p className={styles.detailProcessText}>{text}</p>
     </div>
   );
@@ -134,19 +139,29 @@ const DEFAULT_PROCESS = [
   "Acompañamos con soporte continuo y seguimiento del resultado.",
 ];
 
-export default function ServiceDetailPage({ service, relatedServices, category }: Props) {
+export default function ServiceDetailPage({
+  service,
+  relatedServices,
+  category,
+}: Props) {
   const [status, setStatus] = useState<FormStatus>("idle");
 
   const highlights = service.highlights ?? [];
   const includes = service.info?.includes ?? [];
   const problems = service.info?.problemsSolved ?? [];
   const benefits = service.info?.benefits ?? [];
-  const process = service.info?.process?.length ? service.info.process : DEFAULT_PROCESS;
+  const process = service.info?.process?.length
+    ? service.info.process
+    : DEFAULT_PROCESS;
   const idealFor = service.info?.idealFor ?? [];
   const results = service.info?.results ?? [];
+  const brands = service.info?.brands ?? [];
+  const useCases = service.info?.useCases ?? [];
   const limitedRelated = relatedServices.slice(0, 3);
 
-  const heroBullets = benefits.length > 0 ? benefits.slice(0, 3) : highlights.slice(0, 3);
+  const heroBullets =
+    benefits.length > 0 ? benefits.slice(0, 3) : highlights.slice(0, 3);
+
   const hasKeyCards = (service.cards?.length ?? 0) > 0;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -225,29 +240,53 @@ export default function ServiceDetailPage({ service, relatedServices, category }
 
               <div className={styles.visualCore}>
                 <div className={styles.visualCoreText}>
-                  <p className={styles.visualCoreCategory}>{category?.title || "Solución IT"}</p>
+                  <p className={styles.visualCoreCategory}>
+                    {category?.title || "Solución IT"}
+                  </p>
+
                   <strong>{service.title}</strong>
-                  {service.heroDescription && <p className={styles.visualCoreDesc}>{service.heroDescription}</p>}
+
+                  {service.heroDescription && (
+                    <p className={styles.visualCoreDesc}>{service.heroDescription}</p>
+                  )}
                 </div>
               </div>
 
+              {brands.length > 0 && (
+                <div className={styles.visualBrands} aria-label="Tecnologías utilizadas">
+                  {/* <p className={styles.visualBrandsLabel}></p> */}
+
+                  <div className={styles.visualBrandTrack}>
+                    {brands.map((brand) => (
+                      <span key={brand} className={styles.visualBrand}>
+                        {brand}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div className={styles.visualMetrics}>
                 {includes.length > 0 && (
-                  <div>
-                    <span>{includes.length}</span>
-                    <small>Incluye</small>
+                  <div className={styles.visualMetricItem}>
+                    <span>{String(includes.length).padStart(2, "0")}</span>
+                    <small>Alcances definidos</small>
                   </div>
                 )}
+
                 {benefits.length > 0 && (
-                  <div>
-                    <span>{benefits.length}</span>
-                    <small>Beneficios</small>
+                  <div className={styles.visualMetricItem}>
+                    <span>{String(benefits.length).padStart(2, "0")}</span>
+                    <small>Beneficios clave</small>
                   </div>
                 )}
-                <div>
-                  <span>01</span>
-                  <small>Consulta inicial</small>
-                </div>
+
+                {process.length > 0 && (
+                  <div className={styles.visualMetricItem}>
+                    <span>{String(process.length).padStart(2, "0")}</span>
+                    <small>Etapas de trabajo</small>
+                  </div>
+                )}
               </div>
 
               {results.length > 0 && (
@@ -292,13 +331,27 @@ export default function ServiceDetailPage({ service, relatedServices, category }
                 </div>
 
                 <div className={styles.detailIncludesGrid}>
-                  <IncludesCard items={includes} />
-
-                  {results.length > 0 && (
+                  {brands.length > 0 && (
                     <div className={styles.detailResultBox}>
-                      <p className={styles.detailBlockLabel}>Resultado esperado</p>
+                      <p className={styles.detailBlockLabel}>Marcas</p>
+
                       <ul className={styles.detailCheckList}>
-                        {results.map((item) => (
+                        {brands.map((item) => (
+                          <li key={item} className={styles.detailCheckItem}>
+                            <IconCheck />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {useCases.length > 0 && (
+                    <div className={styles.detailResultBox}>
+                      <p className={styles.detailBlockLabel}>Casos de uso típicos</p>
+
+                      <ul className={styles.detailCheckList}>
+                        {useCases.map((item) => (
                           <li key={item} className={styles.detailCheckItem}>
                             <IconCheck />
                             <span>{item}</span>
@@ -408,6 +461,43 @@ export default function ServiceDetailPage({ service, relatedServices, category }
                       <IdealChip key={item} text={item} />
                     ))}
                   </div>
+                </div>
+              </div>
+            </MotionSection>
+          </>
+        )}
+
+        {(brands.length > 0 || useCases.length > 0) && (
+          <>
+            <div className={styles.divider} />
+            <MotionSection variant="fadeUp" className={styles.detailSection}>
+              <div className={styles.container}>
+                <div className={styles.detailSectionHeader}>
+                  <p className={styles.sectionLabel}>
+                    Información específica
+                  </p>
+                  <h2 className={styles.detailSectionTitle}>
+                    Datos clave para evaluar este servicio
+                  </h2>
+                  <p className={styles.detailSectionDesc}>
+                    Información adicional tomada del alcance definido para este servicio.
+                  </p>
+                </div>
+
+                <div className={styles.detailIncludesGrid}>
+                  {brands.map((item) => (
+                    <li key={item} className={styles.detailCheckItem}>
+                      <IconCheck />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+
+                  {useCases.map((item) => (
+                    <li key={item} className={styles.detailCheckItem}>
+                      <IconCheck />
+                      <span>{item}</span>
+                    </li>
+                  ))}
                 </div>
               </div>
             </MotionSection>
