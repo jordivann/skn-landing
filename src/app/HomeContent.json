@@ -1,0 +1,324 @@
+{
+  "heroSlides": [
+    {
+      "id": "general-value",
+      "title": "Tecnología que no para. Empresa que no falla.",
+      "subtitle": "Soporte IT, redes, seguridad y CCTV para empresas que no pueden darse el lujo de detenerse.",
+      "cta": {
+      "label": "Pedí tu diagnóstico gratuito",
+      "href": "#contact"
+    },
+    "theme": "Propuesta de valor general",
+    "tone": "neutral",
+    "image": {
+      "dark": "/hero-alter-dark-1.jpg",
+      "light": "/hero-alter-1.jpg",
+      "alt": "Sala de servidores profesional con infraestructura ordenada",
+      "suggestion": "Sala de servidores ordenada con equipos Dell PowerEdge o HPE ProLiant, con luces LED azules. Ambiente limpio, profesional, iluminación dramática.",
+      "searchTerms": ["server room rack"],
+      "preferredSource": "Foto propia de instalación real en cliente",
+      "brandsToShow": ["Dell", "HPE"]
+    }
+  },
+  {
+    "id": "networking",
+    "title": "Redes diseñadas para escalar.",
+    "subtitle": "Diseño, instalación y gestión de infraestructura de red con equipos MikroTik, Cisco y Ubiquiti. Desde una sucursal hasta 35 puntos conectados.",
+    "cta": {
+      "label": "Ver servicios de red",
+      "href": "/servicios#networking"
+    },
+    "theme": "Redes e infraestructura",
+    "tone": "violet",
+    "image": {
+      "dark": "/hero-alter-dark-2.jpg",
+      "light": "/hero-alter-light-hard1.jpg",
+      "alt": "Rack de networking con switches y cableado estructurado",
+      "suggestion": "Rack de networking con switches apilados Cisco Catalyst o HP Aruba, cableado perfectamente organizado con velcro de colores.",
+      "searchTerms": ["network rack structured cabling professional"],
+      "preferredSource": "Foto real de instalación en cliente",
+      "brandsToShow": ["Cisco", "HP Aruba", "MikroTik"]
+    }
+  },
+  {
+    "id": "cctv",
+    "title": "Vigilancia inteligente. Control total.",
+    "subtitle": "Sistemas de videovigilancia IP con cámaras Dahua e Hikvision, grabación en nube y acceso remoto desde cualquier dispositivo.",
+    "cta": {
+      "label": "Ver sistemas CCTV",
+      "href": "/servicios/videovigilancia-cctv"
+    },
+    "theme": "CCTV y Videovigilancia",
+    "tone": "cyan",
+    "image": {
+      "dark": "/hero-alter-security-dark-1.jpg",
+      "light": "/hero-alter-security-2.jpg",
+      "alt": "Sistema de videovigilancia CCTV con monitoreo remoto",
+      "suggestion": "Múltiples pantallas de monitoreo mostrando cámaras IP, o cámara domo Hikvision/Dahua instalada en techo de local comercial.",
+      "searchTerms": ["CCTV monitoring room multiple screens", "IP camera Hikvision installation"],
+      "brandsToShow": ["Dahua", "Hikvision"]
+    }
+  },
+  {
+    "id": "security",
+    "title": "Tu información, protegida por diseño.",
+    "subtitle": "Políticas de seguridad, hardening, backups y control de accesos. Porque una brecha de seguridad no avisa.",
+    "cta": {
+      "label": "Evaluar mi seguridad",
+      "href": "/servicios#security"
+    },
+    "theme": "Seguridad IT",
+    "tone": "green",
+    "image": {
+      "dark": "/hero-alter-dark-3.jpg",
+      "light": "/hero-alter-light-5.jpg",
+      "alt": "Seguridad informática y protección de datos empresariales",
+      "suggestion": "Pantalla con dashboard de firewall o Fortinet FortiGate físico en rack. Alternativa: imagen abstracta de candado digital sobre fondo oscuro con tonos azules.",
+      "searchTerms": ["Fortinet firewall rack", "cybersecurity dashboard monitor"],
+      "brandsToShow": ["Fortinet", "pfSense"]
+    }
+  },
+  {
+    "id": "power-bi",
+    "title": "Decisiones basadas en datos, no en suposiciones.",
+    "subtitle": "Transformamos los datos de tu empresa en dashboards claros con Power BI. Métricas en tiempo real, reportes automáticos y visibilidad total de tu operación.",
+    "cta": {
+      "label": "Conocer más",
+      "href": "/servicios/business-intelligence-power-bi"
+    },
+    "theme": "Power BI / Inteligencia de Negocios",
+    "tone": "neutral",
+    "image": {
+      "dark": "/hero-2.jpg",
+      "light": "/hero-redes-1.jpg",
+      "alt": "Dashboard de Business Intelligence con métricas empresariales",
+      "suggestion": "Pantalla grande o monitor mostrando dashboard de Power BI con gráficos de barras, KPIs y mapas.",
+      "searchTerms": ["Power BI dashboard business intelligence screen"],
+      "brandsToShow": ["Microsoft Power BI"]
+    }
+  }
+
+  ],
+  "about": {
+    "title": "15 años construyendo infraestructura tecnológica en Córdoba.",
+    "text": [
+      "Somos SKN IT, una empresa cordobesa especializada en telecomunicaciones, infraestructura y soporte tecnológico para empresas. Desde hace más de 15 años acompañamos a organizaciones de distintos rubros a mantener su tecnología ordenada, segura y funcionando.",
+      "Nuestro equipo está compuesto por ingenieros y técnicos certificados con experiencia real en redes, seguridad, CCTV y sistemas. No somos un call center: somos un equipo que conoce tu infraestructura, la documenta y te da respuestas concretas.",
+      "Trabajamos con marcas líderes: Cisco, MikroTik, HP Aruba, Ubiquiti, Dahua, Hikvision, Dell, HPE y Microsoft. Elegimos la herramienta adecuada para cada proyecto, sin atarnos a un solo proveedor."
+    ],
+    "differentiators": [
+      "Ejecución prolija y documentada",
+      "Diagnóstico claro antes de cualquier intervención",
+      "SLA definido por contrato",
+      "Equipo técnico estable, sin rotación constante",
+      "Presencia en Córdoba Capital y zona de influencia"
+    ]
+  },
+  "stats": [
+    {
+      "label": "Años de experiencia",
+      "value": "+15"
+    },
+    {
+      "label": "Clientes activos",
+      "value": "+40"
+    },
+    {
+      "label": "Sucursales atendidas",
+      "value": "+80"
+    },
+    {
+      "label": "Tiempo de respuesta promedio",
+      "value": "< 4 hs"
+    }
+  ],
+  "faqs": [
+    {
+      "question": "¿Trabajan con empresas de múltiples sucursales?",
+      "answer": "Sí. Tenemos experiencia en gestión de redes multi-sucursal con hasta 35 puntos interconectados. Armamos un esquema centralizado de monitoreo y soporte."
+    },
+    {
+      "question": "¿Qué marcas de equipos usan?",
+      "answer": "Trabajamos con Cisco, MikroTik, HP Aruba, Ubiquiti en redes; Dahua e Hikvision en CCTV; Dell y HPE en servidores. Elegimos según la escala y el presupuesto de cada proyecto."
+    },
+    {
+      "question": "¿Pueden encargarse tanto de la red como de las cámaras de seguridad?",
+      "answer": "Sí. Somos una empresa integral: gestionamos redes, servidores, CCTV y soporte IT. Un solo interlocutor para toda tu infraestructura."
+    },
+    {
+      "question": "¿Trabajan con Power BI?",
+      "answer": "Sí. Desarrollamos dashboards a medida conectados a los datos de tu empresa. Podemos partir de Excel, bases SQL o cualquier sistema de gestión."
+    },
+    {
+      "question": "¿Ofrecen contratos de mantenimiento mensual?",
+      "answer": "Sí. Contamos con planes de abono con visitas periódicas, soporte remoto y en sitio, y monitoreo incluido. El alcance y precio se define según la infraestructura de cada cliente."
+    },
+    {
+      "question": "¿Pueden atender urgencias fuera del horario habitual?",
+      "answer": "Según el plan contratado, definimos SLA y canales de contacto para urgencias. Los contratos de mantenimiento incluyen protocolo de emergencias."
+    },
+    {
+      "question": "¿Ofrecen telefonía IP?",
+      "answer": "Sí. Somos partners oficiales de Anura, empresa argentina líder en Cloud PBX. Implementamos su central telefónica en la nube: sin inversión en hardware, con portabilidad de números y unificación de todas tus sucursales."
+    },
+    {
+      "question": "¿Cómo saben si mi empresa tiene vulnerabilidades de ciberseguridad?",
+      "answer": "A través de Vulseek, plataforma con la que somos partners, realizamos escaneos automáticos y continuos de toda tu infraestructura. El sistema detecta vulnerabilidades, las prioriza por riesgo y nosotros nos encargamos de remediarlas."
+    },
+    {
+      "question": "¿Trabajan con fabricantes reconocidos?",
+      "answer": "Sí. Somos partners de Anura en telefonía en la nube y Vulseek en ciberseguridad. Además trabajamos con equipos de Cisco, MikroTik, HP Aruba, Ubiquiti, Dahua, Hikvision, Dell y HPE, eligiendo la solución adecuada para cada proyecto y presupuesto."
+    }
+  ],
+  "partners": {
+    "title": "Nuestros Partners Tecnológicos",
+    "subtitle": "Trabajamos con empresas líderes para ofrecerte soluciones respaldadas por tecnología de primer nivel.",
+    "intro": "Trabajamos con tecnología de empresas líderes para garantizar soluciones probadas, con soporte de fabricante y respaldo técnico real.",
+    "items": [
+      {
+        "id": "anura",
+        "name": "Anura",
+        "category": "Telefonía IP en la Nube",
+        "shortDescription": "Como partners oficiales de Anura, ofrecemos su central telefónica en la nube directamente a nuestros clientes. Una solución que reemplaza la central analógica tradicional sin inversión en infraestructura, unifica todas las sucursales en un solo sistema y se integra con CRM, ERP y Microsoft Teams.",
+        "description": "Anura es una empresa argentina con más de 20 años de experiencia en telecomunicaciones, especializada en Cloud PBX: la central telefónica completamente en la nube. Al ser partners oficiales, SKN IT puede implementar, configurar y dar soporte a esta solución en tu empresa con el respaldo directo del fabricante.",
+        "idealFor": [
+          "Empresas con múltiples sucursales que quieren unificar sus comunicaciones",
+          "Negocios que buscan reducir el costo de llamadas telefónicas",
+          "Organizaciones que necesitan movilidad para equipos remotos o en movimiento"
+        ],
+        "benefits": [
+          "Sin inversión en equipos ni infraestructura propia",
+          "Portabilidad de números: conservás tu número actual",
+          "Todas las sucursales unificadas en una sola central virtual",
+          "Internos gratuitos entre sedes, sin importar la distancia",
+          "Integración con CRM, ERP, WhatsApp Business y Microsoft Teams",
+          "Acceso desde cualquier dispositivo: teléfono IP, computadora o celular",
+          "Escalable: agregás o quitás líneas sin obras ni hardware"
+        ],
+        "implementation": "Implementación a cargo de SKN IT: relevamiento, configuración, puesta en marcha y soporte continuo.",
+        "tags": [
+          "Sin inversión inicial",
+          "Multi-sucursal",
+          "Integración con tus sistemas"
+        ],
+        "relatedService": "telefonia-ip-voip"
+      },
+      {
+        "id": "vulseek",
+        "name": "Vulseek",
+        "category": "Ciberseguridad y Gestión de Vulnerabilidades",
+        "shortDescription": "Como partners de Vulseek, ofrecemos escaneo continuo y automatizado de vulnerabilidades en la infraestructura de tu empresa. Detectamos exposiciones antes de que lo hagan los atacantes, con reportes claros y priorización inteligente de riesgos.",
+        "description": "Vulseek es una plataforma de ciberseguridad en la nube desarrollada por Securetia, empresa argentina especializada en seguridad informática. Automatiza el proceso de detección de vulnerabilidades en servidores, equipos de red, aplicaciones y dispositivos, generando reportes con priorización inteligente para que sepas exactamente qué atender primero.",
+        "detects": [
+          "Vulnerabilidades en sistemas operativos y aplicaciones",
+          "Puertos abiertos innecesarios y configuraciones inseguras",
+          "Software desactualizado con CVEs conocidos",
+          "Credenciales débiles y problemas de autenticación",
+          "Equipos de red con firmware vulnerable"
+        ],
+        "value": "Muchas empresas contratan herramientas de seguridad pero no tienen a nadie que interprete los resultados ni los resuelva. SKN IT actúa como el equipo técnico que cierra el ciclo: escaneo, análisis, remediación y seguimiento.",
+        "tags": [
+          "Detección continua",
+          "Priorización inteligente",
+          "Remediación incluida"
+        ],
+        "relatedServices": [
+          "politicas-de-seguridad",
+          "hardening-y-control-de-accesos",
+          "auditorias-it"
+        ]
+      }
+    ]
+  },
+  "clients": {
+    "title": "Empresas que confían en SKN IT",
+    "subtitle": "Desde pymes hasta cadenas con múltiples sucursales en Córdoba.",
+    "recommendedOption": "Combinación recomendada",
+    "textOption": {
+      "title": "+40 empresas en Córdoba confían su infraestructura a SKN IT",
+      "text": "Trabajamos con empresas de distintos rubros: retail, salud, industria, logística y servicios. Desde pymes con una sola sede hasta organizaciones con más de 30 sucursales interconectadas. Cada cliente tiene un interlocutor técnico fijo, documentación actualizada de su infraestructura y SLA definido por contrato.",
+      "industries": [
+        "Farmacias y salud",
+        "Comercio y retail",
+        "Industria y producción",
+        "Logística y distribución",
+        "Servicios profesionales",
+        "Educación"
+      ]
+    },
+    "logosOption": {
+      "title": "Empresas que confían en SKN IT",
+      "subtitle": "Desde pymes hasta cadenas con múltiples sucursales en Córdoba.",
+      "note": "Usar logos solo si se consigue autorización de 3 a 5 clientes representativos."
+    },
+    "combinedOption": {
+      "description": "Mostrar el bloque de texto y números primero, sin necesitar permisos, y debajo una fila con los logos de los clientes que sí autoricen."
+    }
+  },
+  "imageCarouselGuide": [
+    {
+      "slide": 1,
+      "theme": "Hero general",
+      "whatToSearch": "Sala de servidores profesional, iluminación azul",
+      "brandsToShow": [
+        "Dell",
+        "HPE"
+      ]
+    },
+    {
+      "slide": 2,
+      "theme": "Redes / Cableado",
+      "whatToSearch": "Rack con switches y cableado organizado",
+      "brandsToShow": [
+        "Cisco",
+        "HP Aruba",
+        "MikroTik"
+      ]
+    },
+    {
+      "slide": 3,
+      "theme": "CCTV",
+      "whatToSearch": "Monitor de vigilancia o cámara domo instalada",
+      "brandsToShow": [
+        "Dahua",
+        "Hikvision"
+      ]
+    },
+    {
+      "slide": 4,
+      "theme": "Seguridad IT",
+      "whatToSearch": "Firewall físico en rack o dashboard de seguridad",
+      "brandsToShow": [
+        "Fortinet",
+        "pfSense"
+      ]
+    },
+    {
+      "slide": 5,
+      "theme": "Power BI",
+      "whatToSearch": "Pantalla con dashboard de BI, gráficos y KPIs",
+      "brandsToShow": [
+        "Microsoft Power BI"
+      ]
+    }
+  ],
+  "imageSources": [
+    {
+      "name": "Unsplash",
+      "type": "gratuito"
+    },
+    {
+      "name": "Pexels",
+      "type": "gratuito"
+    },
+    {
+      "name": "Shutterstock",
+      "type": "pago"
+    },
+    {
+      "name": "Sitios de fabricantes",
+      "type": "press kits o fotos de producto"
+    }
+  ],
+  "generalImageRecommendation": "Si es posible, usar fotos reales de instalaciones propias o de equipos propios. Una foto real del rack de un cliente, con permiso, vale mucho más que cualquier stock photo."
+}

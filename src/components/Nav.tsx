@@ -16,6 +16,14 @@ const items: NavItem[] = [{ href: "/", label: "Inicio" }];
 
 const serviceTree = getNavServicesTree();
 
+const navCategoryLabels: Record<string, string> = {
+  support: "Soporte IT",
+  networking: "Infraestructura",
+  security: "Seguridad",
+  consulting: "Consultoría",
+  "digital-solutions": "Soluciones Digitales",
+};
+
 /** Returns all focusable elements inside a container */
 function getFocusable(container: HTMLElement): HTMLElement[] {
   return Array.from(
@@ -30,16 +38,19 @@ export default function Nav() {
   const pathname = usePathname();
 
   const [open, setOpen] = useState(false);
-  const [openDesktopCategory, setOpenDesktopCategory] = useState<string | null>(null);
+  const [openDesktopCategory, setOpenDesktopCategory] = useState<string | null>(
+    null
+  );
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
-  const [mobileCategoryOpen, setMobileCategoryOpen] = useState<string | null>(null);
+  const [mobileCategoryOpen, setMobileCategoryOpen] = useState<string | null>(
+    null
+  );
 
   const panelId = useId();
   const btnRef = useRef<HTMLButtonElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  /* ── Mobile helpers ── */
   const closeMobileMenu = () => {
     setOpen(false);
     setMobileServicesOpen(false);
@@ -48,7 +59,6 @@ export default function Nav() {
 
   const toggleMobileMenu = () => setOpen((v) => !v);
 
-  /* ── Desktop dropdown helpers ── */
   const clearCloseTimeout = () => {
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
@@ -63,10 +73,12 @@ export default function Nav() {
 
   const closeDesktopMenu = () => {
     clearCloseTimeout();
-    closeTimeoutRef.current = setTimeout(() => setOpenDesktopCategory(null), 150);
+    closeTimeoutRef.current = setTimeout(
+      () => setOpenDesktopCategory(null),
+      150
+    );
   };
 
-  /* ── Escape key + body scroll lock ── */
   useEffect(() => {
     if (!open) return;
 
@@ -87,21 +99,23 @@ export default function Nav() {
     };
   }, [open]);
 
-  /* ── Focus first element when panel opens ── */
   useEffect(() => {
     if (!open) return;
-    const first = panelRef.current?.querySelector<HTMLElement>("a[href], button");
+    const first = panelRef.current?.querySelector<HTMLElement>(
+      "a[href], button"
+    );
     first?.focus();
   }, [open]);
 
-  /* ── Focus trap inside mobile panel ── */
   useEffect(() => {
     if (!open || !panelRef.current) return;
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== "Tab") return;
+
       const panel = panelRef.current!;
       const focusable = getFocusable(panel);
+
       if (!focusable.length) return;
 
       const first = focusable[0];
@@ -112,11 +126,9 @@ export default function Nav() {
           e.preventDefault();
           last.focus();
         }
-      } else {
-        if (document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
+      } else if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
       }
     };
 
@@ -124,13 +136,19 @@ export default function Nav() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
-  /* ── Close desktop dropdown on outside click ── */
   useEffect(() => {
     const onDocMouseDown = (e: MouseEvent) => {
       const target = e.target as Node;
-      const wrappers = document.querySelectorAll("[data-nav-dropdown-root='true']");
+      const wrappers = document.querySelectorAll(
+        "[data-nav-dropdown-root='true']"
+      );
+
       let inside = false;
-      wrappers.forEach((node) => { if (node.contains(target)) inside = true; });
+
+      wrappers.forEach((node) => {
+        if (node.contains(target)) inside = true;
+      });
+
       if (!inside) setOpenDesktopCategory(null);
     };
 
@@ -138,17 +156,15 @@ export default function Nav() {
     return () => document.removeEventListener("mousedown", onDocMouseDown);
   }, []);
 
-  /* ── Close desktop dropdown on window blur ── */
   useEffect(() => {
     const onBlur = () => setOpenDesktopCategory(null);
+
     window.addEventListener("blur", onBlur);
     return () => window.removeEventListener("blur", onBlur);
   }, []);
 
-  /* ── Cleanup timeout on unmount ── */
   useEffect(() => () => clearCloseTimeout(), []);
 
-  /* ── Close mobile menu on route change ── */
   useEffect(() => {
     closeMobileMenu();
   }, [pathname]);
@@ -170,6 +186,7 @@ export default function Nav() {
 
           {serviceTree.map((category) => {
             const isOpen = openDesktopCategory === category.id;
+            const label = navCategoryLabels[category.id] ?? category.title;
 
             return (
               <div
@@ -190,23 +207,30 @@ export default function Nav() {
                     )
                   }
                 >
-                  {category.title}
-                  <span className={styles.caret} aria-hidden="true">▾</span>
+                  {label}
+                  <span className={styles.caret} aria-hidden="true">
+                    ▾
+                  </span>
                 </button>
 
                 <div
-                  className={`${styles.dropdownMenu} ${isOpen ? styles.dropdownMenuOpen : ""}`}
+                  className={`${styles.dropdownMenu} ${
+                    isOpen ? styles.dropdownMenuOpen : ""
+                  }`}
                   role="menu"
                   aria-label={category.title}
                 >
                   <div className={styles.dropdownHeader}>
-                    <span className={styles.dropdownTitle}>{category.title}</span>
+                    <span className={styles.dropdownTitle}>
+                      {category.title}
+                    </span>
+
                     <Link
-                      href="/servicios"
+                      href={`/servicios#${category.id}`}
                       className={styles.dropdownAll}
                       onClick={() => setOpenDesktopCategory(null)}
                     >
-                      Ver todos →
+                      Ver área →
                     </Link>
                   </div>
 
@@ -217,7 +241,9 @@ export default function Nav() {
                           href={service.href}
                           className={styles.dropdownItem}
                           role="menuitem"
-                          aria-current={pathname === service.href ? "page" : undefined}
+                          aria-current={
+                            pathname === service.href ? "page" : undefined
+                          }
                           onClick={() => setOpenDesktopCategory(null)}
                         >
                           {service.title}
@@ -236,7 +262,11 @@ export default function Nav() {
             type="button"
             className={styles.themeBtn}
             onClick={toggleTheme}
-            aria-label={theme === "dark" ? "Cambiar a tema claro" : "Cambiar a tema oscuro"}
+            aria-label={
+              theme === "dark"
+                ? "Cambiar a tema claro"
+                : "Cambiar a tema oscuro"
+            }
             title={theme === "dark" ? "Tema claro" : "Tema oscuro"}
           >
             {theme === "dark" ? "☀" : "🌙"}
@@ -256,7 +286,11 @@ export default function Nav() {
           aria-expanded={open}
           aria-controls={panelId}
         >
-          <span className={styles.burgerIcon} aria-hidden="true" data-open={open ? "1" : "0"}>
+          <span
+            className={styles.burgerIcon}
+            aria-hidden="true"
+            data-open={open ? "1" : "0"}
+          >
             <span />
             <span />
           </span>
@@ -264,7 +298,6 @@ export default function Nav() {
       </nav>
 
       <div className={`${styles.mobileRoot} ${open ? styles.open : ""}`}>
-        {/* Backdrop — div semántico, no button */}
         <div
           className={styles.backdrop}
           role="presentation"
@@ -371,7 +404,11 @@ export default function Nav() {
                                 <Link
                                   href={service.href}
                                   className={styles.mobileServiceLink}
-                                  aria-current={pathname === service.href ? "page" : undefined}
+                                  aria-current={
+                                    pathname === service.href
+                                      ? "page"
+                                      : undefined
+                                  }
                                   onClick={closeMobileMenu}
                                 >
                                   {service.title}
@@ -394,7 +431,9 @@ export default function Nav() {
               className={styles.panelTheme}
               onClick={toggleTheme}
             >
-              {theme === "dark" ? "Cambiar a tema claro ☀" : "Cambiar a tema oscuro 🌙"}
+              {theme === "dark"
+                ? "Cambiar a tema claro ☀"
+                : "Cambiar a tema oscuro 🌙"}
             </button>
 
             <Link

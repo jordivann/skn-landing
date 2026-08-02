@@ -1,0 +1,65 @@
+/* src/components/Reveal.module.css */
+
+.reveal {
+  opacity: 0;
+  will-change: opacity, transform;
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Variantes */
+
+.fadeUp {
+  transform: translateY(34px);
+}
+
+.fade {
+  transform: none;
+}
+
+.slideLeft {
+  transform: translateX(36px);
+}
+
+.slideRight {
+  transform: translateX(-36px);
+}
+
+.scale {
+  transform: scale(0.975);
+}
+
+/* Estado visible */
+
+.visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .fadeUp {
+    transform: translateY(24px);
+  }
+
+  .slideLeft,
+  .slideRight {
+    transform: translateY(24px);
+  }
+
+  .scale {
+    transform: scale(0.985);
+  }
+}
+
+/* Accesibilidad: usuarios que reducen movimiento */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

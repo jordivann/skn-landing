@@ -1,10 +1,31 @@
-/* ─── WRAP / HORIZONTAL RAIL ─────────────────────────────────────────────── */
+/* =============================================================
+   SERVICES (HOME SECTION) — CSS Modules
+   Bloques: shell → carrusel/track → card → cardTop →
+            num → title → desc → serviceList → chips →
+            CTA sección → flechas → responsive
+   ============================================================= */
+
+/* ===== SHELL DEL CARRUSEL ===== */
+.carouselShell {
+  position: relative;
+
+  /*
+   * Espacio reservado para flechas.
+   * Así las flechas no pisan la primera ni la última card.
+   */
+  padding-inline: 56px;
+}
+
+/* ===== WRAP / RAIL HORIZONTAL ===== */
 .carouselWrap {
   position: relative;
+
   overflow-x: auto;
   overflow-y: visible;
-  padding: 6px 2px 10px;
-  margin-inline: -4px;
+
+  padding: 8px 4px 16px;
+  margin-inline: 0;
+
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -14,271 +35,476 @@
   display: none;
 }
 
-/* Fade lateral opcional */
+/* Fades laterales */
 .carouselWrap::before,
 .carouselWrap::after {
   content: "";
   position: sticky;
   top: 0;
-  width: 42px;
+
+  width: 36px;
   height: 100%;
+
   pointer-events: none;
   z-index: 2;
+  flex-shrink: 0;
 }
 
 .carouselWrap::before {
   left: 0;
   float: left;
-  background: linear-gradient(to right, var(--bg), transparent);
+  background: linear-gradient(to right, var(--bg) 20%, transparent);
 }
 
 .carouselWrap::after {
   right: 0;
   float: right;
-  background: linear-gradient(to left, var(--bg), transparent);
+  background: linear-gradient(to left, var(--bg) 20%, transparent);
 }
 
-/* ─── TRACK ──────────────────────────────────────────────────────────────── */
+/* ===== TRACK ===== */
 .grid {
   display: flex;
-  gap: 16px;
+  gap: 14px;
+
   width: max-content;
   min-width: 100%;
+
   padding-inline: 4px;
 }
 
-/* ─── CARD ───────────────────────────────────────────────────────────────── */
+/* ===== CARD ===== */
 .card {
   position: relative;
-  flex: 0 0 clamp(280px, 31vw, 360px);
-  min-height: 340px;
+
+  flex: 0 0 clamp(280px, 30vw, 350px);
+  min-height: 360px;
+
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  padding: 24px 22px;
-  border-radius: calc(var(--r) + 4px);
+  gap: 0;
+
+  padding: 26px 24px 22px;
+
+  border-radius: calc(var(--r) + 6px);
   border: 1px solid var(--border);
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--card) 100%, white 2%),
-      color-mix(in srgb, var(--card) 100%, black 2%)
-    );
+
+  background: var(--card);
   box-shadow: var(--shadow-soft, var(--shadow));
+
   scroll-snap-align: start;
+  overflow: hidden;
+
   transition:
-    transform 0.22s ease,
-    border-color 0.22s ease,
-    box-shadow 0.22s ease,
-    background 0.22s ease;
-  backdrop-filter: blur(10px);
+    transform 0.20s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.20s ease,
+    box-shadow 0.20s ease,
+    background 0.20s ease;
 }
 
+/* Línea decorativa superior con acento naranja */
 .card::before {
   content: "";
   position: absolute;
   inset: 0 0 auto 0;
+
   height: 1px;
+
   background: linear-gradient(
     90deg,
-    transparent,
-    color-mix(in srgb, var(--primary2) 38%, white 10%),
-    transparent
+    transparent 5%,
+    color-mix(in srgb, var(--primary2) 40%, transparent) 40%,
+    color-mix(in srgb, var(--primary2) 18%, transparent) 70%,
+    transparent 95%
   );
-  opacity: 0.55;
+
+  opacity: 0.7;
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  border-color: color-mix(in srgb, var(--primary2) 34%, var(--border));
-  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.14);
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--card) 100%, white 4%),
-      color-mix(in srgb, var(--card) 100%, black 1%)
-    );
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--primary2) 28%, var(--border));
+
+  background: color-mix(in srgb, var(--card) 94%, var(--primary2) 3%);
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.11),
+    0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
-/* Primera card un poco más protagónica */
+/* Primera card levemente más ancha — protagonismo editorial */
 .card:first-child {
-  flex-basis: clamp(300px, 34vw, 390px);
+  flex-basis: clamp(300px, 33vw, 380px);
 }
 
-/* ─── CARD TOP ───────────────────────────────────────────────────────────── */
+/* ===== CARD TOP ===== */
 .cardTop {
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+
+  border-bottom: 1px solid var(--border);
 }
 
+/* ===== NÚMERO ===== */
 .num {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  width: fit-content;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  gap: 7px;
+
   color: var(--primary2);
-  opacity: 0.95;
+  opacity: 0.9;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
+.num::before {
+  content: "";
+
+  display: inline-block;
+
+  width: 16px;
+  height: 1px;
+
+  border-radius: 999px;
+  background: var(--primary2);
+  opacity: 0.6;
+}
+
+/* ===== TÍTULO ===== */
 .title {
   margin: 0;
-  font-size: clamp(18px, 1.4vw, 22px);
+
+  color: var(--fg);
+
+  font-size: clamp(17px, 1.3vw, 21px);
   font-weight: 700;
   line-height: 1.18;
-  letter-spacing: -0.02em;
-  color: var(--fg);
+  letter-spacing: -0.022em;
+
   text-wrap: balance;
 }
 
+/* ===== DESCRIPCIÓN ===== */
 .desc {
+  max-width: 30ch;
   margin: 0;
-  font-size: 14px;
+
   color: var(--muted);
-  line-height: 1.72;
-  max-width: 32ch;
+
+  font-size: 13.5px;
+  line-height: 1.68;
 }
 
-/* ─── SERVICE LIST ───────────────────────────────────────────────────────── */
+/* ===== LISTA DE SERVICIOS ===== */
 .serviceList {
-  margin: 0;
-  padding: 0;
-  list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
   flex-grow: 1;
+  gap: 9px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
 }
 
 .serviceItem {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  font-size: 14px;
+
   color: var(--fg);
-  line-height: 1.5;
+
+  font-size: 13.5px;
+  line-height: 1.48;
 }
 
+/* Bullet naranja refinado */
 .serviceIcon {
   flex-shrink: 0;
-  width: 7px;
-  height: 7px;
-  margin-top: 0.48rem;
+
+  width: 5px;
+  height: 5px;
+  margin-top: 0.46rem;
+
   border-radius: 50%;
   background: var(--primary2);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary2) 14%, transparent);
+
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--primary2) 16%, transparent);
+
+  transition: box-shadow 0.15s ease;
+}
+
+.serviceItem:hover .serviceIcon {
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--primary2) 20%, transparent);
 }
 
 .serviceLink {
   color: var(--fg);
   text-decoration: none;
-  transition: color 0.18s ease, opacity 0.18s ease;
+
+  transition: color 0.15s ease;
 }
 
 .serviceLink:hover {
   color: var(--primary2);
 }
 
-/* ─── CHIPS ──────────────────────────────────────────────────────────────── */
+/* ===== CHIPS ===== */
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  padding-top: 10px;
+  gap: 6px;
+
+  padding-top: 16px;
+  margin-top: 16px;
+
   border-top: 1px solid var(--border);
 }
 
 .chip {
-  font-size: 11px;
-  font-weight: 700;
-  padding: 6px 10px;
+  padding: 4px 9px;
+
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--primary2) 20%, var(--border));
-  background: color-mix(in srgb, var(--primary2) 7%, var(--card));
-  color: var(--fg);
-  letter-spacing: 0.03em;
+  border: 1px solid color-mix(in srgb, var(--primary2) 18%, var(--border));
+
+  background: color-mix(in srgb, var(--primary2) 6%, var(--card));
+  color: color-mix(in srgb, var(--fg) 80%, var(--muted));
+
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
   white-space: nowrap;
 }
 
-/* ─── CTA ────────────────────────────────────────────────────────────────── */
+/* ===== CTA DE SECCIÓN ===== */
 .cta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
-  margin-top: 24px;
+  gap: 12px;
+
+  margin-top: 28px;
 }
 
-.ctaBtn {}
-.ctaGhost {}
-
-/* ─── OPTIONAL ARROWS (por si después las agregás) ──────────────────────── */
-.carouselShell {
-  position: relative;
-}
-
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 3;
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: color-mix(in srgb, var(--card) 88%, var(--bg));
-  color: var(--fg);
+/* Botón primario: naranja, coherente con Hero */
+.ctaBtn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 7px;
+
+  padding: 12px 22px;
+
+  border-radius: 999px;
+  border: 1px solid rgba(255, 180, 80, 0.18);
+
+  background:
+    linear-gradient(
+      135deg,
+      #FBBC6A 0%,
+      #F28C28 52%,
+      #E0720E 100%
+    );
+
+  color: #2d1400;
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+
   cursor: pointer;
-  box-shadow: var(--shadow-soft, var(--shadow));
-  transition: transform 0.18s ease, border-color 0.18s ease;
+  user-select: none;
+
+  box-shadow:
+    0 4px 14px rgba(242, 140, 40, 0.24),
+    0 1px 3px rgba(0, 0, 0, 0.12);
+
+  transition:
+    transform 0.15s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
+}
+
+.ctaBtn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+
+  box-shadow:
+    0 8px 22px rgba(242, 140, 40, 0.36),
+    0 2px 5px rgba(0, 0, 0, 0.10);
+}
+
+.ctaBtn:active {
+  transform: translateY(0);
+  filter: brightness(0.98);
+}
+
+/* Botón ghost: borde sutil, coherente con navbar */
+.ctaGhost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 11px 20px;
+
+  border-radius: 999px;
+  border: 1px solid var(--border-strong, var(--border));
+
+  background: transparent;
+  color: var(--fg);
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.ctaGhost:hover {
+  transform: translateY(-1px);
+
+  border-color: color-mix(in srgb, var(--primary2) 35%, var(--border));
+  background: color-mix(in srgb, var(--primary2) 5%, transparent);
+}
+
+/* ===== FLECHAS DE NAVEGACIÓN ===== */
+.arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+
+  width: 42px;
+  height: 42px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--border) 86%, transparent);
+
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--card) 94%, var(--bg) 6%),
+      color-mix(in srgb, var(--card) 84%, var(--bg) 16%)
+    );
+
+  color: var(--fg);
+
+  cursor: pointer;
+
+  font-size: 18px;
+  line-height: 1;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  transform: translateY(-50%);
+
+  transition:
+    transform 0.15s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.15s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease,
+    color 0.15s ease;
 }
 
 .arrow:hover {
+  color: var(--fg);
+
   border-color: color-mix(in srgb, var(--primary2) 30%, var(--border));
+
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--card) 96%, var(--primary2) 4%),
+      color-mix(in srgb, var(--card) 88%, var(--bg) 12%)
+    );
+
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.18),
+    0 0 0 4px color-mix(in srgb, var(--primary2) 10%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  transform: translateY(-50%) translateY(-1px);
+}
+
+.arrow:focus-visible,
+.ctaBtn:focus-visible,
+.ctaGhost:focus-visible,
+.serviceLink:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--primary2) 80%, white);
+  outline-offset: 3px;
 }
 
 .arrowLeft {
-  left: -12px;
+  left: 0;
 }
 
 .arrowRight {
-  right: -12px;
+  right: 0;
 }
 
-/* ─── RESPONSIVE ─────────────────────────────────────────────────────────── */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 860px) {
+  .carouselShell {
+    padding-inline: 0;
+  }
+
+  .arrow {
+    display: none;
+  }
+
   .card,
   .card:first-child {
-    flex-basis: min(86vw, 340px);
-    min-height: 320px;
+    flex-basis: min(84vw, 330px);
+    min-height: 330px;
   }
 
   .carouselWrap::before,
   .carouselWrap::after {
-    width: 20px;
+    width: 18px;
   }
 }
 
 @media (max-width: 520px) {
   .card,
   .card:first-child {
-    flex-basis: 88vw;
+    flex-basis: 86vw;
     min-height: 300px;
-    padding: 20px 18px;
+    padding: 20px 18px 18px;
   }
 
   .title {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   .desc,
   .serviceItem {
-    font-size: 13.5px;
+    font-size: 13px;
   }
 
   .cta {
@@ -286,7 +512,21 @@
     align-items: stretch;
   }
 
-  .cta a {
+  .ctaBtn,
+  .ctaGhost {
+    width: 100%;
     justify-content: center;
+  }
+}
+
+/* ===== REDUCE MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .serviceIcon,
+  .serviceLink,
+  .ctaBtn,
+  .ctaGhost,
+  .arrow {
+    transition: none;
   }
 }

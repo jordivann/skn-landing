@@ -215,3 +215,78 @@
 .p,.p strong {
   color:#fff !important;
 }
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.statCard {
+  padding: 14px 15px;
+  border-radius: calc(var(--r) - 4px);
+  border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  background: color-mix(in srgb, var(--card) 74%, transparent);
+}
+
+.statCard strong {
+  display: block;
+  color: var(--primary2);
+  font-size: 1.35rem;
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.statCard span {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.differentiators {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.differentiators li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 11px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  background: color-mix(in srgb, var(--card) 70%, transparent);
+  color: color-mix(in srgb, var(--fg) 78%, var(--muted));
+  font-size: 0.8rem;
+  font-weight: 650;
+  line-height: 1;
+}
+
+.differentiators li::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: var(--primary2);
+}
+
+@media (max-width: 640px) {
+  .statsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .differentiators {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
