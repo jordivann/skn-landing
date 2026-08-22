@@ -5,30 +5,8 @@ import styles from "./Hero.module.css";
 import HeroCarousel from "./HeroCarousel";
 import LogoMark from "./LogoMark";
 import { useTheme } from "../hooks/useTheme";
-import homeContent from "../app/HomeContent.json";
-
-export type SlideTone = "violet" | "cyan" | "green" | "neutral";
-
-type HeroJsonSlide = {
-  id: string;
-  title: string;
-  subtitle: string;
-  theme?: string;
-  tone?: SlideTone;
-  cta: {
-    label: string;
-    href: string;
-  };
-  image: {
-    dark: string;
-    light: string;
-    alt: string;
-    suggestion?: string;
-    searchTerms?: string[];
-    preferredSource?: string;
-    brandsToShow?: string[];
-  };
-};
+import { getHomeContent } from "../app/home.helpers";
+import type { HomeTone } from "../app/home.types";
 
 export type Slide = {
   id: string;
@@ -37,21 +15,21 @@ export type Slide = {
   kicker?: string;
   title: string;
   description: string;
-  tone?: SlideTone;
+  tone?: HomeTone;
   cta: {
     label: string;
     href: string;
   };
 };
 
+const homeContent = getHomeContent();
 const CROSSFADE_MS = 650;
+const AUTOPLAY_MS = 5200;
 
 export default function Hero() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [index, setIndex] = useState(0);
-  const autoplayMs = 5200;
-
   const [prevSrc, setPrevSrc] = useState<string | null>(null);
   const crossfadeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -61,21 +39,19 @@ export default function Hero() {
 
   const resolvedTheme = mounted ? theme : "dark";
 
-  const slidesBase = homeContent.heroSlides as HeroJsonSlide[];
-
   const slides: Slide[] = useMemo(
     () =>
-      slidesBase.map((slide) => ({
+      homeContent.hero.slides.map((slide) => ({
         id: slide.id,
         src: resolvedTheme === "dark" ? slide.image.dark : slide.image.light,
         alt: slide.image.alt,
-        kicker: slide.theme,
+        kicker: slide.theme || undefined,
         title: slide.title,
         description: slide.subtitle,
         tone: slide.tone ?? "neutral",
         cta: slide.cta,
       })),
-    [slidesBase, resolvedTheme]
+    [resolvedTheme]
   );
 
   const safeIndex = index >= 0 && index < slides.length ? index : 0;
@@ -84,8 +60,7 @@ export default function Hero() {
   const handleIndexChange = (nextIndex: number) => {
     if (nextIndex === safeIndex) return;
 
-    const currentSrc = slides[safeIndex]?.src ?? null;
-    setPrevSrc(currentSrc);
+    setPrevSrc(slides[safeIndex]?.src ?? null);
     setIndex(nextIndex);
 
     if (crossfadeTimer.current) clearTimeout(crossfadeTimer.current);
@@ -109,7 +84,7 @@ export default function Hero() {
       aria-labelledby="hero-title"
       data-tone={active.tone ?? "neutral"}
       data-theme={resolvedTheme}
-      style={{ "--heroAutoplayMs": `${autoplayMs}ms` } as React.CSSProperties}
+      style={{ "--heroAutoplayMs": `${AUTOPLAY_MS}ms` } as React.CSSProperties}
     >
       <div className={styles.mediaBg} aria-hidden="true">
         {prevSrc && (
@@ -148,7 +123,10 @@ export default function Hero() {
         <div className={styles.inner}>
           <div className={styles.copy}>
             {active.kicker && (
-              <p className={styles.kicker} aria-label={`Categoría: ${active.kicker}`}>
+              <p
+                className={styles.kicker}
+                aria-label={`Categoría: ${active.kicker}`}
+              >
                 {active.kicker}
               </p>
             )}
@@ -164,25 +142,32 @@ export default function Hero() {
                 {active.cta.label}
               </a>
 
-              {active.cta.href !== "/servicios" && (
-                <a className={styles.ctaLink} href="/servicios">
-                  Ver servicios
+              {active.cta.href !== homeContent.hero.secondaryCta.href && (
+                <a
+                  className={styles.ctaLink}
+                  href={homeContent.hero.secondaryCta.href}
+                >
+                  {homeContent.hero.secondaryCta.label}
                 </a>
               )}
             </div>
 
-            <ul className={styles.chips} aria-label="Garantías del servicio">
-              <li className={styles.chip}>SLA y trazabilidad</li>
-              <li className={styles.chip}>Seguridad por diseño</li>
-              <li className={styles.chip}>Infraestructura escalable</li>
-            </ul>
+            {(homeContent.hero.trustPoints?.length ?? 0) > 0 && (
+              <ul className={styles.chips} aria-label="Puntos destacados">
+                {homeContent.hero.trustPoints?.map((item) => (
+                  <li key={item} className={styles.chip}>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
 
             <div className={styles.carouselDock}>
               <HeroCarousel
                 slides={slides}
                 index={safeIndex}
                 onIndexChange={handleIndexChange}
-                autoplayMs={autoplayMs}
+                autoplayMs={AUTOPLAY_MS}
               />
             </div>
           </div>

@@ -30,7 +30,7 @@ export default function Services() {
     <Section
       id="services"
       title="Servicios"
-      subtitle="Soporte, seguridad, consultoría y soluciones digitales con alcance claro y enfoque práctico."
+      subtitle="Soluciones IT organizadas por áreas, con alcance claro y enfoque práctico."
     >
       <div className={styles.carouselShell}>
         <button
@@ -48,35 +48,56 @@ export default function Services() {
           aria-label="Servicios — desplazá horizontalmente para ver más"
         >
           <div className={styles.grid}>
-            {PILLARS.map((p) => (
-              <article key={p.id} className={styles.card}>
+            {PILLARS.map((pillar) => (
+              <article key={pillar.id} className={styles.card}>
                 <div className={styles.cardTop}>
-                  <span className={styles.num}>{p.num}</span>
-                  <h3 className={styles.title}>{p.title}</h3>
-                  <p className={styles.desc}>{p.desc}</p>
+                  <span className={styles.num}>{pillar.num}</span>
+
+                  <h3 className={styles.title}>
+                    {pillar.title}
+                  </h3>
+
+                  <p className={styles.desc}>
+                    {pillar.desc}
+                  </p>
                 </div>
 
                 <ul
                   className={styles.serviceList}
-                  aria-label={`Servicios de ${p.title}`}
+                  aria-label={`Servicios de ${pillar.title}`}
                 >
-                  {p.services.map((s) => (
-                    <li key={s.slug} className={styles.serviceItem}>
-                      <span className={styles.serviceIcon} aria-hidden="true" />
-                        <Link href={s.href} className={styles.serviceLink}>
-                          {s.title}
-                        </Link>
+                  {pillar.services.map((service) => (
+                    <li
+                      key={service.id}
+                      className={styles.serviceItem}
+                    >
+                      <span
+                        className={styles.serviceIcon}
+                        aria-hidden="true"
+                      />
+
+                      <Link
+                        href={service.href}
+                        className={styles.serviceLink}
+                      >
+                        {service.title}
+                      </Link>
                     </li>
                   ))}
                 </ul>
 
-                <div className={styles.chips}>
-                  {p.chips.map((c) => (
-                    <span key={c} className={styles.chip}>
-                      {c}
-                    </span>
-                  ))}
-                </div>
+                {pillar.chips.length > 0 && (
+                  <div className={styles.chips}>
+                    {pillar.chips.map((chip) => (
+                      <span
+                        key={chip}
+                        className={styles.chip}
+                      >
+                        {chip}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </article>
             ))}
           </div>
@@ -93,11 +114,17 @@ export default function Services() {
       </div>
 
       <div className={styles.cta}>
-        <Link className={styles.ctaBtn} href="/servicios">
+        <Link
+          className={styles.ctaBtn}
+          href="/servicios"
+        >
           Ver todos los servicios →
         </Link>
 
-        <a className={styles.ctaGhost} href="#contacto">
+        <a
+          className={styles.ctaGhost}
+          href="#contacto"
+        >
           Pedir diagnóstico
         </a>
       </div>

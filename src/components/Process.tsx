@@ -1,29 +1,31 @@
 import Section, { type SectionVariant } from "./Section";
 import styles from "./Process.module.css";
+import { getHomeContent } from "../app/home.helpers";
 
-const steps = [
-  { n: "01", t: "Diagnóstico", d: "Relevamos situación actual y definimos prioridades." },
-  { n: "02", t: "Plan", d: "Propuesta concreta: alcance, tiempos, riesgos y medidas." },
-  { n: "03", t: "Implementación", d: "Ejecución ordenada, sin cortar operación si se puede evitar." },
-  { n: "04", t: "Seguimiento", d: "Documentación, mejoras y monitoreo según necesidad." },
-];
+const { process } = getHomeContent();
 
-export default function Process({ variant = "default" }: { variant?: SectionVariant }) {
+export default function Process({
+  variant = "default",
+}: {
+  variant?: SectionVariant;
+}) {
   return (
     <Section
       id="process"
-      title="Proceso"
-      subtitle="Una forma de trabajar profesional, repetible y medible."
+      title={process.title}
+      subtitle={process.subtitle}
       variant={variant}
     >
       <div className={styles.grid}>
-        {steps.map((s) => (
-          <div key={s.n} className={`card ${styles.step}`}>
+        {process.steps.map((step, index) => (
+          <div key={`${index}-${step.title}`} className={`card ${styles.step}`}>
             <div className={styles.top}>
-              <span className={styles.n}>{s.n}</span>
-              <h3 className={styles.h3}>{s.t}</h3>
+              <span className={styles.n}>
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h3 className={styles.h3}>{step.title}</h3>
             </div>
-            <p className={styles.p}>{s.d}</p>
+            <p className={styles.p}>{step.description}</p>
           </div>
         ))}
       </div>

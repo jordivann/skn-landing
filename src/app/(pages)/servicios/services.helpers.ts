@@ -1,7 +1,10 @@
 import servicesData from "./Services.json";
 import type { ServicesJson, Service, Category } from "./types";
+import { validateServicesData } from "./services.validator";
 
-const data = servicesData as ServicesJson;
+// Valida el JSON al cargar este módulo. Si el contenido es semánticamente inválido,
+// falla con un mensaje claro en desarrollo/build en lugar de mostrar datos rotos.
+const data: ServicesJson = validateServicesData(servicesData);
 
 export type HomeServicePillar = {
   id: string;
@@ -61,20 +64,15 @@ export function getServiceBySlug(slug: string): Service | undefined {
   return data.services.find((service) => service.slug === slug);
 }
 
+// La categoría del servicio tiene una única fuente de verdad: service.category.
+// Ya no existe categories[].services, evitando que el cliente tenga que mantener
+// la misma relación en dos lugares distintos.
 export function getServicesByCategory(categoryId: string): Service[] {
-  const category = getCategoryById(categoryId);
-
-  if (!category) {
-    return data.services.filter((service) => service.category === categoryId);
-  }
-
-  return category.services
-    .map((serviceId) => getServiceById(serviceId))
-    .filter((service): service is Service => Boolean(service));
+  return data.services.filter((service) => service.category === categoryId);
 }
 
 export function getRelatedServices(service: Service): Service[] {
-  return service.relatedServices
+  return (service.relatedServices ?? [])
     .map((serviceId) => getServiceById(serviceId))
     .filter((relatedService): relatedService is Service => Boolean(relatedService));
 }
@@ -92,7 +90,8 @@ export function getHomeServicePillars(): HomeServicePillar[] {
         slug: category.slug,
         href: `/servicios#${category.id}`,
         chips: buildCategoryChips(categoryServices),
-        services: categoryServices.slice(0, 4).map((service) => ({
+
+        services: categoryServices.map((service) => ({
           id: service.id,
           title: service.title,
           slug: service.slug,
@@ -127,6 +126,5 @@ export function getNavServicesTree(): NavServiceTreeItem[] {
 
 function buildCategoryChips(services: Service[]): string[] {
   const highlights = services.flatMap((service) => service.highlights ?? []);
-
   return [...new Set(highlights)].slice(0, 3);
 }

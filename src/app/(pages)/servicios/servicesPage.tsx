@@ -3,10 +3,7 @@
 import Link from "next/link";
 import MotionSection from "@/components/MotionSection";
 import styles from "./ServicesPage.module.css";
-import servicesData from "./Services.json";
-import type { Category, Service, ServicesJson } from "./types";
-
-const data = servicesData as ServicesJson;
+import { getAllCategories, getAllServices, getServicesByCategory } from "./services.helpers";
 
 function IconArrow() {
   return (
@@ -68,19 +65,11 @@ function IconSpark() {
 }
 
 export default function ServicesPage() {
-  const { categories, services } = data;
-
-  const servicesById = new Map<string, Service>(
-    services.map((service) => [service.id, service])
-  );
-
-  const getServicesByCategory = (category: Category) =>
-    category.services
-      .map((serviceId) => servicesById.get(serviceId))
-      .filter((service): service is Service => Boolean(service));
+  const categories = getAllCategories();
+  const services = getAllServices();
 
   const activeCategories = categories.filter(
-    (category) => getServicesByCategory(category).length > 0
+    (category) => getServicesByCategory(category.id).length > 0
   );
 
   return (
@@ -207,7 +196,7 @@ export default function ServicesPage() {
 
             <div className={styles.categoryStack}>
               {activeCategories.map((category, index) => {
-                const categoryServices = getServicesByCategory(category);
+                const categoryServices = getServicesByCategory(category.id);
 
                 return (
                   <MotionSection

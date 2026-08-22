@@ -230,7 +230,7 @@ export default function Nav() {
                       className={styles.dropdownAll}
                       onClick={() => setOpenDesktopCategory(null)}
                     >
-                      Ver área →
+                      Ver Servicio
                     </Link>
                   </div>
 
