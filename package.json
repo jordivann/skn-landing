@@ -6,7 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+
+
+    "validate:services": "node scripts/validate-services.mjs",
+    "validate:home": "node scripts/validate-home.mjs",
+    "validate:content": "npm run validate:services && npm run validate:home",
+
+    "predev": "npm run validate:content",
+    "prebuild": "npm run validate:content"
   },
   "dependencies": {
     "framer-motion": "^12.38.0",

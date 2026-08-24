@@ -1,60 +1,98 @@
 {
+  "_schemaVersion": 3,
+  "_instructions": {
+    "title": "Guía de edición del catálogo de servicios SKN IT",
+    "goal": "Este archivo es la única fuente de contenido de categorías y servicios. El cliente puede editar, agregar, eliminar o mover servicios sin modificar componentes React.",
+    "goldenRules": [
+      "Editá solamente valores. No cambies los nombres de las propiedades como title, slug, category, info o contact.",
+      "No uses comentarios // o /* */: JSON estándar no los admite.",
+      "Para mover un servicio de categoría, cambiá únicamente service.category. No existe ninguna segunda lista que mantener.",
+      "Para agregar un servicio, copiá un objeto existente dentro de services, asignale un id y slug únicos y elegí una category existente.",
+      "Para eliminar un servicio, eliminá su objeto de services y quitá su id de relatedServices de otros servicios si estuviera referenciado.",
+      "Las secciones opcionales pueden eliminarse o dejarse vacías. La web simplemente no las mostrará.",
+      "Antes de publicar ejecutá npm run validate:services. El validador informa errores con el nombre del servicio y la propiedad a corregir."
+    ],
+    "requiredServiceFields": {
+      "id": "Identificador técnico único. Usar minúsculas, números y guiones. Ejemplo: soporte-remoto. Evitá cambiarlo en servicios ya publicados porque otros servicios pueden referenciarlo.",
+      "title": "Nombre comercial visible del servicio.",
+      "slug": "Parte final de la URL /servicios/slug. Debe ser único, en minúsculas, sin espacios ni tildes.",
+      "category": "ID de la categoría. Debe coincidir exactamente con categories[].id. Para mover el servicio de área, cambiá solamente este valor.",
+      "shortDescription": "Resumen breve usado en tarjetas y servicios relacionados. Recomendado: 1 o 2 oraciones.",
+      "heroDescription": "Descripción principal de la cabecera de la página de detalle.",
+      "contact.title": "Título del bloque final de contacto.",
+      "contact.description": "Descripción del bloque final de contacto."
+    },
+    "optionalServiceFields": {
+      "highlights": "Lista de puntos destacados del inicio. Recomendado: 2 a 4 frases cortas.",
+      "info.intro": "Introducción editorial del servicio.",
+      "info.includes": "Alcances concretos incluidos. Cada elemento aparece en Qué incluye.",
+      "info.problemsSolved": "Problemas o situaciones que el servicio resuelve.",
+      "info.process": "Etapas de trabajo. El orden del array es el orden visual.",
+      "info.idealFor": "Empresas, perfiles o situaciones para las que el servicio es adecuado.",
+      "info.benefits": "Beneficios concretos para la empresa.",
+      "info.results": "Resultados esperados del servicio.",
+      "info.brands": "Marcas o tecnologías relevantes. Si no aplica, omitir.",
+      "info.useCases": "Casos de uso concretos. Si no aplica, omitir.",
+      "cards": "Tarjetas de aspectos clave. Cada una necesita title y description.",
+      "relatedServices": "IDs de servicios complementarios. Todos deben existir. Puede dejarse vacío u omitirse."
+    },
+    "categoryFields": {
+      "id": "Identificador técnico único de la categoría. Usar minúsculas y guiones.",
+      "title": "Nombre visible del área.",
+      "slug": "Slug descriptivo de la categoría.",
+      "description": "Descripción general del área."
+    },
+    "ordering": "El orden de categories define el orden de las áreas. Dentro de cada categoría, los servicios aparecen según su orden dentro del array global services.",
+    "howToAddAService": [
+      "Copiá un objeto completo de services que se parezca al nuevo servicio.",
+      "Cambiá id, title y slug.",
+      "Elegí una category existente usando categories[].id.",
+      "Editá las descripciones y las secciones que correspondan.",
+      "Eliminá las secciones opcionales que no apliquen.",
+      "Ejecutá npm run validate:services antes de publicar."
+    ],
+    "howToMoveAService": "Cambiá únicamente el valor category del servicio. No hay que modificar ninguna lista dentro de categories.",
+    "howToDeleteAService": "Eliminá el objeto de services. Si otro servicio lo menciona en relatedServices, el validador te indicará dónde quitar esa referencia.",
+    "validationChecks": [
+      "JSON con sintaxis válida.",
+      "IDs y slugs únicos.",
+      "IDs y slugs con formato seguro para URLs.",
+      "Categorías existentes.",
+      "Servicios relacionados existentes y sin autorreferencias.",
+      "Tipos correctos en textos, arrays y cards.",
+      "Campos mínimos necesarios para publicar cada servicio."
+    ]
+  },
   "categories": [
     {
       "id": "support",
       "title": "Soporte y Operación IT",
       "slug": "soporte-it",
-      "description": "Mantenemos tu infraestructura en funcionamiento, con menos incidentes y más previsibilidad.",
-      "services": [
-        "mantenimiento-it",
-        "relevamiento-hardware-software",
-        "asistencia-tecnica-preventiva"
-      ]
+      "description": "Mantenemos tu infraestructura en funcionamiento, con menos incidentes y más previsibilidad."
     },
     {
       "id": "networking",
       "title": "Redes e Infraestructura",
       "slug": "redes-infraestructura",
-      "description": "Diseñamos, instalamos y administramos la columna vertebral tecnológica de tu empresa.",
-      "services": [
-        "diseno-implementacion-redes",
-        "cableado-estructurado-fibra-optica",
-        "administracion-de-redes"
-      ]
+      "description": "Diseñamos, instalamos y administramos la columna vertebral tecnológica de tu empresa."
     },
     {
       "id": "security",
       "title": "Seguridad IT",
       "slug": "seguridad-it",
-      "description": "Protegemos tus accesos, tu información y la continuidad de tu operación.",
-      "services": [
-        "videovigilancia-cctv",
-        "politicas-de-seguridad",
-        "backups-recuperacion-datos",
-        "hardening-y-control-de-accesos"
-      ]
+      "description": "Protegemos tus accesos, tu información y la continuidad de tu operación."
     },
     {
       "id": "consulting",
       "title": "Consultoría y Gestión IT",
       "slug": "consultoria-gestion-it",
-      "description": "Diagnóstico claro, plan concreto, decisiones tecnológicas mejor fundamentadas.",
-      "services": [
-        "auditorias-it",
-        "planificacion-tecnologica",
-        "analisis-de-gestion-it"
-      ]
+      "description": "Diagnóstico claro, plan concreto, decisiones tecnológicas mejor fundamentadas."
     },
     {
       "id": "digital-solutions",
       "title": "Soluciones Digitales",
       "slug": "soluciones-digitales",
-      "description": "Herramientas a medida que mejoran tu operación, tu presencia y tu toma de decisiones.",
-      "services": [
-        "desarrollo-web-aplicaciones-medida",
-        "business-intelligence-power-bi",
-        "telefonia-ip-voip"
-      ]
+      "description": "Herramientas a medida que mejoran tu operación, tu presencia y tu toma de decisiones."
     }
   ],
   "services": [

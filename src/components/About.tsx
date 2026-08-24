@@ -4,18 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import Section from "./Section";
 import styles from "./About.module.css";
 import LogoMark from "./LogoMark";
-import homeContent from "../app/HomeContent.json";
+import { getHomeContent } from "../app/home.helpers";
 
-type AboutContent = {
-  title: string;
-  text: string[];
-  differentiators: string[];
-};
-
-type Stat = {
-  label: string;
-  value: string;
-};
+const homeContent = getHomeContent();
 
 function useTheme() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -29,7 +20,6 @@ function useTheme() {
     read();
 
     const observer = new MutationObserver(read);
-
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["data-theme"],
@@ -45,12 +35,10 @@ export default function About() {
   const theme = useTheme();
   const parallaxRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
-
-  const about = homeContent.about as AboutContent;
-  const stats = homeContent.stats as Stat[];
+  const { about } = homeContent;
 
   const bgImage =
-    theme === "light" ? "/hero-alter-dark-2.jpg" : "/hero-alter-1.jpg";
+    theme === "light" ? about.background.light : about.background.dark;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -90,7 +78,7 @@ export default function About() {
 
       <Section
         id="about"
-        title="Quiénes somos"
+        title={about.sectionTitle}
         subtitle={about.title}
         variant="invert"
         surfaceClassName={styles.aboutSurface}
@@ -106,30 +94,34 @@ export default function About() {
           <div className={styles.copy}>
             {about.text.map((paragraph, index) =>
               index === 0 ? (
-                <p key={paragraph} className={styles.lead}>
+                <p key={`${index}-${paragraph}`} className={styles.lead}>
                   {paragraph}
                 </p>
               ) : (
-                <p key={paragraph} className={styles.p}>
+                <p key={`${index}-${paragraph}`} className={styles.p}>
                   {paragraph}
                 </p>
               )
             )}
 
-            <div className={styles.statsGrid} aria-label="Indicadores de SKN IT">
-              {stats.map((stat) => (
-                <div key={stat.label} className={styles.statCard}>
-                  <strong>{stat.value}</strong>
-                  <span>{stat.label}</span>
-                </div>
-              ))}
-            </div>
+            {(about.stats?.length ?? 0) > 0 && (
+              <div className={styles.statsGrid} aria-label="Indicadores de SKN IT">
+                {about.stats?.map((stat, index) => (
+                  <div key={`${index}-${stat.label}`} className={styles.statCard}>
+                    <strong>{stat.value}</strong>
+                    <span>{stat.label}</span>
+                  </div>
+                ))}
+              </div>
+            )}
 
-            <ul className={styles.differentiators}>
-              {about.differentiators.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+            {(about.differentiators?.length ?? 0) > 0 && (
+              <ul className={styles.differentiators}>
+                {about.differentiators?.map((item, index) => (
+                  <li key={`${index}-${item}`}>{item}</li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </Section>
